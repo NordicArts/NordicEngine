@@ -11,6 +11,10 @@ namespace NordicArts {
 
         // Methods
         public:
+            Files();
+            
+            ~Files();
+
         protected:
         private:
 
