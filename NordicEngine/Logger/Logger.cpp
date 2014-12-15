@@ -58,7 +58,10 @@ namespace NordicArts {
         // Real Logger
         void Logger::log(LoggerType eLogType, const char *cLog) {
             if (s_pLogger == nullptr) {
-                std::cout << "Logger not Started: " << cLog << std::endl;
+                char *cError;
+                std::sprintf(cError, "Logger not started, %s", cLog);
+
+                printIt(cError);
             
                 return;
             }
@@ -94,7 +97,10 @@ namespace NordicArts {
                 Files file(s_pLogger->m_cLogFile, true, true, false);
                 file.write(cStream.str());
             } catch( ... ) {
-                std::cout << __FUNCTION__ << " using Logger write failed: " << cStream.str() << std::endl;
+                char *cError;
+                std::sprintf(cError, "%s using logger failed to write, %s", __FUNCTION__, cStream.str().c_str());
+
+                printIt(cError);
             }
         }
     };
