@@ -10,7 +10,6 @@ namespace NordicArts {
             if (bSaveToFile) {
                 Logger::log(Logger::TYPE_ERROR, m_cMessage);
             } else {
-//                std::cout << "Exception: " << cMessage.c_str() << std::endl;
                 printIt(cMessage);
             }
         }
@@ -19,7 +18,6 @@ namespace NordicArts {
             if (bSaveToFile) {
                 Logger::log(Logger::TYPE_ERROR, m_cMessage);
             } else {
-//                std::cout << "Exception: " << cMessage.c_str() << std::endl;
                 printIt(cMessage);
             }
         }
@@ -28,7 +26,6 @@ namespace NordicArts {
             if (bSaveToFile) {
                 Logger::log(Logger::TYPE_ERROR, m_cMessage);
             } else {
-//                std::cout << "Exception: " << cMessage.str().c_str() << std::endl;
                 printIt(cMessage.str());
             }
         }
