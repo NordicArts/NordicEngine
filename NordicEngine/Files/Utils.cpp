@@ -1,12 +1,12 @@
 //
-//  FileUtils.cpp
+//  Utils.cpp
 //  NordicEngine
 //
 //  Created by Max Hooton on 25/08/2014.
 //  Copyright (c) 2014 NordicArts.net. All rights reserved.
 //
 
-#include <NordicEngine/FileHandler/FileUtils.hpp>
+#include <NordicEngine/Files/Utils.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

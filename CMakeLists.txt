@@ -75,25 +75,33 @@ include_directories(${NE}/ExceptionHandler)
 list(APPEND LibHeaders ${NE}/ExceptionHandler/ExceptionHandler.hpp)
 list(APPEND LibSources ${NE}/ExceptionHandler/ExceptionHandler.cpp)
 
+# Files
+link_directories(${NE}/Files)
+include_directories(${NE}/Files)
+list(APPEND LibHeaders ${NE}/Files/Files.hpp)
+list(APPEND LibSources ${NE}/Files/Files.cpp)
+
+# File Utils
+list(APPEND LibHeaders ${NE}/Files/Utils.hpp)
+list(APPEND LibSources ${NE}/Files/Utils.cpp)
+
 # File Handler
-link_directories(${NE}/FileHandler)
-include_directories(${NE}/FileHandler)
-list(APPEND LibHeaders ${NE}/FileHandler/FileUtils.hpp)
-list(APPEND LibSources ${NE}/FileHandler/FileUtils.cpp)
-list(APPEND LibHeaders ${NE}/FileHandler/FileHandler.hpp)
-list(APPEND LibSources ${NE}/FileHandler/FileHandler.cpp)
+link_directories(${NE}/Files/Handler)
+include_directories(${NE}/Files/Handler)
+list(APPEND LibHeaders ${NE}/Files/Handler/Handler.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/Handler.cpp)
 
 # TextFile Writer
-link_directories(${NE}/FileHandler/TextFileWriter)
-include_directories(${NE}/FileHandler/TextFileWriter)
-list(APPEND LibHeaders ${NE}/FileHandler/TextFileWriter/TextFileWriter.hpp)
-list(APPEND LibSources ${NE}/FileHandler/TextFileWriter/TextFileWriter.cpp)
+link_directories(${NE}/Files/Handler/TextFileWriter)
+include_directories(${NE}/Files/Handler/TextFileWriter)
+list(APPEND LibHeaders ${NE}/Files/Handler/TextFileWriter/TextFileWriter.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/TextFileWriter/TextFileWriter.cpp)
 
 # TextFile Reader
-link_directorieS(${NE}/FileHandler/TextFileReader)
-include_directories(${NE}/FileHandler/TextFileReader)
-list(APPEND LibHeaders ${NE}/FileHandler/TextFileReader/TextFileReader.hpp)
-list(APPEND LibSources ${NE}/FileHandler/TextFileReader/TextFileReader.cpp)
+link_directorieS(${NE}/Files/Handler/TextFileReader)
+include_directories(${NE}/Files/Handler/TextFileReader)
+list(APPEND LibHeaders ${NE}/Files/Handler/TextFileReader/TextFileReader.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/TextFileReader/TextFileReader.cpp)
 
 # Threads
 link_directories(${NE}/Threading/Threads)

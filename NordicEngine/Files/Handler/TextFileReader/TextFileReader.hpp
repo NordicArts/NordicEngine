@@ -1,8 +1,8 @@
-#ifndef NordicArts_NordicEngine_FileHandler_TextFileReader_H
-#define NordicArts_NordicEngine_FileHandler_TextFileReader_H
+#ifndef NordicArts_NordicEngine_Files_Handler_TextFileReader_H
+#define NordicArts_NordicEngine_Files_Handler_TextFileReader_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/FileHandler/FileHandler.hpp>
+#include <NordicEngine/Files/Handler/Handler.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

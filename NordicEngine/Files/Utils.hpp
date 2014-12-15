@@ -1,5 +1,5 @@
-#ifndef NordicArts_NordicEngine_FileUtils_H
-#define NordicArts_NordicEngine_FileUtils_H
+#ifndef NordicArts_NordicEngine_Files_Utils_H
+#define NordicArts_NordicEngine_Files_Utils_H
 
 #include <NordicEngine/Engine.hpp>
 

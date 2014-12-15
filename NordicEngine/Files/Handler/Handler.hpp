@@ -1,8 +1,8 @@
-#ifndef NordicArts_NordicEngine_FileHandler_H
-#define NordicArts_NordicEngine_FileHandler_H
+#ifndef NordicArts_NordicEngine_Files_Handler_H
+#define NordicArts_NordicEngine_Files_Handler_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/FileHandler/FileUtils.hpp>
+#include <NordicEngine/Files/Utils.hpp>
 #include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
 
 namespace NordicArts {
