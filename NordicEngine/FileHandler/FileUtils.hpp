@@ -1,10 +1,10 @@
-#ifndef NordicArts_NordicOS_FileUtils_H
-#define NordicArts_NordicOS_FileUtils_H
+#ifndef NordicArts_NordicEngine_FileUtils_H
+#define NordicArts_NordicEngine_FileUtils_H
 
-#include <NordicOS/OS.hpp>
+#include <NordicEngine/Engine.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         bool fileExists(std::string cFileName);
         bool fileExists(const char *cFileName);
     };

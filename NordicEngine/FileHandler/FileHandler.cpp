@@ -1,7 +1,7 @@
-#include <NordicOS/FileHandler/FileHandler.hpp>
+#include <NordicEngine/FileHandler/FileHandler.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         FileHandler::FileHandler(std::string cFileName, bool bSaveException) : m_bSaveException(bSaveException), m_cFileName(cFileName) {
             OSSpecific oOS;
             std::string cFilePath = oOS.ResourcePath(cFileName);

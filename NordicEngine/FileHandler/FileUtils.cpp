@@ -1,15 +1,15 @@
 //
 //  FileUtils.cpp
-//  NordicOS
+//  NordicEngine
 //
 //  Created by Max Hooton on 25/08/2014.
 //  Copyright (c) 2014 NordicArts.net. All rights reserved.
 //
 
-#include <NordicOS/FileHandler/FileUtils.hpp>
+#include <NordicEngine/FileHandler/FileUtils.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         bool fileExists(std::string cFileName) {
             return fileExists(cFileName.c_str());
         }

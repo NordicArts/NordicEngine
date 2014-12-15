@@ -1,11 +1,11 @@
-#ifndef NordicArts_NordicOS_FileHandler_TextFileWriter_H
-#define NordicArts_NordicOS_FileHandler_TextFileWriter_H
+#ifndef NordicArts_NordicEngine_FileHandler_TextFileWriter_H
+#define NordicArts_NordicEngine_FileHandler_TextFileWriter_H
 
-#include <NordicOS/OS.hpp>
-#include <NordicOS/FileHandler/FileHandler.hpp>
+#include <NordicEngine/Engine.hpp>
+#include <NordicEngine/FileHandler/FileHandler.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         class TextFileWriter : public FileHandler {
         // Variables
         public:

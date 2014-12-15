@@ -2,7 +2,7 @@
 #include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
 
 namespace NordicArts {
-    namespace Nordicengine {
+    namespace NordicEngine {
         Window::Window() {
             if (!glfwInit()) {
                 throw new ExceptionHandler("Can't initate GLFW", true);

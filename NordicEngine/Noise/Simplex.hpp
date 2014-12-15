@@ -4,7 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         class Simplex {
         // Variables
         public:

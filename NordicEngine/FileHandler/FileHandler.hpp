@@ -1,12 +1,12 @@
-#ifndef NordicArts_NordicOS_FileHandler_H
-#define NordicArts_NordicOS_FileHandler_H
+#ifndef NordicArts_NordicEngine_FileHandler_H
+#define NordicArts_NordicEngine_FileHandler_H
 
-#include <NordicOS/FileHandler/FileUtils.hpp>
-#include <NordicOS/OS.hpp>
-#include <NordicOS/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/Engine.hpp>
+#include <NordicEngine/FileHandler/FileUtils.hpp>
+#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         class FileHandler {
         // Variables
         public:

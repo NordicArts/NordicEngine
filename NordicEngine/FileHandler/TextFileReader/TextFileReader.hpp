@@ -1,11 +1,11 @@
-#ifndef NordicArts_NordicOS_FileHandler_TextFileReader_H
-#define NordicArts_NordicOS_FileHandler_TextFileReader_H
+#ifndef NordicArts_NordicEngine_FileHandler_TextFileReader_H
+#define NordicArts_NordicEngine_FileHandler_TextFileReader_H
 
-#include <NordicOS/OS.hpp>
-#include <NordicOS/FileHandler/FileHandler.hpp>
+#include <NordicEngine/Engine.hpp>
+#include <NordicEngine/FileHandler/FileHandler.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         class TextFileReader : public FileHandler {
         // Variables
         public:

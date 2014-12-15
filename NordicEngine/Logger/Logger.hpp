@@ -1,13 +1,13 @@
-#ifndef NordicArts_NordicOS_Logger_H
-#define NordicArts_NordicOS_Logger_H
+#ifndef NordicArts_NordicEngine_Logger_H
+#define NordicArts_NordicEngine_Logger_H
 
-#include <NordicOS/OS.hpp>
-#include <NordicOS/Time/Time.hpp>
-#include <NordicOS/Threads/Threads.hpp>
-#include <NordicOS/Singleton/Singleton.hpp>
+#include <NordicEngine/Engine.hpp>
+#include <NordicEngine/Time/Time.hpp>
+#include <NordicEngine/Threads/Threads.hpp>
+#include <NordicEngine/Singleton/Singleton.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         class Logger final : public Singleton {
         // Variables
         public:

@@ -1,11 +1,11 @@
-#include <NordicOS/Logger/Logger.hpp>
-#include <NordicOS/ExceptionHandler/ExceptionHandler.hpp>
-#include <NordicOS/FileHandler/TextFileWriter/TextFileWriter.hpp>
-#include <NordicOS/Threads/Threads.hpp>
-#include <NordicOS/String/String.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/FileHandler/TextFileWriter/TextFileWriter.hpp>
+#include <NordicEngine/Threads/Threads.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         static Logger *s_pLogger = nullptr;
 
         Logger::Logger(const std::string &cFile) : Singleton(TYPE_LOGGER), m_cLogFile(cFile), m_ulFileLength(0), m_cUnknownLogType("UNKNOWN") {

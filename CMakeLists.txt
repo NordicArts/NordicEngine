@@ -78,7 +78,7 @@ link_directories(${NE}/FileHandler)
 include_directories(${NE}/FileHandler)
 list(APPEND LibHeaders ${NE}/FileHandler/FileUtils.hpp)
 list(APPEND LibSources ${NE}/FileHandler/FileUtils.cpp)
-list(APPEND LibHeaders ${NOS}/FileHandler/FileHandler.hpp)
+list(APPEND LibHeaders ${NE}/FileHandler/FileHandler.hpp)
 list(APPEND LibSources ${NE}/FileHandler/FileHandler.cpp)
 
 # TextFile Writer

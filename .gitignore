@@ -6,5 +6,5 @@ Makefile
 project.xcworkspace/
 xcuserdata/
 CMakeCache.txt
-libNordicOS.*
+libNordicEngine.*
 libSQLite.*

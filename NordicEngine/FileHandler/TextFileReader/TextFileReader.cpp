@@ -1,7 +1,7 @@
-#include <NordicOS/FileHandler/TextFileReader/TextFileReader.hpp>
+#include <NordicEngine/FileHandler/TextFileReader/TextFileReader.hpp>
 
 namespace NordicArts {
-    namespace NordicOS {
+    namespace NordicEngine {
         TextFileReader::TextFileReader(const std::string &cFileName, bool bFilePath) : FileHandler(cFileName, true) {
             m_cFileStream.open(m_cFilePath.c_str(), std::ios_base::in);
             if (!m_cFileStream.is_open()) {
