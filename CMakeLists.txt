@@ -152,14 +152,6 @@ link_directories(${NE}/sqlite)
 include_directories(${NE}/sqlite)
 add_subdirectory(${NE}/sqlite)
 
-# GLFW
-option(GLFW_BUILD_EXAMPLES OFF)
-option(GLFW_BUILD_TESTS OFF)
-option(GLFW_BUILD_DOCS OFF)
-link_directories(${NE}/glfw)
-include_directories(${NE}/glfw/include)
-add_subdirectory(${NE}/glfw)
-
 # Build Number
 string(TIMESTAMP buildNumber "%j%Y%H%M%S")
 file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
@@ -173,6 +165,19 @@ set_target_properties(NordicEngine PROPERTIES OUTPUT_NAME "NordicEngine")
 # Boost
 find_package(Boost COMPONENTS locale REQUIRED)
 include_directories(${Boost_INCLUDES})
+
+# GLFW
+option(GLFW_BUILD_EXAMPLES OFF)
+option(GLFW_BUILD_TESTS OFF)
+option(GLFW_BUILD_DOCS OFF)
+link_directories(${NE}/glfw)
+include_directories(${NE}/glfw/include)
+add_subdirectory(${NE}/glfw)
+
+# GLM
+link_directories(${NE}/glm)
+include_directories(${NE}/glm)
+add_subdirectory(${NE}/glm)
 
 # System Linker
 if (WIN32)

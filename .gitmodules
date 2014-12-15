@@ -1,3 +1,6 @@
 [submodule "NordicEngine/glfw"]
 	path = NordicEngine/glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "NordicEngine/glm"]
+	path = NordicEngine/glm
+	url = git@github.com:g-truc/glm.git
