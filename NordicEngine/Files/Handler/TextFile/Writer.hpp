@@ -16,8 +16,10 @@ namespace NordicArts {
             // Methods
             public:
                 Writer();
-                Writer(const std::string &cFileName, bool bAppend, bool bSaveException = true);
-        
+                Writer(const std::string &cFileName, bool bFilePath, bool bAppend);
+                Writer(const std::string &cFileName, bool bFilePath, bool bAppend, bool bSaveException);
+
+                void openStream(bool bAppend);        
                 void write(const std::string &cMessage);
     
             protected:
