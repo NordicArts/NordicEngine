@@ -1,6 +1,6 @@
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
-#include <NordicEngine/Files/Handler/TextFileWriter/TextFileWriter.hpp>
+#include <NordicEngine/Files/Handler/TextFile/Writer.hpp>
 #include <NordicEngine/Threading/Threads/Threads.hpp>
 #include <NordicEngine/String/String.hpp>
 

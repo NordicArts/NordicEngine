@@ -94,8 +94,8 @@ list(APPEND LibSources ${NE}/Files/Handler/Handler.cpp)
 # TextFile
 link_directories(${NE}/Files/Handler/TextFile)
 include_directories(${NE}/Files/Handler/TextFile)
-list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Writter.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/TextFile/Writter.cpp)
+list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Writer.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/TextFile/Writer.cpp)
 list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Reader.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/TextFile/Reader.cpp)
 

@@ -2,8 +2,8 @@
 #define NordicArts_NordicEngine_Files_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Files/Handler/TextFileWriter.hpp>
-#include <NordicEngine/Files/Handler/TextFileReader.hpp>
+#include <NordicEngine/Files/Handler/TextFile/Writer.hpp>
+#include <NordicEngine/Files/Handler/TextFile/Reader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
