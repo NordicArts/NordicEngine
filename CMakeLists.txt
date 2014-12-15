@@ -96,16 +96,16 @@ list(APPEND LibHeaders ${NE}/FileHandler/TextFileReader/TextFileReader.hpp)
 list(APPEND LibSources ${NE}/FileHandler/TextFileReader/TextFileReader.cpp)
 
 # Threads
-link_directories(${NE}/Threads)
-include_directories(${NE}/Threads)
-list(APPEND LibHeaders ${NE}/Threads/Threads.hpp)
-list(APPEND LibSources ${NE}/Threads/Threads.cpp)
+link_directories(${NE}/Threading/Threads)
+include_directories(${NE}/Threading/Threads)
+list(APPEND LibHeaders ${NE}/Threading/Threads/Threads.hpp)
+list(APPEND LibSources ${NE}/Threading/Threads/Threads.cpp)
 
 # Singleton
-link_directories(${NE}/Singleton)
-include_directories(${NE}/Singleton)
-list(APPEND LibHeaders ${NE}/Singleton/Singleton.hpp)
-list(APPEND LibSources ${NE}/Singleton/Singleton.cpp)
+link_directories(${NE}/Threading/Singleton)
+include_directories(${NE}/Threading/Singleton)
+list(APPEND LibHeaders ${NE}/Threading/Singleton/Singleton.hpp)
+list(APPEND LibSources ${NE}/Threading/Singleton/Singleton.cpp)
 
 # Noise
 link_directories(${NE}/Noise)

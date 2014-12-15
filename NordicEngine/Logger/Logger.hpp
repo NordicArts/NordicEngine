@@ -3,8 +3,8 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Time/Time.hpp>
-#include <NordicEngine/Threads/Threads.hpp>
-#include <NordicEngine/Singleton/Singleton.hpp>
+#include <NordicEngine/Threading/Threads/Threads.hpp>
+#include <NordicEngine/Threading/Singleton/Singleton.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

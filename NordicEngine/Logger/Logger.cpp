@@ -1,7 +1,7 @@
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
 #include <NordicEngine/FileHandler/TextFileWriter/TextFileWriter.hpp>
-#include <NordicEngine/Threads/Threads.hpp>
+#include <NordicEngine/Threading/Threads/Threads.hpp>
 #include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
