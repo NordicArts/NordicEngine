@@ -69,11 +69,11 @@ include_directories(${NE}/Logger)
 list(APPEND LibHeaders ${NE}/Logger/Logger.hpp)
 list(APPEND LibSources ${NE}/Logger/Logger.cpp)
 
-# Exception Handler
-link_directories(${NE}/ExceptionHandler)
-include_directories(${NE}/ExceptionHandler)
-list(APPEND LibHeaders ${NE}/ExceptionHandler/ExceptionHandler.hpp)
-list(APPEND LibSources ${NE}/ExceptionHandler/ExceptionHandler.cpp)
+# Exceptions
+link_directories(${NE}/Exceptions)
+include_directories(${NE}/Exceptions)
+list(APPEND LibHeaders ${NE}/Exceptions/Exceptions.hpp)
+list(APPEND LibSources ${NE}/Exceptions/Exceptions.cpp)
 
 # Files
 link_directories(${NE}/Files)
@@ -146,6 +146,11 @@ link_directories(${NE}/Player)
 include_directorieS(${NE}/Player)
 list(APPEND LibHeaders ${NE}/Player/Player.hpp)
 list(APPEND LibSources ${NE}/Player/Player.cpp)
+
+# Input
+link_directories(${NE}/Input)
+include_directories(${NE}/Input)
+list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
 
 # SQLite
 link_directories(${NE}/sqlite)

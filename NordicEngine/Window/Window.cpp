@@ -1,11 +1,12 @@
 #include <NordicEngine/Window/Window.hpp>
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/Input/Input.hpp>
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
         Window::Window() {
             if (!glfwInit()) {
-                throw new ExceptionHandler("Can't initate GLFW", true);
+                throw new Exceptions("Can't initate GLFW", true);
             }
 
             glfwSetErrorCallback(Window::errorHandler);
@@ -22,10 +23,12 @@ namespace NordicArts {
             if (!m_pWindow) {
                 glfwTerminate();
         
-                throw new ExceptionHandler("Can't create the window", true);
+                throw new Exceptions("Can't create the window", true);
 
                 return -1;
             }
+
+            glfwSetKeyCallback(m_pWindow, Input::handleInput);
             return 0;
         }
 
@@ -60,7 +63,7 @@ namespace NordicArts {
         }
 
         void Window::errorHandler(int iError, const char *cDescription) {
-            throw new ExceptionHandler(cDescription, iError, true);
+            throw new Exceptions(cDescription, iError, true);
         }
     };
 };

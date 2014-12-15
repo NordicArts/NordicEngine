@@ -1,5 +1,5 @@
 #include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 #include <NordicEngine/Files/Files.hpp>
 #include <NordicEngine/Threading/Threads/Threads.hpp>
 #include <NordicEngine/String/String.hpp>

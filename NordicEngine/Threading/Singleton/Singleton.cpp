@@ -1,5 +1,5 @@
 #include <NordicEngine/Threading/Singleton/Singleton.hpp>
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 
 namespace NordicArts {
 	namespace NordicEngine {
@@ -24,19 +24,19 @@ namespace NordicArts {
 				if (!s_aSingletons.at(eType).bIsConstructed) {
 					for (int i = 0; i < eType; ++i) {
 						if (!s_aSingletons.at(i).bIsConstructed) {
-							throw ExceptionHandler(s_aSingletons.at(i).cSingletonName + " must be constructed by extension", bSaveInLog);
+							throw Exceptions(s_aSingletons.at(i).cSingletonName + " must be constructed by extension", bSaveInLog);
 						}
 					}
 
 					s_aSingletons.at(eType).bIsConstructed = true;
 				} else {
-					throw ExceptionHandler(s_aSingletons.at(eType).cSingletonName + " can only be constructed once", bSaveInLog);
+					throw Exceptions(s_aSingletons.at(eType).cSingletonName + " can only be constructed once", bSaveInLog);
 				}
 			} catch (std::exception &) {
 				std::ostringstream cStream;
 				cStream << __FUNCTION__ << " Invalid Singleton Type " << eType;
 
-				throw ExceptionHandler(cStream, bSaveInLog);
+				throw Exceptions(cStream, bSaveInLog);
 			}
 		}
 

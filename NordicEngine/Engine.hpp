@@ -25,8 +25,8 @@
     #endif
 #endif
 
-// ExceptionHandler
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+// Exceptions
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

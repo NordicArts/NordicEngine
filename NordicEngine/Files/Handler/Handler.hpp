@@ -3,7 +3,6 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Files/Utils.hpp>
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

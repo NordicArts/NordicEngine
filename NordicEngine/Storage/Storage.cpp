@@ -28,7 +28,7 @@ namespace NordicArts {
         void Storage::connectDB(std::string cDB) {
             int iConnection = sqlite3_open(cDB.c_str(), &m_pDB);
             if (iConnection) {
-                throw ExceptionHandler(sqlite3_errmsg(m_pDB), true);
+                throw Exceptions(sqlite3_errmsg(m_pDB), true);
             }
         }
 
@@ -225,7 +225,7 @@ namespace NordicArts {
                 std::sprintf(cError, "SQL Error: %s", mError);
                 sqlite3_free(mError);
 
-                throw ExceptionHandler(cError, true);
+                throw Exceptions(cError, true);
             }
         }
 

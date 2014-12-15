@@ -1,10 +1,10 @@
-#include <NordicEngine/ExceptionHandler/ExceptionHandler.hpp>
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
-        ExceptionHandler::ExceptionHandler(const std::string &cMessage, int iError, bool bSaveToFile) : m_cMessage(cMessage) {
+        Exceptions::Exceptions(const std::string &cMessage, int iError, bool bSaveToFile) : m_cMessage(cMessage) {
             m_cMessage = (m_cMessage + " - " + getString(iError));
             
             if (bSaveToFile) {
@@ -14,7 +14,7 @@ namespace NordicArts {
             }
         }
 
-        ExceptionHandler::ExceptionHandler(const std::string &cMessage, bool bSaveToFile) : m_cMessage(cMessage) {
+        Exceptions::Exceptions(const std::string &cMessage, bool bSaveToFile) : m_cMessage(cMessage) {
             if (bSaveToFile) {
                 Logger::log(Logger::TYPE_ERROR, m_cMessage);
             } else {
@@ -22,7 +22,7 @@ namespace NordicArts {
             }
         }
 
-        ExceptionHandler::ExceptionHandler(const std::ostringstream &cMessage, bool bSaveToFile) : m_cMessage(cMessage.str().c_str()) {
+        Exceptions::Exceptions(const std::ostringstream &cMessage, bool bSaveToFile) : m_cMessage(cMessage.str().c_str()) {
             if (bSaveToFile) {
                 Logger::log(Logger::TYPE_ERROR, m_cMessage);
             } else {
@@ -30,7 +30,7 @@ namespace NordicArts {
             }
         }
 
-        const std::string &ExceptionHandler::getMessage() const {
+        const std::string &Exceptions::getMessage() const {
             return m_cMessage;
         }
     };

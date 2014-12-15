@@ -1,4 +1,5 @@
 #include <NordicEngine/Files/Handler/Handler.hpp>
+#include <NordicEngine/Exceptions/Exceptions.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -9,7 +10,7 @@ namespace NordicArts {
             std::string cFilePath = oOS.ResourcePath(cFileName);
 
             if (cFileName.empty()) {
-                throw ExceptionHandler(__FUNCTION__ + std::string(" Missing FileName"), bSaveException);
+                throw Exceptions(__FUNCTION__ + std::string(" Missing FileName"), bSaveException);
             } else {
                 fileExists(cFilePath);
 
@@ -24,7 +25,7 @@ namespace NordicArts {
         }
 
         void FileHandler::throwError(const std::string &cMessage) const {
-            throw ExceptionHandler("File [" + m_cFileName + "] " + cMessage, m_bSaveException);      
+            throw Exceptions("File [" + m_cFileName + "] " + cMessage, m_bSaveException);      
         }
 
         void FileHandler::throwError(const std::ostringstream &cMessage) const {
