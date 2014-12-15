@@ -1,0 +1,10 @@
+CMakeFiles/
+CMakeCache/
+cmake_install.cmake
+Makefile
+.idea/
+project.xcworkspace/
+xcuserdata/
+CMakeCache.txt
+libNordicOS.*
+libSQLite.*
