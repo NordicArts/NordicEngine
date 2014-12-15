@@ -154,6 +154,12 @@ list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
 list(APPEND LibHeaders ${NE}/Input/Input.hpp)
 list(APPEND LibSources ${NE}/Input/Input.cpp)
 
+# Renderer
+link_directories(${NE}/Renderer)
+include_directories(${NE}/Renderer)
+list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
+list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
+
 # SQLite
 link_directories(${NE}/sqlite)
 include_directories(${NE}/sqlite)

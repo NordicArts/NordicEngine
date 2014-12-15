@@ -24,11 +24,11 @@ namespace NordicArts {
                 glfwTerminate();
         
                 throw new Exceptions("Can't create the window", true);
-
-                return -1;
             }
 
+            glfwMakeContextCurrent(m_pWindow);
             glfwSetKeyCallback(m_pWindow, Input::handleInput);
+
             return 0;
         }
 
@@ -47,10 +47,7 @@ namespace NordicArts {
         }
 
         bool Window::isWindowOpen() const {
-            if (!glfwWindowShouldClose(m_pWindow)) {
-                return true;
-            }
-            return false;
+            return !glfwWindowShouldClose(m_pWindow);
         }
 
         void Window::draw() {
@@ -64,6 +61,10 @@ namespace NordicArts {
 
         void Window::errorHandler(int iError, const char *cDescription) {
             throw new Exceptions(cDescription, iError, true);
+        }
+
+        void Window::getFrameBufferSize(int *iWidth, int *iHeight) {
+            glfwGetFramebufferSize(m_pWindow, iWidth, iHeight);
         }
     };
 };

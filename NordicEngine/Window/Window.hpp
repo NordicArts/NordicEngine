@@ -27,6 +27,7 @@ namespace NordicArts {
             void clear(Color oColor);
             void setVSync(bool bEnable);
             void setOpenGL(int iMajor = 3, int iMinor = 2);
+            void getFrameBufferSize(int *iWidth, int *iHeight);
             void draw();
             void display();
 

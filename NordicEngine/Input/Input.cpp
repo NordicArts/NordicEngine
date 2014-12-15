@@ -6,7 +6,11 @@ namespace NordicArts {
             // Close window
             if ((iKey == NEK_ESCAPE) && (iAction == NEK_PRESS)) {
                 glfwSetWindowShouldClose(pWindow, true);
+                printIt("Close");
             }
+
+            printIt(iKey);
+            printIt("Keys");
         }
 
         Input::Input() {
