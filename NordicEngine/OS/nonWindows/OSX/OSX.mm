@@ -1,4 +1,4 @@
-#include <NordicEngine/OSX/OSX.hpp>
+#include <NordicEngine/OS/nonWindows/OSX/OSX.hpp>
 
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>

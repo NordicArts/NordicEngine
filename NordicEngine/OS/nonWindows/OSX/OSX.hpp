@@ -1,5 +1,5 @@
-#ifndef NordicArts_NordicEngine_OSX_H
-#define NordicArts_NordicEngine_OSX_H
+#ifndef NordicArts_NordicEngine_OS_NonWindows_OSX_H
+#define NordicArts_NordicEngine_OS_NonWindows_OSX_H
 
 #include <NordicEngine/Engine.hpp>
 

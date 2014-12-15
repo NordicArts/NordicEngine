@@ -1,5 +1,5 @@
-#ifndef NordicArts_NordicEngine_NonWindows_H
-#define NordicArts_NordicEngine_NonWindows_H
+#ifndef NordicArts_NordicEngine_OS_NonWindows_H
+#define NordicArts_NordicEngine_OS_NonWindows_H
 
 // Make sure we should be compiling this on nonWindows
 #include <NordicEngine/Engine.hpp>

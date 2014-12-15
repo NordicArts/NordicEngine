@@ -1,5 +1,5 @@
-#ifndef NordicArts_NordicEngine_Windows_H
-#define NordicArts_NordicEngine_Windows_H
+#ifndef NordicArts_NordicEngine_OS_Windows_H
+#define NordicArts_NordicEngine_OS_Windows_H
 
 #include <NordicEngine/Engine.hpp>
 

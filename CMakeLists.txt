@@ -19,33 +19,35 @@ list(APPEND LibHeaders ${NE}/Includes.hpp)
 link_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
 
-# nonWindows
-link_directories(${NE}/nonWindows)
-include_directories(${NE}/nonWindows)
-list(APPEND LibHeaders ${NE}/nonWindows/nonWindows.hpp)
-
 # OS Specific Classes
 if (WIN32)
-    link_directories(${NE}/Windows)
-    include_directories(${NE}/Windows)
-    list(APPEND LibHeaders ${NE}/Windows/Windows.hpp)
-    list(APPEND LibSources ${NE}/Windows/Windows.cpp)
-elseif (APPLE)
-# C++11
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 --stdlib=libc++ -m64")
-    set(EXTRA_FLAGS " -x objective-c++")
-    link_directories(${NE}/OSX)
-    include_directories(${NE}/OSX)
-    list(APPEND LibHeaders ${NE}/OSX/OSX.hpp)
-    list(APPEND LibHeaders ${NE}/OSX/OSX.mm)
-elseif (UNIX)
-# C++11
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -m64")
-    set(EXTRA_FLAGS "")
-    link_directories(${NE}/Linux)
-    include_directories(${NE}/Linux)
-    list(APPEND LibHeaders ${NE}/Linux/Linux.hpp)
-    list(APPEND LibSources ${NE}/Linux/Linux.cpp)
+    link_directories(${NE}/OS/Windows)
+    include_directories(${NE}/OS/Windows)
+    list(APPEND LibHeaders ${NE}/OS/Windows/Windows.hpp)
+    list(APPEND LibSources ${NE}/OS/Windows/Windows.cpp)
+else()
+    # nonWindows
+    link_directories(${NE}/OS/nonWindows)
+    include_directories(${NE}/OS/nonWindows)
+    list(APPEND LibHeaders ${NE}/OS/nonWindows/nonWindows.hpp)
+    
+    if (APPLE)
+        # C++11
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 --stdlib=libc++ -m64")
+        set(EXTRA_FLAGS " -x objective-c++")
+        link_directories(${NE}/OS/nonWindows/OSX)
+        include_directories(${NE}/OS/nonWindows/OSX)
+        list(APPEND LibHeaders ${NE}/OS/nonWindows/OSX/OSX.hpp)
+        list(APPEND LibHeaders ${NE}/OS/nonWindows/OSX/OSX.mm)
+    elseif (UNIX)
+        # C++11
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -m64")
+        set(EXTRA_FLAGS "")
+        link_directories(${NE}/OS/nonWindows/Linux)
+        include_directories(${NE}/OS/nonWindows/Linux)
+        list(APPEND LibHeaders ${NE}/OS/nonWindows/Linux/Linux.hpp)
+        list(APPEND LibSources ${NE}/OS/nonWindows/Linux/Linux.cpp)
+    endif()
 endif()
 
 # String

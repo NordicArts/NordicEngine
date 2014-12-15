@@ -1,4 +1,4 @@
-#include <NordicEngine/Linux/Linux.hpp>
+#include <NordicEngine/OS/nonWindows/Linux/Linux.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

@@ -12,16 +12,16 @@
 
 // OS Specific Includes
 #if defined (__WIN32__) || defined(_WIN32) || defined(_WIN64)
-    #include <NordicEngine/Windows/Windows.hpp>
+    #include <NordicEngine/OS/Windows/Windows.hpp>
 #else
     #define nonWindows
 
-    #include <NordicEngine/nonWindows/nonWindows.hpp>
+    #include <NordicEngine/OS/nonWindows/nonWindows.hpp>
 
     #if defined(__APPLE__) || defined(__APPLE_CC__)
-        #include <NordicEngine/OSX/OSX.hpp>
+        #include <NordicEngine/OS/nonWindows/OSX/OSX.hpp>
     #else
-        #include <NordicEngine/Linux/Linux.hpp>
+        #include <NordicEngine/OS/nonWindows/Linux/Linux.hpp>
     #endif
 #endif
 
