@@ -151,6 +151,8 @@ list(APPEND LibSources ${NE}/Player/Player.cpp)
 link_directories(${NE}/Input)
 include_directories(${NE}/Input)
 list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
+list(APPEND LibHeaders ${NE}/Input/Input.hpp)
+list(APPEND LibSources ${NE}/Input/Input.cpp)
 
 # SQLite
 link_directories(${NE}/sqlite)

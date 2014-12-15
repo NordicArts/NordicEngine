@@ -21,10 +21,10 @@ namespace NordicArts {
             NEM_BUTTON7  = GLFW_MOUSE_BUTTON_7,
             NEM_BUTTON8  = GLFW_MOUSE_BUTTON_8,
 
-            NEM_LAST     = VM_BUTTON8,
-            NEM_LEFT     = VM_BUTTON1,
-            NEM_MIDDLE   = VM_BUTTON3,
-            NEM_RIGHT    = VM_BUTTON2
+            NEM_LAST     = NEM_BUTTON8,
+            NEM_LEFT     = NEM_BUTTON1,
+            NEM_MIDDLE   = NEM_BUTTON3,
+            NEM_RIGHT    = NEM_BUTTON2
         };
         
         enum NEKeyboard {
