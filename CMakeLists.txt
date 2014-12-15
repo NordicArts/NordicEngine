@@ -91,17 +91,13 @@ include_directories(${NE}/Files/Handler)
 list(APPEND LibHeaders ${NE}/Files/Handler/Handler.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/Handler.cpp)
 
-# TextFile Writer
-link_directories(${NE}/Files/Handler/TextFileWriter)
-include_directories(${NE}/Files/Handler/TextFileWriter)
-list(APPEND LibHeaders ${NE}/Files/Handler/TextFileWriter/TextFileWriter.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/TextFileWriter/TextFileWriter.cpp)
-
-# TextFile Reader
-link_directorieS(${NE}/Files/Handler/TextFileReader)
-include_directories(${NE}/Files/Handler/TextFileReader)
-list(APPEND LibHeaders ${NE}/Files/Handler/TextFileReader/TextFileReader.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/TextFileReader/TextFileReader.cpp)
+# TextFile
+link_directories(${NE}/Files/Handler/TextFile)
+include_directories(${NE}/Files/Handler/TextFile)
+list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Writter.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/TextFile/Writter.cpp)
+list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Reader.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/TextFile/Reader.cpp)
 
 # Threads
 link_directories(${NE}/Threading/Threads)

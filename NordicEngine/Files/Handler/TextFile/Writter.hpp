@@ -1,5 +1,5 @@
-#ifndef NordicArts_NordicEngine_Files_Handler_TextFileWriter_H
-#define NordicArts_NordicEngine_Files_Handler_TextFileWriter_H
+#ifndef NordicArts_NordicEngine_Files_Handler_TextFile_Writer_H
+#define NordicArts_NordicEngine_Files_Handler_TextFile_Writer_H
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Files/Handler/Handler.hpp>

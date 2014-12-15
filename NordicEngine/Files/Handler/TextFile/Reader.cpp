@@ -1,4 +1,4 @@
-#include <NordicEngine/Files/Handler/TextFileReader/TextFileReader.hpp>
+#include <NordicEngine/Files/Handler/TextFile/Reader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

@@ -1,4 +1,4 @@
-#include <NordicEngine/Files/Handler/TextFileWriter/TextFileWriter.hpp>
+#include <NordicEngine/Files/Handler/TextFile/Writer.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
