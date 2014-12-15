@@ -16,7 +16,7 @@ namespace NordicArts {
 
         // Methods
         public:
-//            explicit ExceptionHandler(const std::string &cMessage, int iError, bool bSaveToFile = true);
+            explicit ExceptionHandler(const std::string &cMessage, int iError, bool bSaveToFile = true);
             explicit ExceptionHandler(const std::string &cMessage, bool bSaveToFile = true);
             explicit ExceptionHandler(const std::ostringstream &cMessage, bool bSaveToFile = true);
 

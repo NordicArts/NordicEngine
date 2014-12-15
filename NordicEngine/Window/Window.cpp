@@ -60,7 +60,7 @@ namespace NordicArts {
         }
 
         void Window::errorHandler(int iError, const char *cDescription) {
-//            throw new ExceptionHandler(cDescription, iError, true);
+            throw new ExceptionHandler(cDescription, iError, true);
         }
     };
 };
