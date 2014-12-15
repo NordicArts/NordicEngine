@@ -24,7 +24,7 @@ namespace NordicArts {
             createCritical(m_Critical);
             BlockThread blockThread(m_Critical);
     
-            TextFileWriter file(m_cLogFile, false, false);
+            TextFile::Writer file(m_cLogFile, false, false);
 
             s_pLogger = this;
         }
@@ -91,7 +91,7 @@ namespace NordicArts {
 
             // Write to file
             try {
-                TextFileWriter file(s_pLogger->m_cLogFile, true, false);
+                TextFile::Writer file(s_pLogger->m_cLogFile, true, false);
                 file.write(cStream.str());
             } catch( ... ) {
                 std::cout << __FUNCTION__ << " using Logger write failed: " << cStream.str() << std::endl;

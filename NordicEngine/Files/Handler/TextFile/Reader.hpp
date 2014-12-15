@@ -6,21 +6,24 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        class TextFileReader : public FileHandler {
-        // Variables
-        public:
-        protected:
-        private:
+        namespace TextFile {
+            class Reader : public FileHandler {
+            // Variables
+            public:
+            protected:
+            private:
 
-        // Methods
-        public:
-            explicit TextFileReader(const std::string &cFileName);
-            explicit TextFileReader(const std::string &cFileName, bool bFilePath);
+            // Methods
+            public:
+                explicit Reader();
+                explicit Reader(const std::string &cFileName);
+                explicit Reader(const std::string &cFileName, bool bFilePath);
         
-            std::string readAll() const;
+                std::string readAll() const;
     
-        protected:
-        private:
+            protected:
+            private:
+            };
         };
     };
 };
