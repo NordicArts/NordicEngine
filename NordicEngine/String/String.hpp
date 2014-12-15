@@ -20,7 +20,8 @@ namespace NordicArts {
         unsigned covertToUnsigned(std::string &cString, std::ios_base &(*pFormat)(std::ios_base&));
 
         // Inline
-        #include <NordicEngine/String/String.inl>
+//        #include <NordicEngine/String/String.inl>
+        #include "./String.inl"
     };
 };
 
