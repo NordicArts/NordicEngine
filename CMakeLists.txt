@@ -141,6 +141,12 @@ include_directories(${NE}/Color)
 list(APPEND LibHeaders ${NE}/Color/Color.hpp)
 list(APPEND LibSources ${NE}/Color/Color.cpp)
 
+# Player
+link_directories(${NE}/Player)
+include_directorieS(${NE}/Player)
+list(APPEND LibHeaders ${NE}/Player/Player.hpp)
+list(APPEND LibSources ${NE}/Player/Player.cpp)
+
 # SQLite
 link_directories(${NE}/sqlite)
 include_directories(${NE}/sqlite)
