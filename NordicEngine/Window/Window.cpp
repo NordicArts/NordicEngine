@@ -5,8 +5,15 @@
 namespace NordicArts {
     namespace NordicEngine {
         Window::Window() {
+            initWindow();
+        }
+        Window::Window(Logger *pLogger) : m_pLogger(pLogger) {
+            initWindow();
+        }
+
+        void Window::initWindow() {
             if (!glfwInit()) {
-                throw new Exceptions("Can't initate GLFW", true);
+                throw new Exceptions("Can't initalize GLFW", true);
             }
 
             glfwSetErrorCallback(Window::errorHandler);
@@ -16,6 +23,7 @@ namespace NordicArts {
             glfwTerminate();
 
             m_pWindow = nullptr;
+            m_pLogger = nullptr;
         }
 
         int Window::createWindow(int iWidth, int iHeight, std::string cTitle) {
@@ -64,6 +72,9 @@ namespace NordicArts {
         }
 
         void Window::getFrameBufferSize(int *iWidth, int *iHeight) {
+            m_iWidth    = *iWidth;
+            m_iHeight   = *iHeight;
+
             glfwGetFramebufferSize(m_pWindow, iWidth, iHeight);
         }
     };

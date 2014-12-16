@@ -3,6 +3,8 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Color/Color.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
+
 #include <NordicEngine/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
@@ -10,13 +12,19 @@ namespace NordicArts {
         class Window {
         // Variables
         public:
+            int m_iWidth;
+            int m_iHeight;
+
         protected:
         private:
-			GLFWwindow *m_pWindow;
+			GLFWwindow  *m_pWindow;
+
+            Logger      *m_pLogger;
 
         // Methods
         public:
             Window();
+            Window(Logger *pLogger);
             
             virtual ~Window();
 
@@ -35,6 +43,7 @@ namespace NordicArts {
 
         protected:
         private:
+            void initWindow();
 
         };
     };
