@@ -20,6 +20,7 @@ namespace NordicArts {
         }
 
         Window::~Window() {
+            glfwDestroyWindow(m_pWindow);
             glfwTerminate();
 
             m_pWindow = nullptr;
