@@ -47,6 +47,9 @@ namespace NordicArts {
             glRotatef(fAngle, fX, fY, fZ);
         }
 
+        void Renderer::setColor(Color oColor) {
+            glColor3i(oColor.m_iRed, oColor.m_iGreen, oColor.m_iBlue);
+        }
         void Renderer::setColor(float fRed, float fBlue, float fGreen) {
             glColor3f(fRed, fBlue, fGreen);
         }

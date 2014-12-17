@@ -4,6 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/Window/Window.hpp>
+#include <NordicEngine/Color/Color.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -34,7 +35,10 @@ namespace NordicArts {
             void rotate(float fAngle, float fX, float fY, float fZ);
             void beginTriangles();
             void end();
+
+            void setColor(Color oColor);
             void setColor(float fRed, float fBlue, float fGreen);
+
             void setVertex(float fX, float fY, float fZ);
             
         protected:
