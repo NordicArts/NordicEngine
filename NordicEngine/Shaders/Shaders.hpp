@@ -27,6 +27,8 @@ namespace NordicArts {
 
             ~Shaders();
 
+            unsigned int getObject() const;
+
         protected:
         private:
             void retain();

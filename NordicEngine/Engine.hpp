@@ -10,6 +10,16 @@
 #define printIt(variable) { std::cout << #variable << " " << variable << std::endl; }
 #endif
 
+// Safe Delete
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(p) { if (p) { delete(p); p = NULL; }}
+#endif
+
+// Safe Delete Array
+#ifndef SAFE_DELETE_ARRAY
+#define SAFE_DELETE_ARRAY(p) { if (p) { delete[](p); p = NULL; }}
+#endif
+
 // OS Specific Includes
 #if defined (__WIN32__) || defined(_WIN32) || defined(_WIN64)
     #include <NordicEngine/OS/Windows/Windows.hpp>

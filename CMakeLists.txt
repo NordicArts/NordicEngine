@@ -39,6 +39,10 @@ else()
         include_directories(${NE}/OS/nonWindows/OSX)
         list(APPEND LibHeaders ${NE}/OS/nonWindows/OSX/OSX.hpp)
         list(APPEND LibHeaders ${NE}/OS/nonWindows/OSX/OSX.mm)
+
+        # Apple Libs
+        link_directories(/usr/local/include)
+        include_directories(/usr/local/include)
     elseif (UNIX)
         # C++11
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -m64")
@@ -221,4 +225,4 @@ endif()
 target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
-target_link_libraries(NordicEngine glew ${GLEW_LIBRARIES})
+target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
