@@ -187,10 +187,20 @@ link_directories(${NE}/glfw)
 include_directories(${NE}/glfw/include)
 add_subdirectory(${NE}/glfw)
 
+# GLEW
+find_package(GLEW REQUIRED)
+link_directories(${GLEW_INCLUDES})
+include_directories(${GLEW_INCLUDES})
+
 # GLM
 link_directories(${NE}/glm)
 include_directories(${NE}/glm)
-add_subdirectory(${NE}/glm)
+#add_subdirectory(${NE}/glm)
+
+# STB
+link_directories(${NE}/stb)
+include_directories(${NE}/stb)
+#add_subdirectory(${NE}/stb)
 
 # System Linker
 if (WIN32)
@@ -205,3 +215,4 @@ endif()
 target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
+target_link_libraries(NordicEngine glew ${GLEW_LIBRARIES})
