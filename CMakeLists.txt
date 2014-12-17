@@ -160,6 +160,12 @@ include_directories(${NE}/Renderer)
 list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
 list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
 
+# Shaders
+link_directories(${NE}/Shaders)
+include_directories(${NE}/Shaders)
+list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
+list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
+
 # SQLite
 link_directories(${NE}/sqlite)
 include_directories(${NE}/sqlite)
