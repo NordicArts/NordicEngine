@@ -169,6 +169,8 @@ link_directories(${NE}/Shaders)
 include_directories(${NE}/Shaders)
 list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
 list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
+list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
+list(APPEND LibSources ${NE}/Shaders/Program.cpp)
 
 # SQLite
 link_directories(${NE}/sqlite)
