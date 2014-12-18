@@ -56,11 +56,11 @@ namespace NordicArts {
             setOpenGL(3, 2);
         }
         void Window::setOpenGL(int iMajor, int iMinor) {
-            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, iMajor);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, iMinor);
-            glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+            glfwWindowHint(GLFW_RESIZABLE, false);
         }
 
         void Window::setVSync(bool bEnable) {

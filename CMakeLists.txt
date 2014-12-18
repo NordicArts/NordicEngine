@@ -103,6 +103,12 @@ list(APPEND LibSources ${NE}/Files/Handler/TextFile/Writer.cpp)
 list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Reader.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/TextFile/Reader.cpp)
 
+# BitMap
+link_directories(${NE}/Files/Handler/BitMap)
+include_directories(${NE}/Files/Handler/BitMap)
+list(APPEND LibHeaders ${NE}/Files/Handler/BitMap/BitMap.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/BitMap/BitMap.cpp)
+
 # Threads
 link_directories(${NE}/Threading/Threads)
 include_directories(${NE}/Threading/Threads)

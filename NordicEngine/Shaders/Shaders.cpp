@@ -16,7 +16,7 @@ namespace NordicArts {
 
                 GLint iStatus;
                 glGetShaderiv(m_iObject, GL_COMPILE_STATUS, &iStatus);
-                if (iStatus == GL_FALSE) {
+                if (iStatus == false) {
                     std::string cMsg("Compile failed in shader: \n");
 
                     GLint iInfoLogLength;
