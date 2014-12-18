@@ -18,13 +18,6 @@ namespace NordicArts {
             if (!glfwInit()) {
                 throw new Exceptions("Can't initalize GLFW", true);
             }
-
-            // GLEW
-            glewExperimental = GL_TRUE;
-            GLenum glewStatus = glewInit();
-            if (glewStatus != GLEW_OK) {
-                throw new Exceptions(glewGetErrorString(glewStatus), true);
-            }
         }
 
         Window::~Window() {
@@ -45,6 +38,13 @@ namespace NordicArts {
 
             glfwMakeContextCurrent(m_pWindow);
             glfwSetKeyCallback(m_pWindow, Input::handleInput);
+
+            // GLEW
+            glewExperimental = GL_TRUE;
+            GLenum glewStatus = glewInit();
+            if (glewStatus != GLEW_OK) {
+                throw new Exceptions(glewGetErrorString(glewStatus), true);
+            }
 
             return 0;
         }
