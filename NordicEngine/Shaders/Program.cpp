@@ -7,16 +7,16 @@ namespace NordicArts {
         namespace Shaders {
             Program::Program(const std::vector<Shader> &vShaders) : m_iObject(0) {
                 if (vShaders.size() <= 0) {
-                    throw new Exceptions("No shaders were provided", true);
+                    throw Exceptions("No shaders were provided", true);
                 }
 
                 m_iObject = glCreateProgram();
                 if (m_iObject == 0) {
-                    throw new Exceptions("glCreateProgram failed", true);
+                    throw Exceptions("glCreateProgram failed", true);
                 }
 
                 // Attach shaders
-                for (unsigned i = 0; i < vShaders.size(); ++i) {
+                for (unsigned int i = 0; i < vShaders.size(); ++i) {
                     glAttachShader(m_iObject, vShaders[i].getObject());
                 }
 
@@ -24,7 +24,7 @@ namespace NordicArts {
                 glLinkProgram(m_iObject);
 
                 // detach shaders now program linked
-                for (unsigned i = 0; i < vShaders.size(); ++i) {
+                for (unsigned int i = 0; i < vShaders.size(); ++i) {
                     glDetachShader(m_iObject, vShaders[i].getObject());
                 }
 
@@ -45,7 +45,7 @@ namespace NordicArts {
                     glDeleteShader(m_iObject);
                     m_iObject = 0;
     
-                    throw new Exceptions(cMsg, true);
+                    throw Exceptions(cMsg, true);
                 }
             }
 
@@ -61,12 +61,12 @@ namespace NordicArts {
 
             int Program::getAttrib(const char *cName) const {
                 if (!cName) {
-                    throw new Exceptions("Attribute name was NULL", true);
+                    throw Exceptions("Attribute name was NULL", true);
                 }
 
                 int iAttrib = glGetAttribLocation(m_iObject, cName);
                 if (iAttrib == -1) {
-                    throw new Exceptions((std::string("Program attribute not found") + cName), true);
+                    throw Exceptions((std::string("Program attribute not found") + cName), true);
                 }
 
                 return iAttrib;
@@ -74,12 +74,12 @@ namespace NordicArts {
 
             int Program::getUniform(const char *cName) const {
                 if (!cName) {
-                    throw new Exceptions("Unform name was NULL", true);
+                    throw Exceptions("Unform name was NULL", true);
                 }
 
                 int iUniform = glGetUniformLocation(m_iObject, cName);
                 if (iUniform == -1) {
-                    throw new Exceptions((std::string("Program unform not found") + cName), true);
+                    throw Exceptions((std::string("Program unform not found") + cName), true);
                 }
 
                 return iUniform;

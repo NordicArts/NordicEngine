@@ -30,7 +30,7 @@ namespace NordicArts {
             if (m_pProgram) {
                 glUseProgram(m_pProgram->getObject());
             } else {
-                throw new Exceptions("No program loaded");
+                throw Exceptions("No program loaded");
             }
         }
         void Renderer::clearProgram() {

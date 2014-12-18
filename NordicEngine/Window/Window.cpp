@@ -16,7 +16,7 @@ namespace NordicArts {
 
             // GLFW
             if (!glfwInit()) {
-                throw new Exceptions("Can't initalize GLFW", true);
+                throw Exceptions("Can't initalize GLFW", true);
             }
         }
 
@@ -33,7 +33,7 @@ namespace NordicArts {
             if (!m_pWindow) {
                 glfwTerminate();
         
-                throw new Exceptions("Can't create the window", true);
+                throw Exceptions("Can't create the window", true);
             }
 
             glfwMakeContextCurrent(m_pWindow);
@@ -43,7 +43,7 @@ namespace NordicArts {
             glewExperimental = GL_TRUE;
             GLenum glewStatus = glewInit();
             if (glewStatus != GLEW_OK) {
-                throw new Exceptions(glewGetErrorString(glewStatus), true);
+                throw Exceptions(glewGetErrorString(glewStatus), true);
             }
 
             return 0;
@@ -85,7 +85,7 @@ namespace NordicArts {
         }
 
         void Window::errorHandler(int iError, const char *cDescription) {
-            throw new Exceptions(cDescription, iError, true);
+            throw Exceptions(cDescription, iError, true);
         }
 
         void Window::getFrameBufferSize(int *iWidth, int *iHeight) {

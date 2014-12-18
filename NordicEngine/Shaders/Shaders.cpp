@@ -7,7 +7,7 @@ namespace NordicArts {
             Shader::Shader(const std::string &cShaderCode, GLenum eShaderType) : m_iObject(0), m_pRefCount(NULL) {
                 m_iObject = glCreateShader(eShaderType);
                 if (m_iObject == 0) {
-                    throw new Exceptions("glCreateShader failed", true);
+                    throw Exceptions("glCreateShader failed", true);
                 }
 
                 const char *cCode = cShaderCode.c_str();
@@ -31,10 +31,10 @@ namespace NordicArts {
                     glDeleteShader(m_iObject);
                     m_iObject = 0;
     
-                    throw new Exceptions(cMsg, true);
+                    throw Exceptions(cMsg, true);
                 }
 
-                m_pRefCount     = new unsigned;
+                m_pRefCount     = new unsigned int;
                 *m_pRefCount    = 1;
             }
 

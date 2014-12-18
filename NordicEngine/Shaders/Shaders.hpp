@@ -14,8 +14,7 @@ namespace NordicArts {
             protected:
             private:
                 unsigned int m_iObject;
-                
-                unsigned *m_pRefCount;
+                unsigned int *m_pRefCount;
 
             // Methods
             public:
