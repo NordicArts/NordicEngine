@@ -12,11 +12,18 @@ namespace NordicArts {
         }
 
         void Window::initWindow() {
+            glfwSetErrorCallback(Window::errorHandler);
+
+            // GLFW
             if (!glfwInit()) {
                 throw new Exceptions("Can't initalize GLFW", true);
             }
 
-            glfwSetErrorCallback(Window::errorHandler);
+            // GLEW
+            glewExperimental = GL_TRUE;
+            if (glewInit() != GLEW_OK) {
+                throw new Exceptions("Can't initalize GLEW", true);
+            }
         }
 
         Window::~Window() {
@@ -44,9 +51,15 @@ namespace NordicArts {
         void Window::clear(Color oColor) {
         }
 
+        void Window::setOpenGL() {
+            setOpenGL(3, 2);
+        }
         void Window::setOpenGL(int iMajor, int iMinor) {
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, iMajor);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, iMinor);
+            glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         }
 
         void Window::setVSync(bool bEnable) {
@@ -63,9 +76,11 @@ namespace NordicArts {
             return display();
         }
         void Window::display() {
-            glfwSwapBuffers(m_pWindow);
-        
+            // Do Movements before redraw
             glfwPollEvents();
+
+            // Redraw
+            glfwSwapBuffers(m_pWindow);
         }
 
         void Window::errorHandler(int iError, const char *cDescription) {

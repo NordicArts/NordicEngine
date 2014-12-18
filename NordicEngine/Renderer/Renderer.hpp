@@ -5,6 +5,7 @@
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/Window/Window.hpp>
 #include <NordicEngine/Color/Color.hpp>
+#include <NordicEngine/Shaders/Program.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -16,6 +17,8 @@ namespace NordicArts {
             Logger *m_pLogger;
             Window *m_pWindow;
 
+            Shaders::Program *m_pProgram;
+
         // Methods
         public:
             Renderer(Window *pWindow);
@@ -23,6 +26,15 @@ namespace NordicArts {
 
             ~Renderer();
 
+            // New
+            void clear(Color oColor);
+            void loadProgram(Shaders::Program *pProgram);
+            void useProgram();
+            void clearProgram();
+            void bindVertex(unsigned int iVAO);
+            void drawTriangle();
+
+            // Old
             void setViewPort();
             void setViewPort(int iX, int iY);
             void setViewPort(int iX, int iY, int iWidth, int iHeight);

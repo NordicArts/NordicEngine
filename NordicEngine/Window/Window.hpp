@@ -5,6 +5,7 @@
 #include <NordicEngine/Color/Color.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
 
+#include <GL/glew.h>
 #include <NordicEngine/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
@@ -34,7 +35,10 @@ namespace NordicArts {
 
             void clear(Color oColor);
             void setVSync(bool bEnable);
-            void setOpenGL(int iMajor = 3, int iMinor = 2);
+
+            void setOpenGL();
+            void setOpenGL(int iMajor, int iMinor);
+
             void getFrameBufferSize(int *iWidth, int *iHeight);
             void draw();
             void display();

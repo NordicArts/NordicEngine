@@ -1,5 +1,6 @@
 #include <NordicEngine/Renderer/Renderer.hpp>
 
+#include <GL/glew.h>
 #include <NordicEngine/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
@@ -10,10 +11,42 @@ namespace NordicArts {
         }
 
         Renderer::~Renderer() {
-            m_pLogger = nullptr;
-            m_pWindow = nullptr;
+            m_pLogger   = nullptr;
+            m_pWindow   = nullptr;
+            m_pProgram  = nullptr;
         }
 
+        // New
+        void Renderer::loadProgram(Shaders::Program *pProgram) {
+            m_pProgram = pProgram;
+        }
+        
+        void Renderer::clear(Color oColor) {
+            glClearColor(oColor.m_iRed, oColor.m_iGreen, oColor.m_iBlue, oColor.m_iAlpha);
+            glClear(GL_COLOR_BUFFER_BIT);
+        }
+
+        void Renderer::useProgram() {
+            if (m_pProgram) {
+                glUseProgram(m_pProgram->getObject());
+            } else {
+                throw new Exceptions("No program loaded");
+            }
+        }
+        void Renderer::clearProgram() {
+            glUseProgram(0);
+        }
+
+        void Renderer::bindVertex(unsigned int iVAO) {
+            glBindVertexArray(iVAO);
+        }
+    
+        void Renderer::drawTriangle() {
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+        }
+        
+
+        // Old
         void Renderer::setViewPort() {
             setViewPort(0, 0, m_pWindow->m_iWidth, m_pWindow->m_iHeight);
         }

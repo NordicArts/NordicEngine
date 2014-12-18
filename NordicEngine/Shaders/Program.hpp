@@ -6,30 +6,32 @@
 
 namespace NordicArts{
     namespace NordicEngine {
-        class Program {
-        // Variables
-        public:
-        protected:
-        private:
-            unsigned int m_iObject;
+        namespace Shaders {
+            class Program {
+            // Variables
+            public:
+            protected:
+            private:
+                unsigned int m_iObject;
 
-        // Methods
-        public:
-            Program(const std::vector<Shaders> &oShaders);
+            // Methods
+            public:
+                Program(const std::vector<Shader> &vShaders);
+    
+                ~Program();
 
-            ~Program();
+                unsigned int getObject() const;
+    
+                int getAttrib(const char *cName) const;
+                int getUniform(const char *cName) const;
 
-            unsigned int getObject() const;
+            protected:
+            private:
+                Program(const Program &);
+    
+                const Program &operator =(const Program &);
 
-            int getAttrib(const char *cName) const;
-            int getUniform(const char *cName) const;
-
-        protected:
-        private:
-            Program(const Program &);
-
-            const Program &operator =(const Program &);
-
+            };
         };
     };
 };

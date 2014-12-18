@@ -7,33 +7,35 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        class Shaders {
-        // Variables
-        public:
-        protected:
-        private:
-            unsigned int m_iObject;
-            
-            unsigned *m_pRefCount;
+        namespace Shaders {
+            class Shader {
+            // Variables
+            public:
+            protected:
+            private:
+                unsigned int m_iObject;
+                
+                unsigned *m_pRefCount;
 
-        // Methods
-        public:
-            static Shaders shaderFromFile(const std::string &cFilePath, GLenum eShaderType);
+            // Methods
+            public:
+                static Shader shaderFromFile(const std::string &cFilePath, GLenum eShaderType);
 
-            Shaders(const Shaders &oOther);
-            Shaders(const std::string &cShaderCode, GLenum eShaderType);
+                Shader(const Shader &oOther);
+                Shader(const std::string &cShaderCode, GLenum eShaderType);
 
-            Shaders &operator =(const Shaders &oOther);
+                Shader &operator =(const Shader &oOther);
 
-            ~Shaders();
+                ~Shader();
 
-            unsigned int getObject() const;
+                unsigned int getObject() const;
 
-        protected:
-        private:
-            void retain();
-            void release();
+            protected:
+            private:
+                void retain();
+                void release();
 
+            };
         };
     };
 };
