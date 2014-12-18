@@ -21,8 +21,9 @@ namespace NordicArts {
 
             // GLEW
             glewExperimental = GL_TRUE;
-            if (glewInit() != GLEW_OK) {
-                throw new Exceptions("Can't initalize GLEW", true);
+            GLenum glewStatus = glewInit();
+            if (glewStatus != GLEW_OK) {
+                throw new Exceptions(glewGetErrorString(glewStatus), true);
             }
         }
 
