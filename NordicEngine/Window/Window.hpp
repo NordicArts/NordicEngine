@@ -32,6 +32,7 @@ namespace NordicArts {
             int createWindow(int iWidth = 800, int iHeight = 600, std::string cTitle = "Hello World");
 
             bool isWindowOpen() const;
+            void closeWindow();
 
             void clear(Color oColor);
             void setVSync(bool bEnable);

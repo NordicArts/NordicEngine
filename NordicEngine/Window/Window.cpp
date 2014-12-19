@@ -94,5 +94,9 @@ namespace NordicArts {
 
             glfwGetFramebufferSize(m_pWindow, iWidth, iHeight);
         }
-    };
+        
+        void Window::closeWindow() {
+            glfwSetWindowShouldClose(m_pWindow, true);
+        }
+    }; 
 };

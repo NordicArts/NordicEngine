@@ -35,6 +35,11 @@
     #endif
 #endif
 
+// Swap Pointers
+#ifndef NE_SWAP_POINTERS
+#define NE_SWAP_POINTERS(x, y) { void *t; t = x, x = y; y = t; }
+#endif
+
 // Exceptions
 #include <NordicEngine/Exceptions/Exceptions.hpp>
 
