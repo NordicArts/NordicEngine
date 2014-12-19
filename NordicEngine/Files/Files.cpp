@@ -21,6 +21,10 @@ namespace NordicArts {
         void Files::setFile(std::string cFile) {
             m_cFile = cFile;
         }
+        void Files::setFile(std::string cFile, Format eFormat) {
+            m_cFile     = cFile;
+            m_eFormat   = eFormat;
+        }
 
         std::string Files::read() {
             if (m_bAppend) {

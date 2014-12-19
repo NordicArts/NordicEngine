@@ -109,6 +109,12 @@ include_directories(${NE}/Files/Handler/BitMap)
 list(APPEND LibHeaders ${NE}/Files/Handler/BitMap/BitMap.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/BitMap/BitMap.cpp)
 
+# Texture
+link_directories(${NE}/Files/Texture)
+include_directories(${NE}/Files/Texture)
+list(APPEND LibHeaders ${NE}/Files/Texture/Texture.hpp)
+list(APPEND LibSources ${NE}/Files/Texture/Texture.cpp)
+
 # Threads
 link_directories(${NE}/Threading/Threads)
 include_directories(${NE}/Threading/Threads)
@@ -177,6 +183,12 @@ list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
 list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
 list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
 list(APPEND LibSources ${NE}/Shaders/Program.cpp)
+
+# Camera
+link_directories(${NE}/Camera)
+include_directories(${NE}/Camera)
+list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
+list(APPEND LibSources ${NE}/Camera/Camera.cpp)
 
 # SQLite
 link_directories(${NE}/sqlite)

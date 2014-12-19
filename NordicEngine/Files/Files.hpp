@@ -8,6 +8,11 @@ namespace NordicArts {
         class Files {
         // Variables
         public:
+            enum Format {
+                NE_TEXT = 1,
+                NE_BITMAP
+            };
+
         protected:
         private:
             std::string m_cFile;
@@ -15,6 +20,8 @@ namespace NordicArts {
             bool m_bAppend;
             bool m_bFilePath;
             bool m_bSaveException;
+
+            int m_eFormat;
         
         // Methods
         public:
@@ -27,6 +34,7 @@ namespace NordicArts {
             ~Files();
 
             void setFile(std::string cFile);
+            void setFile(std::string cFile, Format eFormat);
             
             std::string read();
             void write(std::string cString);

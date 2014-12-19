@@ -43,7 +43,7 @@ namespace NordicArts {
             void setPixel(unsigned int iColumn, unsigned int iRow, const unsigned char *cPixel);
             void flipVertically();
             void rotate90CounterClockwise();
-            void copyRecFromBitMap(const BitMap &oSrc, unsigned int iSrcCol, unsigned int iSrcRow, unsigned int iDestCol, unsigned int iDestRow, unsigned int iWidth, unsigned int iHeight);
+            void copyRectFromBitMap(const BitMap &oSrc, unsigned int iSrcCol, unsigned int iSrcRow, unsigned int iDestCol, unsigned int iDestRow, unsigned int iWidth, unsigned int iHeight);
 
             BitMap &operator =(const BitMap &oOther);
 
