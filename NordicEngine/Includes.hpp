@@ -1,6 +1,8 @@
 #ifndef NordicArts_NordicEngine_Includes_H
 #define NordicArts_NordicEngine_Includes_H
 
+#define _USE_MATH_DEFINES
+
 // Includes
 #include <cassert> // Asserts
 #include <time.h> // Time
