@@ -190,6 +190,18 @@ include_directories(${NE}/Camera)
 list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
 list(APPEND LibSources ${NE}/Camera/Camera.cpp)
 
+# Model
+link_directories(${NE}/Model)
+include_directories(${NE}/Model)
+list(APPEND LibHeaders ${NE}/Model/Model.hpp)
+list(APPEND LibSources ${NE}/Model/Model.cpp)
+
+# Light
+link_directories(${NE}/Light)
+include_directories(${NE}/Light)
+list(APPEND LibHeaders ${NE}/Light/Light.hpp)
+list(APPEND LibSources ${NE}/Light/Light.cpp)
+
 # SQLite
 link_directories(${NE}/sqlite)
 include_directories(${NE}/sqlite)
