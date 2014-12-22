@@ -4,7 +4,7 @@
 // SQLite
 extern "C" {
     #include <NordicEngine/ThirdParty/sqlite/sqlite3.h>
-}
+};
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Logger/Logger.hpp>

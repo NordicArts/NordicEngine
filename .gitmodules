@@ -10,3 +10,6 @@
 [submodule "NordicEngine/ThirdParty/lua"]
 	path = NordicEngine/ThirdParty/lua
 	url = git@github.com:LuaDist/lua.git
+[submodule "NordicEngine/ThirdParty/LuaBrige"]
+    path = NordicEngine/ThirdParty/LuaBridge
+    url = git@github.com:Nulifier/LuaBridge.git

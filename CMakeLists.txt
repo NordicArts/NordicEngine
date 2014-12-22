@@ -12,7 +12,7 @@ set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
 set(LibHeaders ${NE}/Engine.hpp)
 set(LibSources ${NE}/Engine.cpp)
 
-set(NET ${PROJECT_SOURCE_DIR}/ThirdParty)
+set(NET ${PROJECT_SOURCE_DIR}/NordicEngine/ThirdParty)
 
 # NOS Includes
 list(APPEND LibHeaders ${NE}/Includes.hpp)
@@ -204,6 +204,12 @@ include_directories(${NE}/Light)
 list(APPEND LibHeaders ${NE}/Light/Light.hpp)
 list(APPEND LibSources ${NE}/Light/Light.cpp)
 
+# Lua
+link_directories(${NE}/Lua)
+include_directories(${NE}/Lua)
+list(APPEND LibHeaders ${NE}/Lua/Lua.hpp)
+list(APPEND LibSources ${NE}/Lua/Lua.cpp)
+
 # SQLite
 link_directories(${NET}/sqlite)
 include_directories(${NET}/sqlite)
@@ -254,6 +260,7 @@ add_subdirectory(${NET}/lua)
 # Lua Bridge
 link_directories(${NET}/LuaBridge/Source/LuaBridge)
 include_directories(${NET}/LuaBridge/Source/LuaBridge)
+list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
 # System Linker
 if (WIN32)
