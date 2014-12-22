@@ -205,10 +205,10 @@ list(APPEND LibHeaders ${NE}/Light/Light.hpp)
 list(APPEND LibSources ${NE}/Light/Light.cpp)
 
 # Lua
-link_directories(${NE}/Lua)
-include_directories(${NE}/Lua)
-list(APPEND LibHeaders ${NE}/Lua/Lua.hpp)
-list(APPEND LibSources ${NE}/Lua/Lua.cpp)
+link_directories(${NE}/Files/Handler/Lua)
+include_directories(${NE}/Files/Handler/Lua)
+list(APPEND LibHeaders ${NE}/Files/Handler/Lua/Lua.hpp)
+list(APPEND LibSources ${NE}/Files/Handler/Lua/Lua.cpp)
 
 # SQLite
 link_directories(${NET}/sqlite)

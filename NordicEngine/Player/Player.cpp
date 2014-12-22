@@ -1,4 +1,5 @@
 #include <NordicEngine/Player/Player.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -48,6 +49,30 @@ namespace NordicArts {
             }
 
             return false;
+        }
+
+        std::string Player::getDetails() const {
+            std::string cReturn = "";
+            
+            cReturn += getName();
+            cReturn += ": ";
+            cReturn += getString(getLife());
+
+            return cReturn;
+        }
+
+        void Player::registerLua(Lua *pLua) {
+            lua_State *pState = pLua->getLua();
+            
+            luabridge::getGlobalNamespace(pState)
+                .beginNamespace("NordicArts")
+                    .beginClass<Player>("Player")
+                        .addConstructor<void (*)(void)>()
+                        .addFunction("setName", &Player::setName)
+                        .addFunction("setLife", &Player::setLife)
+                        .addFunction("getDetails", &Player::getDetails)
+                    .endClass()
+                .endNamespace();
         }
     };
 };

@@ -2,6 +2,7 @@
 #define NordicArts_NordicEngine_Player_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -33,6 +34,10 @@ namespace NordicArts {
 
             bool isAlive() const;
             bool alive() const;
+
+            std::string getDetails() const;
+
+            static void registerLua(Lua *pLua);
 
         protected:
         private:
