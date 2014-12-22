@@ -203,9 +203,9 @@ list(APPEND LibHeaders ${NE}/Light/Light.hpp)
 list(APPEND LibSources ${NE}/Light/Light.cpp)
 
 # SQLite
-link_directories(${NE}/sqlite)
-include_directories(${NE}/sqlite)
-add_subdirectory(${NE}/sqlite)
+link_directories(${NE}/ThirdParty/sqlite)
+include_directories(${NE}/ThirdParty/sqlite)
+add_subdirectory(${NE}/ThirdParty/sqlite)
 
 # Build Number
 string(TIMESTAMP buildNumber "%j%Y%H%M%S")
@@ -225,9 +225,9 @@ include_directories(${Boost_INCLUDES})
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 option(GLFW_BUILD_DOCS OFF)
-link_directories(${NE}/glfw)
-include_directories(${NE}/glfw/include)
-add_subdirectory(${NE}/glfw)
+link_directories(${NE}/ThirdParty/glfw)
+include_directories(${NE}/ThirdParty/glfw/include)
+add_subdirectory(${NE}/ThirdParty/glfw)
 
 # GLEW
 find_package(GLEW REQUIRED)
@@ -235,19 +235,19 @@ link_directories(${GLEW_INCLUDES})
 include_directories(${GLEW_INCLUDES})
 
 # GLM
-link_directories(${NE}/glm)
-include_directories(${NE}/glm)
+link_directories(${NE}/ThirdParty/glm)
+include_directories(${NE}/ThirdParty/glm)
 #add_subdirectory(${NE}/glm)
 
 # STB
-link_directories(${NE}/stb)
-include_directories(${NE}/stb)
+link_directories(${NE}/ThirdParty/stb)
+include_directories(${NE}/ThirdParty/stb)
 #add_subdirectory(${NE}/stb)
 
 # LUA
-link_directories(${NE}/lua/src)
-include_directories(${NE}/lua/src)
-add_subdirectory(${NE}/lua)
+link_directories(${NE}/ThirdParty/lua/src)
+include_directories(${NE}/ThirdParty/lua/src)
+add_subdirectory(${NE}/ThirdParty/lua)
 
 # System Linker
 if (WIN32)
