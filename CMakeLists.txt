@@ -12,6 +12,8 @@ set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
 set(LibHeaders ${NE}/Engine.hpp)
 set(LibSources ${NE}/Engine.cpp)
 
+set(NET ${PROJECT_SOURCE_DIR}/ThirdParty)
+
 # NOS Includes
 list(APPEND LibHeaders ${NE}/Includes.hpp)
 
@@ -203,9 +205,9 @@ list(APPEND LibHeaders ${NE}/Light/Light.hpp)
 list(APPEND LibSources ${NE}/Light/Light.cpp)
 
 # SQLite
-link_directories(${NE}/ThirdParty/sqlite)
-include_directories(${NE}/ThirdParty/sqlite)
-add_subdirectory(${NE}/ThirdParty/sqlite)
+link_directories(${NET}/sqlite)
+include_directories(${NET}/sqlite)
+add_subdirectory(${NET}/sqlite)
 
 # Build Number
 string(TIMESTAMP buildNumber "%j%Y%H%M%S")
@@ -225,9 +227,9 @@ include_directories(${Boost_INCLUDES})
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 option(GLFW_BUILD_DOCS OFF)
-link_directories(${NE}/ThirdParty/glfw)
-include_directories(${NE}/ThirdParty/glfw/include)
-add_subdirectory(${NE}/ThirdParty/glfw)
+link_directories(${NET}/glfw)
+include_directories(${NET}/glfw/include)
+add_subdirectory(${NET}/glfw)
 
 # GLEW
 find_package(GLEW REQUIRED)
@@ -235,19 +237,23 @@ link_directories(${GLEW_INCLUDES})
 include_directories(${GLEW_INCLUDES})
 
 # GLM
-link_directories(${NE}/ThirdParty/glm)
-include_directories(${NE}/ThirdParty/glm)
-#add_subdirectory(${NE}/glm)
+link_directories(${NET}/glm)
+include_directories(${NET}/glm)
+#add_subdirectory(${NET}/glm)
 
 # STB
-link_directories(${NE}/ThirdParty/stb)
-include_directories(${NE}/ThirdParty/stb)
-#add_subdirectory(${NE}/stb)
+link_directories(${NET}/stb)
+include_directories(${NET}/stb)
+#add_subdirectory(${NET}/stb)
 
-# LUA
-link_directories(${NE}/ThirdParty/lua/src)
-include_directories(${NE}/ThirdParty/lua/src)
-add_subdirectory(${NE}/ThirdParty/lua)
+# Lua
+link_directories(${NET}/lua/src)
+include_directories(${NET}/lua/src)
+add_subdirectory(${NET}/lua)
+
+# Lua Bridge
+link_directories(${NET}/LuaBridge/Source/LuaBridge)
+include_directories(${NET}/LuaBridge/Source/LuaBridge)
 
 # System Linker
 if (WIN32)
