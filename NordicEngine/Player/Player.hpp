@@ -27,10 +27,10 @@ namespace NordicArts {
             int getLife() const;
             
             int incrementLife();
-            int incrementLife(int iLife);
+            int incrementLifeAmount(int iLife);
             
             int decrementLife();
-            int decrementLife(int iLife);
+            int decrementLifeAmount(int iLife);
 
             bool isAlive() const;
             bool alive() const;

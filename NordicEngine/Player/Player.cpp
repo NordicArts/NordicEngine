@@ -23,18 +23,18 @@ namespace NordicArts {
         }
 
         int Player::incrementLife() {
-            return incrementLife(1);
+            return incrementLifeAmount(1);
         }
-        int Player::incrementLife(int iLife) {
+        int Player::incrementLifeAmount(int iLife) {
             m_iLife += iLife;
         
             return m_iLife;
         }
 
         int Player::decrementLife() {
-            return decrementLife(1);
+            return decrementLifeAmount(1);
         }
-        int Player::decrementLife(int iLife) {
+        int Player::decrementLifeAmount(int iLife) {
             m_iLife -= iLife;
 
             return m_iLife;
@@ -52,11 +52,11 @@ namespace NordicArts {
         }
 
         std::string Player::getDetails() const {
-            std::string cReturn = "";
-            
-            cReturn += getName();
-            cReturn += ": ";
-            cReturn += getString(getLife());
+            std::string cReturn;
+
+            cReturn += ("Name: " + getName());
+            cReturn += (", Life: " + getString(getLife()));
+            cReturn += (", Alive: " + getString(isAlive()));
 
             return cReturn;
         }
@@ -71,6 +71,11 @@ namespace NordicArts {
                         .addFunction("setName", &Player::setName)
                         .addFunction("setLife", &Player::setLife)
                         .addFunction("getDetails", &Player::getDetails)
+                        .addFunction("decrementLife", &Player::decrementLife)
+                        .addFunction("decrementLifeAmount", &Player::decrementLifeAmount)
+                        .addFunction("incrementLife", &Player::incrementLife)
+                        .addFunction("incrementLifeAmount", &Player::incrementLifeAmount)
+                        .addFunction("isAlive", &Player::isAlive)
                     .endClass()
                 .endNamespace();
         }
