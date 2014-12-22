@@ -2,7 +2,7 @@
 
 #define STBI_FAILURE_USERMSG
 #define STB_IMAGE_IMPLEMENTATION
-#include <NordicEngine/stb/stb_image.h>
+#include <NordicEngine/ThirdParty/stb/stb_image.h>
 
 namespace NordicArts {
     namespace NordicEngine {

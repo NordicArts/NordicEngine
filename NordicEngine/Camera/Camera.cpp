@@ -1,6 +1,6 @@
 #include <NordicEngine/Camera/Camera.hpp>
 
-#include <NordicEngine/glm/glm/gtc/matrix_transform.hpp>
+#include <NordicEngine/ThirdParty/glm/glm/gtc/matrix_transform.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

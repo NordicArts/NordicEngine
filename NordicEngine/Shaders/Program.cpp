@@ -1,6 +1,6 @@
 #include <NordicEngine/Shaders/Program.hpp>
 
-#include <NordicEngine/glm/glm/gtc/type_ptr.hpp>
+#include <NordicEngine/ThirdParty/glm/glm/gtc/type_ptr.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

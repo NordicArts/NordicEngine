@@ -1,7 +1,7 @@
 #ifndef NordicArts_NordicEngine_Input_Definitions_H
 #define NordicArts_NordicEngine_Input_Definitions_H
 
-#include <NordicEngine/glfw/include/GLFW/glfw3.h>
+#include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
     namespace NordicEngine {

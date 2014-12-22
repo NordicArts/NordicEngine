@@ -3,7 +3,7 @@
 
 // SQLite
 extern "C" {
-    #include <NordicEngine/sqlite/sqlite3.h>
+    #include <NordicEngine/ThirdParty/sqlite/sqlite3.h>
 }
 
 #include <NordicEngine/Engine.hpp>

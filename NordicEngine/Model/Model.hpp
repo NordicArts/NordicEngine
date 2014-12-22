@@ -5,7 +5,7 @@
 #include <NordicEngine/Shaders/Program.hpp>
 #include <NordicEngine/Files/Texture/Texture.hpp>
 
-#include <NordicEngine/glm/glm/glm.hpp>
+#include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

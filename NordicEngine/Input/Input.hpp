@@ -3,7 +3,8 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Input/Definitions.hpp>
-#include <NordicEngine/glfw/include/GLFW/glfw3.h>
+
+#include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
     namespace NordicEngine {
