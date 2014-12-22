@@ -8,3 +8,5 @@ xcuserdata/
 CMakeCache.txt
 libNordicEngine.*
 libSQLite.*
+CPackConfig.cmake
+CPackSourceConfig.cmake
