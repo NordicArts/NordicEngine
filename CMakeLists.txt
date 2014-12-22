@@ -244,6 +244,11 @@ link_directories(${NE}/stb)
 include_directories(${NE}/stb)
 #add_subdirectory(${NE}/stb)
 
+# LUA
+link_directories(${NE}/lua/src)
+include_directories(${NE}/lua/src)
+add_subdirectory(${NE}/lua)
+
 # System Linker
 if (WIN32)
     target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} winmm gdi32 c++abi)
@@ -258,3 +263,4 @@ target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
 target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
+target_link_libraries(NordicEngine liblua)

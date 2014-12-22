@@ -1,9 +1,12 @@
-[submodule "NordicEngine/glfw"]
-	path = NordicEngine/glfw
+[submodule "NordicEngine/ThirdParty/glfw"]
+	path = NordicEngine/ThirdParty/glfw
 	url = git@github.com:glfw/glfw.git
-[submodule "NordicEngine/glm"]
-	path = NordicEngine/glm
+[submodule "NordicEngine/ThirdParty/glm"]
+	path = NordicEngine/ThirdParty/glm
 	url = git@github.com:g-truc/glm.git
-[submodule "NordicEngine/stb"]
-	path = NordicEngine/stb
+[submodule "NordicEngine/ThirdParty/stb"]
+	path = NordicEngine/ThirdParty/stb
 	url = git@github.com:nothings/stb.git
+[submodule "NordicEngine/ThirdParty/lua"]
+	path = NordicEngine/ThirdParty/lua
+	url = git@github.com:LuaDist/lua.git
