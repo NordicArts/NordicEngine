@@ -21,10 +21,11 @@ namespace NordicArts {
             int iDrawCount;
 
             float fShininess;
+            float fModelData;
 
             glm::vec3 vSpecularColor;
 
-            ModelAsset() : pShaders(nullptr), pTexture(nullptr), iVBO(0), iVAO(0), iDrawType(GL_TRIANGLES), iDrawStart(0), iDrawCount(0), fShininess(0.0f), vSpecularColor(1.0f, 1.0f, 1.0f) {}
+            ModelAsset() : pShaders(nullptr), pTexture(nullptr), iVBO(0), iVAO(0), iDrawType(GL_TRIANGLES), iDrawStart(0), iDrawCount(0), fShininess(0.0f), vSpecularColor(1.0f, 1.0f, 1.0f), fModelData(0.0f) { }
         };
 
         struct ModelInstance {
@@ -35,18 +36,12 @@ namespace NordicArts {
             ModelInstance() : sAsset(nullptr), mTransform() {}
         };
 
-        struct ModelStruct {
-            ModelInstance *sInstance;
-
-            float VectorData[];
-        };
-
         class Model {
         // Variables
         public:
         protected:
         private:
-            std::vector<ModelStruct> m_vModels;
+            std::vector<ModelAsset> m_vModels;
 
         // Methods
         public:
@@ -54,9 +49,11 @@ namespace NordicArts {
 
             ~Model();
 
-            ModelStruct addModel();
-
             float loadModelFromFile(const std::string &cFilePath);
+
+            std::vector<ModelAsset> getModels() const;
+
+            ModelAsset addModel(Shaders::Program *pShaders, Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData);
 
         protected:
         private:
