@@ -253,11 +253,9 @@ include_directories(${NET}/stb)
 #add_subdirectory(${NET}/stb)
 
 # Lua
-link_directories(${NET}/lua)
-include_directories(${NET}/lua)
-link_directories(${NET}/lua/src)
-include_directories(${NET}/lua/src)
 add_subdirectory(${NET}/lua)
+link_directories(${LUA_INCLUDES})
+include_directories(${LUA_INCLUDES})
 
 # Lua Bridge
 link_directories(${NET}/LuaBridge/Source/LuaBridge)
