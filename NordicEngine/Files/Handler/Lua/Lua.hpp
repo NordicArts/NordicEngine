@@ -6,12 +6,7 @@
 #include <NordicEngine/Model/Model.hpp>
 #include <NordicEngine/Files/Files.hpp>
 
-extern "C" {
-    #include <NordicEngine/ThirdParty/lua/src/lua.h>
-    #include <NordicEngine/ThirdParty/lua/src/lauxlib.h>
-    #include <NordicEngine/ThirdParty/lua/src/lualib.h>    
-};
-
+#include <NordicEngine/ThirdParty/lua/include/lua.hpp>
 #include <NordicEngine/ThirdParty/LuaBridge/Source/LuaBridge/LuaBridge.h>
 
 namespace NordicArts {
