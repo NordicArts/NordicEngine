@@ -254,8 +254,10 @@ include_directories(${NET}/stb)
 
 # Lua
 add_subdirectory(${NET}/lua)
-link_directories(${NET}/lua/)
+link_directories(${NET}/lua)
 include_directories(${NET}/lua)
+link_directories(${NET}/lua/lua)
+include_directories(${NET}/lua/lua)
 
 # Lua Bridge
 link_directories(${NET}/LuaBridge/Source/LuaBridge)
@@ -276,4 +278,4 @@ target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
 target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
-target_link_libraries(NordicEngine liblua)
+target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
