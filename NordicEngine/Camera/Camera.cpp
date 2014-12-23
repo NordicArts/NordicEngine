@@ -16,9 +16,27 @@ namespace NordicArts {
         void Camera::setPosition(const glm::vec3 &vPosition) {
             m_vPosition = vPosition;
         }
+        void Camera::setPositionVerbose(float fX, float fY, float fZ) {
+            glm::vec3 vPosition;
+            
+            vPosition.x = fX;
+            vPosition.y = fY;
+            vPosition.z = fZ;
+        
+            return setPosition(vPosition);
+        }
 
         void Camera::setOffsetPosition(const glm::vec3 &vOffset) {
             m_vPosition += vOffset;
+        }
+        void Camera::setOffsetPositionVerbose(float fX, float fY, float fZ) {
+            glm::vec3 vOffset;
+
+            vOffset.x = fX;
+            vOffset.y = fY;
+            vOffset.z = fZ;
+    
+            return setOffsetPosition(vOffset);
         }
 
         float Camera::getFieldOfView() const {
@@ -71,6 +89,15 @@ namespace NordicArts {
             m_fHorizontalAngle      = glm::radians(atan2f(-vDirection.x, vDirection.z));
 
             normalizeAngles();
+        }
+        void Camera::lookAtVerbose(float fX, float fY, float fZ) {
+            glm::vec3 vPosition;
+
+            vPosition.x = fX;
+            vPosition.y = fY;
+            vPosition.z = fZ;
+    
+            return lookAt(vPosition);
         }
 
         float Camera::getViewPortAspectRatio() const {
@@ -125,6 +152,24 @@ namespace NordicArts {
             } else if (m_fVerticalAngle < -fMaxVerticalAngle) {
                 m_fVerticalAngle = -fMaxVerticalAngle;
             }
+        }
+
+        void Camera::registerLua(Lua *pLua) {
+            lua_State *pState = pLua->getLua();
+
+            luabridge::getGlobalNamespace(pState)
+                .beginNamespace("NordicArts")
+                    .beginClass<Camera>("Camera")
+                        .addConstructor<void (*)(void)>()
+                        .addFunction("setFieldOfView", &Camera::setFieldOfView)
+                        .addFunction("setPosition", &Camera::setPositionVerbose)
+                        .addFunction("setOffsetPosition", &Camera::setOffsetPositionVerbose)
+                        .addFunction("setOffsetOrientation", &Camera::setOffsetOrientation)
+                        .addFunction("setAspectRatio", &Camera::setViewPortAspectRatio)
+                        .addFunction("lookAt", &Camera::lookAtVerbose)
+                        .addFunction("setPlanes", &Camera::setNearAndFarPlanes)
+                    .endClass()
+                .endNamespace();
         }
     };
 };

@@ -2,6 +2,7 @@
 #define NordicArts_NordicEngine_Camera_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
@@ -29,7 +30,9 @@ namespace NordicArts {
             const glm::vec3 &getPosition() const;
             
             void setPosition(const glm::vec3 &vPosition);
+            void setPositionVerbose(float fX, float fY, float fZ);
             void setOffsetPosition(const glm::vec3 &vOffset);
+            void setOffsetPositionVerbose(float fX, float fY, float fZ);
 
             // Field of view
             float getFieldOfView() const;
@@ -48,6 +51,7 @@ namespace NordicArts {
             void setOffsetOrientation(float fAngleUp, float fAngleRight);
 
             void lookAt(glm::vec3 vPosition);
+            void lookAtVerbose(float fX, float fY, float fZ);
 
             // View Port
             float getViewPortAspectRatio() const;
@@ -62,6 +66,9 @@ namespace NordicArts {
             glm::mat4 getMatrix() const;
             glm::mat4 getProjection() const;
             glm::mat4 getView() const;
+
+            // Lua integration
+            static void registerLua(Lua *pLua);
 
         protected:
         private:
