@@ -7,9 +7,6 @@
 [submodule "NordicEngine/ThirdParty/stb"]
 	path = NordicEngine/ThirdParty/stb
 	url = https://github.com/nothings/stb.git
-[submodule "NordicEngine/ThirdParty/lua"]
-	path = NordicEngine/ThirdParty/lua
-	url = https://github.com/NordicArts/lua.git
 [submodule "NordicEngine/ThirdParty/LuaBrige"]
     path = NordicEngine/ThirdParty/LuaBridge
     url = https://github.com/Nulifier/LuaBridge.git
