@@ -33,6 +33,19 @@ makeQuiet()
     make > /dev/null
 }
 
+pullVerbose()
+{
+    git submodule init
+    git submodule update --recursive
+    git submodule foreach git pull origin master --recurse-submodules
+}
+pullQuiet()
+{
+    git submodule init >> /dev/null
+    git submodule update --recursive >> /dev/null
+    git submodule foreach git pull origin master --recurse-submodules >> /dev/null
+}
+
 
 OPT=
 VERBOSE=
@@ -94,14 +107,10 @@ then
 
     if [[ -z "$VERBOSE" ]]
     then
-        git submodule init
-        git submodule update --recursive
-        git submodule foreach git pull origin master --recurse-submodules
+        pullVerbose
         makeVerbose
     else
-        git submodule init >> /dev/null
-        git submodule update --recursive >> /dev/null
-        git submodule foreach git pull origin master --recurse-submodules >> /dev/null
+        pullQuiet
         makeQuiet
     fi
 
