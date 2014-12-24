@@ -34,7 +34,6 @@ namespace NordicArts {
             bool isWindowOpen() const;
             void closeWindow();
 
-            void clear(Color oColor);
             void setVSync(bool bEnable);
 
             void setOpenGL();

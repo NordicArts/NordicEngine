@@ -20,10 +20,14 @@ namespace NordicArts {
         void Renderer::loadProgram(Shaders::Program *pProgram) {
             m_pProgram = pProgram;
         }
-        
+
+        void Renderer::clear() {
+            glClear(GL_COLOR_BUFFER_BIT);
+        }        
         void Renderer::clear(Color oColor) {
             glClearColor(oColor.m_iRed, oColor.m_iGreen, oColor.m_iBlue, oColor.m_iAlpha);
-            glClear(GL_COLOR_BUFFER_BIT);
+
+            clear();
         }
 
         void Renderer::useProgram() {
@@ -55,10 +59,6 @@ namespace NordicArts {
         }
         void Renderer::setViewPort(int iX, int iY, int iWidth, int iHeight) {
             glViewport(iX, iY, iWidth, iHeight);
-        }
-
-        void Renderer::clear() {
-            glClear(GL_COLOR_BUFFER_BIT);
         }
 
         void Renderer::setProjectionMode() {

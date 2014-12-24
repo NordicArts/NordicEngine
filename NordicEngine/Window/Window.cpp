@@ -49,9 +49,6 @@ namespace NordicArts {
             return 0;
         }
 
-        void Window::clear(Color oColor) {
-        }
-
         void Window::setOpenGL() {
             setOpenGL(3, 2);
         }

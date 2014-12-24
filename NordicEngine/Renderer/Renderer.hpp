@@ -27,10 +27,13 @@ namespace NordicArts {
             ~Renderer();
 
             // New
+            void clear();
             void clear(Color oColor);
+
             void loadProgram(Shaders::Program *pProgram);
             void useProgram();
             void clearProgram();
+
             void bindVertex(unsigned int iVAO);
             void drawTriangle();
 
@@ -40,7 +43,6 @@ namespace NordicArts {
             void setViewPort(int iX, int iY, int iWidth, int iHeight);
 
             void loadIdentity();
-            void clear();
             void setProjectionMode();
             void setModelMode();
             void view2d(float fLeft, float fRight, float fBottom, float fTop, float fNear, float fFar);

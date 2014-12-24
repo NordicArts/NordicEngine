@@ -73,6 +73,8 @@ namespace NordicArts{
                 const Program &operator =(const Program &);
 
             };
+
+            #include <NordicEngine/Shaders/Shaders.inl>
         };
     };
 };
