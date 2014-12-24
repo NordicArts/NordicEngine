@@ -31,7 +31,8 @@ deleteBuild()
 
 deleteLibs()
 {
-    rm -rf `find . -type f -name libGLFW.*`
+    rm -rf `find . -type f -name libglw3.*`
+    rm -rf `find . -type f -name liblua.*`
     rm -rf `find . -type f -name libSQLite.*`
     rm -rf `find . -type f -name libNordicEngine.*` 
 }
