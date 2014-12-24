@@ -9,7 +9,7 @@ This script cleans based on what type
 
 OPTIONS:
     -h  Shows this message
-    -t  Type of cleaning, can be all or cmake
+    -t  Type of cleaning, can be 'all' or 'cmake'
 EOF
 }
 
