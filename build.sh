@@ -50,10 +50,10 @@ pullQuiet()
 OPT=
 VERBOSE=
 
-while getopts "ho:v" OPTION
+while getopts "h:o:v" OPTION
 do
     case $OPTION in
-        t)
+        o)
             OPT=$OPTARG
             ;;
         h)
