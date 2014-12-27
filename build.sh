@@ -18,7 +18,7 @@ This script can build, clean, and grab new versions,
 OPTIONS:
     -h  Show this message
     -v  Verbose
-    -o  Option, can be 'rebuild' or 'pull'
+    -o  Option, can be 'build', 'rebuild', 'os' or 'pull' [default: build]
 EOF
 }
 
@@ -30,6 +30,16 @@ makeVerbose()
 makeQuiet()
 {
     cmake . > /dev/null
+    make > /dev/null
+}
+makeOSVerbose()
+{
+    cmake -DOSOnly=ON .
+    make
+}
+makeOSQuiet()
+{
+    cmake -DOSOnly=ON . > /dev/null
     make > /dev/null
 }
 
@@ -112,6 +122,19 @@ then
     else
         pullQuiet
         makeQuiet
+    fi
+
+    ./cleaner.sh -t cmake
+fi
+if [[ $OPT == "os" ]]
+then
+    ./cleaner.sh -t all
+
+    if [[ -z "$VERBOSE" ]]
+    then
+        makeOSVerbose
+    else
+        makeOSQuiet
     fi
 
     ./cleaner.sh -t cmake
