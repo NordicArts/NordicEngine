@@ -132,8 +132,10 @@ then
 
     if [[ -z "$VERBOSE" ]]
     then
+        pullVerbose
         makeOSVerbose
     else
+        pullQuiet
         makeOSQuiet
     fi
 
