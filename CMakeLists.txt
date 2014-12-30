@@ -8,15 +8,6 @@ project(NordicEngine)
 # OSX RPATH
 set(CMAKE_MACOSX_RPATH 0)
 
-# Options for OS or Engine
-option(OSOnly "OS Only" OFF)
-option(FullEngine "Full Engine" ON)
-
-cmake_dependent_option(FullEngine "Full Engine" ON "OSOnly" OFF)
-
-message(FullEngine)
-message(OSOnly)
-
 # NOS Files
 set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
 set(LibHeaders ${NE}/Engine.hpp)
