@@ -226,6 +226,12 @@ if (FullEngine)
     list(APPEND LibSources ${NE}/Light/Light.cpp)
 endif()
 
+# Settings
+link_directories(${NE}/Settings)
+include_directories(${NE}/Settings)
+list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
+list(APPEND LibSources ${NE}/Settings/Settings.cpp)
+
 # Lua
 link_directories(${NE}/Files/Handler/Lua)
 include_directories(${NE}/Files/Handler/Lua)

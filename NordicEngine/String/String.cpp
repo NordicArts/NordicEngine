@@ -3,7 +3,16 @@
 namespace NordicArts {
     namespace NordicEngine {
         // Get String from input
-        std::string getString(char cChar) {
+        std::string getString(const char *cChar) {
+            std::stringstream stringStream;
+            std::string returnString;
+
+            stringStream << cChar;
+            stringStream >> returnString;
+
+            return stringStream.str();
+        }
+        std::string getString(const char cChar) {
             std::stringstream stringStream;
             std::string returnString;
 
@@ -37,6 +46,15 @@ namespace NordicArts {
             } else {
                 returnString = "FALSE";
             }
+
+            return returnString;
+        }
+        std::string getString(long lValue) {
+            std::stringstream stringStream;
+            std::string returnString;
+
+            stringStream << lValue;
+            stringStream >> returnString;
 
             return returnString;
         }

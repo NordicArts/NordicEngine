@@ -94,6 +94,7 @@ namespace NordicArts {
             void setValue(std::string cColumn, int iValue);
             void setValue(std::string cColumn, float fValue);   
             void setValue(std::string cColumn, bool bValue);
+            void setValue(std::string cColumn, long lValue);
             void setValue(std::string cColumn, std::string cValue);
 
             // Set where clauses

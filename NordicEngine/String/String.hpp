@@ -6,10 +6,12 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        std::string getString(char cChar);
+        std::string getString(const char *cChar);
+        std::string getString(const char cChar);
         std::string getString(float fFloat);
         std::string getString(int iInt);
         std::string getString(bool bValue);
+        std::string getString(long lValue);
 
         std::string randString();
         std::string randString(int iLength);

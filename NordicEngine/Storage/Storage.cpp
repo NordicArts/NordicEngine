@@ -26,6 +26,11 @@ namespace NordicArts {
         }
 
         void Storage::connectDB(std::string cDB) {
+            std::size_t found = cDB.find(".db");
+            if (found == std::string::npos) {
+                cDB += ".db";
+            }
+
             int iConnection = sqlite3_open(cDB.c_str(), &m_pDB);
             if (iConnection) {
                 throw Exceptions(sqlite3_errmsg(m_pDB), true);
@@ -171,7 +176,7 @@ namespace NordicArts {
         // Create Table
         void Storage::createTable() {    
             if (m_vColumns.size() >= 1) {
-                std::string cSQL = "CREATE TABLE " + m_cTable + "(";
+                std::string cSQL = "CREATE TABLE IF NOT EXISTS " + m_cTable + "(";
 
                 for (int i = 0; i != m_vColumns.size(); i++) {
                    cSQL = (cSQL + m_vColumns.at(i));
@@ -183,6 +188,7 @@ namespace NordicArts {
 
                 cSQL = (cSQL + ");");
                 m_vColumns.clear();
+
                 createTable(cSQL);
             }
         }
@@ -221,11 +227,22 @@ namespace NordicArts {
 
             int iCreate = sqlite3_exec(m_pDB, cSQL.c_str(), setResult, NULL, &mError);
             if (iCreate) {
-                char cError[100];
+                char cError[1024];
                 std::sprintf(cError, "SQL Error: %s", mError);
                 sqlite3_free(mError);
 
-                throw Exceptions(cError, true);
+                int iDetail         = sqlite3_extended_errcode(m_pDB);
+                const char *cDetail = sqlite3_errstr(iDetail);
+
+                std::string cStringError = cSQL;
+                cStringError += "\n";
+                cStringError += cError;
+                cStringError += "\nError Number: ";
+                cStringError += getString(iCreate);
+                cStringError += "\nDetail: ";
+                cStringError += cDetail;
+
+                throw Exceptions(cStringError, true);
             }
         }
 
@@ -246,6 +263,9 @@ namespace NordicArts {
         }
         void Storage::setValue(std::string cColumn, bool bValue) {
             setValue(cColumn, getString(bValue));
+        }
+        void Storage::setValue(std::string cColumn, long lValue) {
+            setValue(cColumn, getString(lValue));
         }
         void Storage::setValue(std::string cColumn, std::string cValue) {
             m_mValues.insert(std::pair<std::string, std::string>(cColumn, cValue));
