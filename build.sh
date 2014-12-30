@@ -34,12 +34,12 @@ makeQuiet()
 }
 makeOSVerbose()
 {
-    cmake -DOSOnly=ON .
+    cmake -C OSOnly.txt .
     make
 }
 makeOSQuiet()
 {
-    cmake -DOSOnly=ON . > /dev/null
+    cmake -C OSOnly.txt . > /dev/null
     make > /dev/null
 }
 
@@ -60,7 +60,7 @@ pullQuiet()
 OPT=
 VERBOSE=
 
-while getopts "h:o:v" OPTION
+while getopts ":o:?hv" OPTION
 do
     case $OPTION in
         o)
@@ -85,8 +85,10 @@ then
     OPT=build
 fi
 
-# Run it
+# Clear screen
 clear
+
+# Run it
 if [[ $OPT == "build" ]]
 then
     if [[ -z "$VERBOSE" ]]
@@ -132,11 +134,11 @@ then
 
     if [[ -z "$VERBOSE" ]]
     then
-        pullVerbose
-        makeOSVerbose
-    else
         pullQuiet
         makeOSQuiet
+    else
+        pullVerbose
+        makeOSVerbose
     fi
 
     ./cleaner.sh -t cmake

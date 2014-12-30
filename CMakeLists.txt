@@ -1,5 +1,6 @@
 # CMake Version
 cmake_minimum_required(VERSION 2.8)
+include(CMakeDependentOption)
 
 # Project Name
 project(NordicEngine)
@@ -9,6 +10,12 @@ set(CMAKE_MACOSX_RPATH 0)
 
 # Options for OS or Engine
 option(OSOnly "OS Only" OFF)
+option(FullEngine "Full Engine" ON)
+
+cmake_dependent_option(FullEngine "Full Engine" ON "OSOnly" OFF)
+
+message(FullEngine)
+message(OSOnly)
 
 # NOS Files
 set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
@@ -115,8 +122,7 @@ list(APPEND LibHeaders ${NE}/Files/Handler/BitMap/BitMap.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/BitMap/BitMap.cpp)
 
 # Texture
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Files/Texture)
     include_directories(${NE}/Files/Texture)
     list(APPEND LibHeaders ${NE}/Files/Texture/Texture.hpp)
@@ -154,8 +160,7 @@ list(APPEND LibHeaders ${NE}/Utility/Utility.hpp)
 list(APPEND LibSources ${NE}/Utility/Utility.cpp)
 
 # Window
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Window)
     include_directories(${NE}/Window)
     list(APPEND LibHeaders ${NE}/Window/Window.hpp)
@@ -175,8 +180,7 @@ list(APPEND LibHeaders ${NE}/Player/Player.hpp)
 list(APPEND LibSources ${NE}/Player/Player.cpp)
 
 # Input
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Input)
     include_directories(${NE}/Input)
     list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
@@ -185,8 +189,7 @@ else()
 endif()
 
 # Renderer
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Renderer)
     include_directories(${NE}/Renderer)
     list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
@@ -194,8 +197,7 @@ else()
 endif()
 
 # Shaders
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Shaders)
     include_directories(${NE}/Shaders)
     list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
@@ -206,8 +208,7 @@ else()
 endif()
 
 # Camera
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Camera)
     include_directories(${NE}/Camera)
     list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
@@ -215,8 +216,7 @@ else()
 endif()
 
 # Model
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Model)
     include_directories(${NE}/Model)
     list(APPEND LibHeaders ${NE}/Model/Model.hpp)
@@ -224,8 +224,7 @@ else()
 endif()
 
 # Light
-if (OSOnly)
-else()
+if (FullEngine)
     link_directories(${NE}/Light)
     include_directories(${NE}/Light)
     list(APPEND LibHeaders ${NE}/Light/Light.hpp)
@@ -257,8 +256,7 @@ set_target_properties(NordicEngine PROPERTIES OUTPUT_NAME "NordicEngine")
 find_package(Boost COMPONENTS locale REQUIRED)
 include_directories(${Boost_INCLUDES})
 
-if (OSOnly)
-else()
+if (FullEngine)
     # GLFW
     option(GLFW_BUILD_EXAMPLES OFF)
     option(GLFW_BUILD_TESTS OFF)

@@ -1,0 +1,2 @@
+option(OSOnly "Setting OS Only ON" ON)
+option(FullEngine "Setting Full Engine OFF" OFF)
