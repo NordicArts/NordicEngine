@@ -39,7 +39,7 @@ deleteLibs()
 
 CLEANTYPE=
 
-while getopts "ht:v" OPTION
+while getopts ":t:vh?" OPTION
 do
     case $OPTION in
         h)
