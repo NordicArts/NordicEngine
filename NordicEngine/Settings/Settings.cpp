@@ -3,77 +3,70 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        static Settings *g_pSettings = nullptr;
-
-        Settings* const Settings::get() {
-            if (g_pSettings == nullptr) {
-                char cError[1024];
-                std::sprintf(cError, "%s Failed to use Settings", __FUNCTION__);
-
-                throw Exceptions(cError);
-            }
-
-            return g_pSettings;
-        }
-
         Settings::Settings() : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3) {
-            g_pSettings = this;
-
-            // Storage
-            Storage oStorage;
-            m_pStorage = &oStorage;
-
-            // Create table
-            createTable();
-            
+            printIt("Settings C 1");
         }
         Settings::Settings(Storage *pStorage) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3) {
-            g_pSettings = this;
-
+            printIt("Settings C2 1");
             m_pStorage = pStorage;
-
-            createTable();
+            printIt("Settings C2 2");
         }
         Settings::Settings(std::string cDB) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3) {
-            g_pSettings = this;
-
+            printIt("Settings C3 1");
             Storage        oStorage(cDB);
+            printIt("Settings C3 2");
             m_pStorage  = &oStorage;
-
-            createTable();
+            printIt("Settings C3 3");
         }
 
         Settings::~Settings() {
-            g_pSettings = nullptr;
+            m_pStorage = nullptr;
         }
 
         void Settings::registerLua(Lua *pLua) {
             lua_State *pState = pLua->getLua();
-    
 
             luabridge::getGlobalNamespace(pState)
                 .beginNamespace("NordicArts")
                     .beginClass<Settings>("Settings")
-                        .addConstructor<void(*)(void)>()
+                        .addConstructor<void(*)(std::string)>()
                         .addFunction("setSeed", &Settings::setRandomSeed)
                         .addFunction("getSeed", &Settings::getRandomSeed)
+                        .addFunction("createSettings", &Settings::createTable)
                     .endClass()
                 .endNamespace();
         }
 
         void Settings::setRandomSeed(int16_t iSeed) {
             m_iRandomNumberSeed = iSeed;
-        
-            m_pStorage->setTable("general_settings");
-            m_pStorage->setValue("randomSeed", iSeed);
-            m_pStorage->update();
+       
+            if (m_pStorage) {
+                printIt("Seed 1"); 
+                m_pStorage->setTable("general_settings");
+                printIt("Seed 2");
+                m_pStorage->setValue("randomSeed", iSeed);
+                printIt("Seed 3");
+                m_pStorage->update();
+                printIt("Seed 4");
+            }
         }
 
         int16_t Settings::getRandomSeed() const {
             int iSeed;
-            m_pStorage->select("SELECT randomSeed FROM general_settings");
-            std::map<std::string, std::string> mResult = m_pStorage->getResult();
-            printIt(mResult["randomSeed"]);
+
+            if (m_pStorage) {
+                printIt("Tester 1");
+                m_pStorage->select("SELECT randomSeed FROM general_settings");
+                printIt("Tester 2");
+                std::map<std::string, std::string> mResult = m_pStorage->getResult();
+                printIt("Tester 3");
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    printIt("Tester 4");
+                    iSeed = atoi(it->second.c_str());
+                    printIt("Tester 5");
+                }
+                printIt("Tester 6");
+            }
 
             return m_iRandomNumberSeed;
         }
@@ -91,7 +84,9 @@ namespace NordicArts {
             m_pStorage->addInt("physics");
             m_pStorage->addInt("randomSeed");
 
+            printIt("Create 13");
             m_pStorage->createTable();
+            printIt("Create 14");
         }
     };
 };

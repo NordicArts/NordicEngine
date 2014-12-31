@@ -32,6 +32,9 @@ namespace NordicArts {
             std::vector<std::string> m_vNullWheres;
             std::map<std::string, std::string> m_mWheres;
 
+            // Size of vectors
+            int m_iColumns;
+
         // Methods
         public:
             Storage();
@@ -127,7 +130,7 @@ namespace NordicArts {
         protected:
         private:
             void connectDB(std::string cDB);
-
+            void addColumn(std::string cColumn);
         };
     };
 };

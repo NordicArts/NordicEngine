@@ -3,7 +3,6 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Storage/Storage.hpp>
-#include <NordicEngine/Threading/Singleton/Singleton.hpp>
 #include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
@@ -34,8 +33,6 @@ namespace NordicArts {
 
         // Methods
         public:
-            static Settings* const get();
-
             Settings();
             Settings(Storage *pStorage);
             Settings(std::string cDB);
@@ -49,6 +46,7 @@ namespace NordicArts {
             void setVSync(bool bVSync);
             void setOpenGL(const glm::uvec2 &vOpenGL);
             void setFSAA(int8_t iFSAA);
+            void createTable();
 
             double getPhysicsRefresh() const;
 
@@ -67,7 +65,6 @@ namespace NordicArts {
 
         protected:
         private:
-            void createTable();
         };
     };
 };
