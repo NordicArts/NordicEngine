@@ -70,7 +70,7 @@ namespace NordicArts {
                 }
             }
             
-            addColumn(cColumn);
+            return addColumn(cColumn);
         }
 
         // CHAR columns
@@ -91,7 +91,7 @@ namespace NordicArts {
                 cColumn = (cName + " CHAR(" + getString(iLength) + ") NOT NULL");
             }
 
-            addColumn(cColumn);
+            return addColumn(cColumn);
         }
 
         // TEXT columns
@@ -107,7 +107,7 @@ namespace NordicArts {
                 cColumn = (cName + " TEXT NOT NULL");
             }
       
-            addColumn(cColumn); 
+            return addColumn(cColumn); 
         }
 
         // REAL columns
@@ -123,7 +123,7 @@ namespace NordicArts {
                 cColumn = (cName + " REAL NOT NULL");
             }
         
-            addColumn(cColumn);
+            return addColumn(cColumn);
         }
 
         // BLOB columns
@@ -139,7 +139,7 @@ namespace NordicArts {
                 cColumn = (cName + " BLOB NOT NULL");
             }
 
-            addColumn(cColumn);
+            return addColumn(cColumn);
         }
 
         // BOOL columns        
@@ -150,15 +150,15 @@ namespace NordicArts {
             return addBool(cName, bIndex, false);
         }
         void Storage::addBool(std::string cName, bool bIndex, bool bNullable) {
-            addInt(cName, 1, bNullable, bIndex);
+            return addInt(cName, 1, bNullable, bIndex);
         }
 
         // DATE columns
         void Storage::addDate(std::string cName) {
-            addDate(cName, false);
+            return addDate(cName, false);
         }
         void Storage::addDate(std::string cName, bool bNullable) {
-            addText(cName, bNullable);
+            return addText(cName, bNullable);
         }
 
         // Add Column
@@ -166,57 +166,29 @@ namespace NordicArts {
             if (m_cTable == "") { return; }
             if (m_cDB == "") { return; }
 
-            std::vector<std::string> vColumns;
-            printIt(m_vColumns.size());
-
-            printIt(cColumn);
-            
             int iColumns = 0;
             iColumns = m_iColumns;
             if (iColumns == 0) {
-                printIt("Add Column 1");
-                if (!m_vColumns.empty()) {
-                    printIt("Add Column 1.1");
-                    for (std::vector<std::string>::iterator it = m_vColumns.begin(); it != m_vColumns.end(); ++it) {
-                        printIt("Add Column 1.2");
-                        printIt(*it);
-                        printIt("Add Column 1.3");
-                    }
-
-                    printIt("Add Column 1.4");
-                    vColumns = m_vColumns;
-                    printIt("Add Column 1.5");
-                }
-                printIt("Add Column 2");
+                m_vColumns.clear();
             }
 
             iColumns += 1;
             m_iColumns = iColumns;
 
-            //m_vColumns.resize(iColumns);
-            printIt("Add Column 3");
-            vColumns.push_back(cColumn);
-            printIt("Add Column 4");
+            m_vColumns.push_back(cColumn);
 
-            printIt("Add Column 5");
-            m_vColumns = vColumns;
-            printIt("Add Column 6");
+            return;
         }
 
         // Create Table
         void Storage::createTable() {    
             std::string cTest;
 
-            printIt("CT 1");
-
             if (m_vColumns.size() >= 1) {
-                printIt("CT 2");
                 std::string cSQL = "CREATE TABLE IF NOT EXISTS " + m_cTable + "(";
 
-                printIt("CT 3");
                 for (int i = 0; i != m_vColumns.size(); i++) {
                     cTest = m_vColumns.at(i);
-                    printIt(cTest);
                     if (cTest == "") { continue; }
 
                     cSQL = (cSQL + m_vColumns.at(i));
@@ -225,14 +197,10 @@ namespace NordicArts {
                         cSQL = (cSQL + ", ");
                     }
                 }
-                printIt("CT 5");
 
                 cSQL = (cSQL + ");");
-                printIt("CT 6");
-                m_vColumns.clear();
-                printIt("CT 7");
 
-                createTable(cSQL);
+                return createTable(cSQL);
             }
         }
         void Storage::createTable(std::string cSQL) {
@@ -241,10 +209,10 @@ namespace NordicArts {
 
         // Create Index
         void Storage::addIndex(std::string cName) {
-            addIndex(cName, cName);
+            return addIndex(cName, cName);
         }
         void Storage::addIndex(std::string cName, std::string cColumn) {
-            addIndex(cName, cColumn, m_cTable);
+            return addIndex(cName, cColumn, m_cTable);
         }
         void Storage::addIndex(std::string cName, std::vector<std::string> vColumns) {
             std::string cColumns;
@@ -256,7 +224,7 @@ namespace NordicArts {
                     cColumns = (cColumns + ", ");
                 }
             }
-            addIndex(cName, cColumns, m_cTable);
+            return addIndex(cName, cColumns, m_cTable);
         }
         void Storage::addIndex(std::string cName, std::string cColumn, std::string cTable) {
             std::string cSQL = ("CREATE INDEX " + cName + " ON " + cTable + "(" + cColumn + ");");
@@ -280,7 +248,7 @@ namespace NordicArts {
             if (iConnection) {
                 throw Exceptions(sqlite3_errmsg(pDB), true);
             }
-
+    
             // Execute SQL
             int iExecute = sqlite3_exec(pDB, cSQL.c_str(), setResult, nullptr, &mError);
             if (iExecute) {
@@ -304,48 +272,58 @@ namespace NordicArts {
             }
 
             sqlite3_close(pDB);
+            
+            return;
         }
 
         // Set Column
         void Storage::setColumn(std::string cColumn) {
-            setValue(cColumn);
+            return setValue(cColumn);
         }
 
         // Values to update
         void Storage::setValue(std::string cColumn) {
-            m_vNullValues.insert(m_vNullValues.end(), cColumn);
+            m_vNullValues.push_back(cColumn);
+
+            return;
         }
         void Storage::setValue(std::string cColumn, int iValue) {
-            setValue(cColumn, getString(iValue));
+            return setValue(cColumn, getString(iValue));
         }
         void Storage::setValue(std::string cColumn, float fValue) {
-            setValue(cColumn, getString(fValue));
+            return setValue(cColumn, getString(fValue));
         }
         void Storage::setValue(std::string cColumn, bool bValue) {
-            setValue(cColumn, getString(bValue));
+            return setValue(cColumn, getString(bValue));
         }
         void Storage::setValue(std::string cColumn, long lValue) {
-            setValue(cColumn, getString(lValue));
+            return setValue(cColumn, getString(lValue));
         }
         void Storage::setValue(std::string cColumn, std::string cValue) {
             m_mValues.insert(std::pair<std::string, std::string>(cColumn, cValue));
+
+            return;
         }
     
         // Where clauses
         void Storage::setWhere(std::string cColumn) {
-            m_vNullWheres.insert(m_vNullValues.end(), cColumn);
+            m_vNullWheres.push_back(cColumn);
+
+            return;
         }
         void Storage::setWhere(std::string cColumn, int iValue) {
-            setWhere(cColumn, getString(iValue));
+            return setWhere(cColumn, getString(iValue));
         }
         void Storage::setWhere(std::string cColumn, float fValue) {
-            setWhere(cColumn, getString(fValue));
+            return setWhere(cColumn, getString(fValue));
         }
         void Storage::setWhere(std::string cColumn, bool bValue) {
-            setWhere(cColumn, getString(bValue));
+            return setWhere(cColumn, getString(bValue));
         }
         void Storage::setWhere(std::string cColumn, std::string cValue) {
             m_mWheres.insert(std::pair<std::string, std::string>(cColumn, cValue));
+
+            return;
         }
 
         // Update
@@ -641,8 +619,6 @@ namespace NordicArts {
             return 0;
         }
         std::map<std::string, std::string> Storage::getResult() {
-            printIt(gResult.size());
-
             std::map<std::string, std::string> mResult = gResult;
             gResult.clear();
             

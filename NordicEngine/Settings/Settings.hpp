@@ -36,8 +36,7 @@ namespace NordicArts {
         // Methods
         public:
             Settings();
-            Settings(Storage *pStorage);
-            Settings(std::string cDB);
+            Settings(std::string cGameName);
 
             virtual ~Settings();
 
@@ -70,6 +69,8 @@ namespace NordicArts {
 
         protected:
         private:
+            void setDefaults();
+
         };
     };
 };
