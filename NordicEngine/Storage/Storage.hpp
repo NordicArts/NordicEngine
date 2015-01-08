@@ -16,11 +16,10 @@ namespace NordicArts {
         public:
         protected:
         private:
-            sqlite3 *m_pDB;
-
             Logger *m_pLogger;
             
             std::string m_cTable;
+            std::string m_cDB;
 
             std::vector<std::string> m_vColumns;
 
@@ -42,6 +41,9 @@ namespace NordicArts {
             Storage(Logger *pLogger, std::string cDB);
 
             ~Storage();
+
+            void setDB(std::string cDB);
+            std::string getDB() const;
     
             // set the table todo actions on
             void setTable(std::string cTable);
@@ -129,7 +131,6 @@ namespace NordicArts {
             
         protected:
         private:
-            void connectDB(std::string cDB);
             void addColumn(std::string cColumn);
         };
     };

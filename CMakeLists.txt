@@ -244,7 +244,7 @@ include_directories(${NET}/sqlite)
 add_subdirectory(${NET}/sqlite)
 
 # Build Number
-string(TIMESTAMP buildNumber "%j%Y%H%M%S")
+string(TIMESTAMP buildNumber "9%j%y%H%M")
 file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
 list(APPEND LibHeaders ${NE}/buildNumber.hpp)
 

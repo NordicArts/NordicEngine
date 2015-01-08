@@ -9,7 +9,7 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        class Settings final {
+        class Settings {
         // Variables
         public:
         protected:
@@ -31,6 +31,8 @@ namespace NordicArts {
 
             Storage        *m_pStorage;
 
+            std::string     m_cGameName;
+
         // Methods
         public:
             Settings();
@@ -40,6 +42,11 @@ namespace NordicArts {
             virtual ~Settings();
 
             void setRandomSeed(int16_t iSeed);
+            int16_t getRandomSeed() const;
+
+            void setGameName(std::string cName);
+            std::string getGameName() const;
+
             void setWindowMode(bool bWindow);
             void setStats(bool bStats);
             void setFOV(float fFOV);
@@ -58,8 +65,6 @@ namespace NordicArts {
             float getFOV() const;
             
             int8_t getFSAA() const;
-
-            int16_t getRandomSeed() const;
 
             static void registerLua(Lua *pLua);
 

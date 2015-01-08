@@ -5,42 +5,34 @@ namespace NordicArts {
     namespace NordicEngine {
         std::map<std::string, std::string> gResult;
 
-        Storage::Storage() : m_pDB(nullptr), m_pLogger(nullptr), m_iColumns(0) {
+        Storage::Storage() : m_iColumns(0), m_pLogger(nullptr), m_cDB("NordicArts") {
         }
 
-        Storage::Storage(std::string cDB) : m_pDB(nullptr), m_pLogger(nullptr), m_iColumns(0) {
-            connectDB(cDB);
+        Storage::Storage(std::string cDB) : m_pLogger(nullptr), m_iColumns(0), m_cDB(cDB) {
         } 
 
-        Storage::Storage(Logger *pLogger, std::string cDB) : m_pDB(nullptr), m_pLogger(pLogger), m_iColumns(0) {
-            connectDB(cDB);
+        Storage::Storage(Logger *pLogger, std::string cDB) : m_iColumns(0), m_pLogger(pLogger), m_cDB(cDB) {
         }
 
         Storage::~Storage() {
-            if (m_pDB) {
-                sqlite3_close(m_pDB);
-            }
-
-            m_pDB       = nullptr;
             m_pLogger   = nullptr;
         }
 
-        void Storage::connectDB(std::string cDB) {
-            std::size_t found = cDB.find(".db");
-            if (found == std::string::npos) {
-                cDB += ".db";
-            }
+        void Storage::setDB(std::string cDB) {
+            m_cDB = cDB;
+    
+            return;
+        }
 
-            int iConnection = sqlite3_open(cDB.c_str(), &m_pDB);
-            if (iConnection) {
-                printIt(sqlite3_errmsg(m_pDB));
-
-                throw Exceptions(sqlite3_errmsg(m_pDB), true);
-            }
+        std::string Storage::getDB() const {
+            return m_cDB;
         }
 
         void Storage::setTable(std::string cTable) {
-            m_cTable = cTable;
+            m_cTable.assign(cTable);
+
+            // Reset columns on table name
+            m_iColumns = 0;
 
             return;
         }
@@ -77,16 +69,8 @@ namespace NordicArts {
                     }
                 }
             }
-
-            if (cColumn.size() >= 1) {
-                printIt("Column add 1");
-                printIt(m_vColumns.size());
-                printIt(cColumn);
-
-                m_vColumns.push_back(cColumn);
-//                m_vColumns.insert(m_vColumns.end(), cColumn);
-                printIt("Column add 2");
-            }
+            
+            addColumn(cColumn);
         }
 
         // CHAR columns
@@ -107,9 +91,7 @@ namespace NordicArts {
                 cColumn = (cName + " CHAR(" + getString(iLength) + ") NOT NULL");
             }
 
-            if (cColumn.size() >= 1) {
-                m_vColumns.insert(m_vColumns.end(), cColumn);
-            }
+            addColumn(cColumn);
         }
 
         // TEXT columns
@@ -124,10 +106,8 @@ namespace NordicArts {
             } else {
                 cColumn = (cName + " TEXT NOT NULL");
             }
-        
-            if (cColumn.size() >= 1) { 
-                m_vColumns.insert(m_vColumns.end(), cColumn);
-            }
+      
+            addColumn(cColumn); 
         }
 
         // REAL columns
@@ -143,7 +123,7 @@ namespace NordicArts {
                 cColumn = (cName + " REAL NOT NULL");
             }
         
-            m_vColumns.insert(m_vColumns.end(), cColumn);
+            addColumn(cColumn);
         }
 
         // BLOB columns
@@ -159,9 +139,7 @@ namespace NordicArts {
                 cColumn = (cName + " BLOB NOT NULL");
             }
 
-            if (cColumn.size() >= 1) {
-                m_vColumns.insert(m_vColumns.end(), cColumn);
-            }
+            addColumn(cColumn);
         }
 
         // BOOL columns        
@@ -185,24 +163,74 @@ namespace NordicArts {
 
         // Add Column
         void Storage::addColumn(std::string cColumn) {
+            if (m_cTable == "") { return; }
+            if (m_cDB == "") { return; }
+
+            std::vector<std::string> vColumns;
+            printIt(m_vColumns.size());
+
+            printIt(cColumn);
             
+            int iColumns = 0;
+            iColumns = m_iColumns;
+            if (iColumns == 0) {
+                printIt("Add Column 1");
+                if (!m_vColumns.empty()) {
+                    printIt("Add Column 1.1");
+                    for (std::vector<std::string>::iterator it = m_vColumns.begin(); it != m_vColumns.end(); ++it) {
+                        printIt("Add Column 1.2");
+                        printIt(*it);
+                        printIt("Add Column 1.3");
+                    }
+
+                    printIt("Add Column 1.4");
+                    vColumns = m_vColumns;
+                    printIt("Add Column 1.5");
+                }
+                printIt("Add Column 2");
+            }
+
+            iColumns += 1;
+            m_iColumns = iColumns;
+
+            //m_vColumns.resize(iColumns);
+            printIt("Add Column 3");
+            vColumns.push_back(cColumn);
+            printIt("Add Column 4");
+
+            printIt("Add Column 5");
+            m_vColumns = vColumns;
+            printIt("Add Column 6");
         }
 
         // Create Table
         void Storage::createTable() {    
+            std::string cTest;
+
+            printIt("CT 1");
+
             if (m_vColumns.size() >= 1) {
+                printIt("CT 2");
                 std::string cSQL = "CREATE TABLE IF NOT EXISTS " + m_cTable + "(";
 
+                printIt("CT 3");
                 for (int i = 0; i != m_vColumns.size(); i++) {
-                   cSQL = (cSQL + m_vColumns.at(i));
+                    cTest = m_vColumns.at(i);
+                    printIt(cTest);
+                    if (cTest == "") { continue; }
+
+                    cSQL = (cSQL + m_vColumns.at(i));
                 
                     if (i != (m_vColumns.size() - 1)) {
                         cSQL = (cSQL + ", ");
                     }
                 }
+                printIt("CT 5");
 
                 cSQL = (cSQL + ");");
+                printIt("CT 6");
                 m_vColumns.clear();
+                printIt("CT 7");
 
                 createTable(cSQL);
             }
@@ -239,31 +267,43 @@ namespace NordicArts {
         // Executabe abitry SQL
         void Storage::execute(std::string cSQL) {
             char *mError = 0;
+            char cError[1024];
 
-            printIt("Storage 99");
-            printIt(cSQL);
+            // Connect to DB
+            std::size_t nFound = m_cDB.find(".db");
+            if (nFound == std::string::npos) {
+                m_cDB += ".db";
+            }
 
-            int iCreate = sqlite3_exec(m_pDB, cSQL.c_str(), setResult, NULL, &mError);
-            if (iCreate) {
-                char cError[1024];
+            sqlite3 *pDB;
+            int iConnection = sqlite3_open(m_cDB.c_str(), &pDB);
+            if (iConnection) {
+                throw Exceptions(sqlite3_errmsg(pDB), true);
+            }
+
+            // Execute SQL
+            int iExecute = sqlite3_exec(pDB, cSQL.c_str(), setResult, nullptr, &mError);
+            if (iExecute) {
                 std::sprintf(cError, "SQL Error: %s", mError);
                 sqlite3_free(mError);
 
-                int iDetail         = sqlite3_extended_errcode(m_pDB);
+                int iDetail         = sqlite3_extended_errcode(pDB);
                 const char *cDetail = sqlite3_errstr(iDetail);
 
                 std::string cStringError = cSQL;
                 cStringError += "\n";
                 cStringError += cError;
                 cStringError += "\nError Number: ";
-                cStringError += getString(iCreate);
+                cStringError += getString(iExecute);
                 cStringError += "\nDetail: ";
                 cStringError += cDetail;
 
-                printIt(cStringError);
+                sqlite3_close(pDB);
 
                 throw Exceptions(cStringError, true);
             }
+
+            sqlite3_close(pDB);
         }
 
         // Set Column
@@ -588,18 +628,10 @@ namespace NordicArts {
 
         // Result
         int Storage::setResult(void *pObject, int iArgc, char **cArgv, char **cColumn) {
-            printIt("Storage 1");
-
             std::map<std::string, std::string> mResult;
-            printIt("Storage 2");
-
             for (int i = 0; i < iArgc; i++) {
                 mResult.insert(std::pair<std::string, std::string>(cColumn[i], (cArgv[i] ? cArgv[i] : "NULL")));
             }
-            printIt("Storage 3");
-
-            printIt(mResult.size());
-
             // there is a result
             if (mResult.size() != -1) {
                 gResult.clear();
@@ -609,12 +641,10 @@ namespace NordicArts {
             return 0;
         }
         std::map<std::string, std::string> Storage::getResult() {
-            printIt("Storage 4");
             printIt(gResult.size());
 
             std::map<std::string, std::string> mResult = gResult;
             gResult.clear();
-            printIt("Storage 5");
             
             return mResult;
         }
