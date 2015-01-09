@@ -1,25 +1,80 @@
 #include <NordicEngine/Player/Player.hpp>
 #include <NordicEngine/String/String.hpp>
+#include <NordicEngine/Storage/Storage.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
-        Player::Player() {
+        Player::Player() : m_cGameName("NordicArts"), m_cName("Geoff"), m_bSetupDone(false) {
+        }
+        Player::Player(std::string cGameName) : m_cGameName(cGameName), m_cName("Geoff"), m_bSetupDone(false) {
         }
         Player::Player(int iLife) : m_iLife(iLife) {
         }
 
+        void Player::setup() {
+            Storage oStorage(m_cGameName);
+            
+            oStorage.setTable("general_player");
+            oStorage.addText("playerName");
+            oStorage.addInt("life");
+            oStorage.createTable();
+
+            oStorage.setTable("general_player");
+            oStorage.setValue("playerName", m_cName);
+            oStorage.setValue("life", 99);
+            oStorage.insert();
+        }
+        void Player::setupGame(std::string cGameName) {
+            m_cGameName = cGameName;
+            setup();
+
+            m_bSetupDone = true;
+        }
+
         void Player::setName(std::string cName) {
             m_cName = cName;
+
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setValue("playerName", cName);
+            oStorage.update();
         }
         std::string Player::getName() const {
-            return m_cName;
+            std::string cName;
+
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setColumn("playerName");
+            oStorage.select();
+            std::map<std::string, std::string> mResult = oStorage.getResult();
+            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                cName = it->second;
+            }
+
+            return cName;
         }
 
         void Player::setLife(int iLife) {
             m_iLife = iLife;
+
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setValue("life", iLife);
+            oStorage.update();
         }
         int Player::getLife() const {
-            return m_iLife;
+            int iLife;
+        
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setColumn("life");
+            oStorage.select();
+            std::map<std::string, std::string> mResult = oStorage.getResult();
+            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                iLife = atoi(it->second.c_str());
+            }
+
+            return iLife;
         }
 
         int Player::incrementLife() {
@@ -27,6 +82,8 @@ namespace NordicArts {
         }
         int Player::incrementLifeAmount(int iLife) {
             m_iLife += iLife;
+
+            setLife(m_iLife);
         
             return m_iLife;
         }
@@ -36,6 +93,8 @@ namespace NordicArts {
         }
         int Player::decrementLifeAmount(int iLife) {
             m_iLife -= iLife;
+
+            setLife(m_iLife);
 
             return m_iLife;
         }
@@ -68,14 +127,17 @@ namespace NordicArts {
                 .beginNamespace("NordicArts")
                     .beginClass<Player>("Player")
                         .addConstructor<void (*)(void)>()
-                        .addFunction("setName", &Player::setName)
-                        .addFunction("setLife", &Player::setLife)
+
+                        .addFunction("setup", &Player::setupGame)
                         .addFunction("getDetails", &Player::getDetails)
                         .addFunction("decrementLife", &Player::decrementLife)
                         .addFunction("decrementLifeAmount", &Player::decrementLifeAmount)
                         .addFunction("incrementLife", &Player::incrementLife)
                         .addFunction("incrementLifeAmount", &Player::incrementLifeAmount)
-                        .addFunction("isAlive", &Player::isAlive)
+                       
+                        .addProperty("name", &Player::getName, &Player::setName) 
+                        .addProperty("life", &Player::getLife, &Player::setLife)
+                        .addProperty("alive", &Player::isAlive)
                     .endClass()
                 .endNamespace();
         }

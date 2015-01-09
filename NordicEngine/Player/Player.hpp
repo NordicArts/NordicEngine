@@ -12,13 +12,20 @@ namespace NordicArts {
         protected:
         private:
             int m_iLife;
+
+            bool m_bSetupDone;
         
             std::string m_cName;
+            std::string m_cGameName;
 
         // Methods
         public:
             Player();
+            Player(std::string cGameName);
             Player(int iLife);
+
+            void setup();
+            void setupGame(std::string cGameName);
 
             void setName(std::string cName);
             std::string getName() const;
