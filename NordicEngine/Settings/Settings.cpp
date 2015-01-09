@@ -317,23 +317,22 @@ namespace NordicArts {
 
             if (!m_bSettingsDone) {
                 Storage  oStorage(m_cGameName);
-                Storage *pStorage = &oStorage;
     
-                pStorage->setTable("general_settings");
+                oStorage.setTable("general_settings");
         
-                pStorage->setValue("gameName", m_cGameName);
-                pStorage->setValue("windowMode", m_bWindowMode);
-                pStorage->setValue("vsync", true);
-                pStorage->setValue("fov", 45);
-                pStorage->setValue("opengl_major", (int)m_vOpenGL.x);
-                pStorage->setValue("opengl_minor", (int)m_vOpenGL.y);
-                pStorage->setValue("resolution_width", 800);
-                pStorage->setValue("resolution_height", 600);
-                pStorage->setValue("fsaa", 0);
-                pStorage->setValue("physics", (int)m_iPhysicsRefreshRate);
-                pStorage->setValue("randomSeed", 2015);
+                oStorage.setValue("gameName", m_cGameName);
+                oStorage.setValue("windowMode", m_bWindowMode);
+                oStorage.setValue("vsync", true);
+                oStorage.setValue("fov", 45);
+                oStorage.setValue("opengl_major", (int)m_vOpenGL.x);
+                oStorage.setValue("opengl_minor", (int)m_vOpenGL.y);
+                oStorage.setValue("resolution_width", 800);
+                oStorage.setValue("resolution_height", 600);
+                oStorage.setValue("fsaa", 0);
+                oStorage.setValue("physics", (int)m_iPhysicsRefreshRate);
+                oStorage.setValue("randomSeed", 2015);
 
-                pStorage->insert();
+                oStorage.insert();
     
                 m_bSettingsDone = true;
             }
@@ -343,23 +342,22 @@ namespace NordicArts {
 
         void Settings::createTable() {
             Storage  oStorage(m_cGameName);
-            Storage *pStorage = &oStorage;
 
-            pStorage->setTable("general_settings");
+            oStorage.setTable("general_settings");
 
-            pStorage->addText("gameName");
-            pStorage->addBool("windowMode");
-            pStorage->addBool("vsync");
-            pStorage->addReal("fov");
-            pStorage->addInt("opengl_major");
-            pStorage->addInt("opengl_minor");
-            pStorage->addInt("resolution_width");
-            pStorage->addInt("resolution_height");
-            pStorage->addInt("fsaa");
-            pStorage->addInt("physics");
-            pStorage->addInt("randomSeed");
+            oStorage.addText("gameName");
+            oStorage.addBool("windowMode");
+            oStorage.addBool("vsync");
+            oStorage.addReal("fov");
+            oStorage.addInt("opengl_major");
+            oStorage.addInt("opengl_minor");
+            oStorage.addInt("resolution_width");
+            oStorage.addInt("resolution_height");
+            oStorage.addInt("fsaa");
+            oStorage.addInt("physics");
+            oStorage.addInt("randomSeed");
                 
-            pStorage->createTable();
+            oStorage.createTable();
 
             setDefaults();
 
