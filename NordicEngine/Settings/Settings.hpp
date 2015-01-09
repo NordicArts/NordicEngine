@@ -2,7 +2,6 @@
 #define NordicArts_NordicEngine_Settings_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Storage/Storage.hpp>
 #include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
@@ -16,20 +15,19 @@ namespace NordicArts {
         private:
             unsigned int    m_iPhysicsRefreshRate;
             
-            int8_t          m_iFSAA;
+            int             m_iFSAA;
 
-            int16_t         m_iRandomNumberSeed;
+            int             m_iRandomNumberSeed;
 
             bool            m_bWindowMode;
             bool            m_bStatsLogging;
             bool            m_bVSync;
+            bool            m_bSettingsDone;
         
             glm::uvec2      m_vResolution;
             glm::uvec2      m_vOpenGL;
 
             float           m_fFOV;
-
-            Storage        *m_pStorage;
 
             std::string     m_cGameName;
 
@@ -40,35 +38,50 @@ namespace NordicArts {
 
             virtual ~Settings();
 
-            void setRandomSeed(int16_t iSeed);
-            int16_t getRandomSeed() const;
+            void setRandomSeed(int iSeed);
+            int getRandomSeed() const;
 
             void setGameName(std::string cName);
             std::string getGameName() const;
-
-            void setWindowMode(bool bWindow);
+            
             void setStats(bool bStats);
+
             void setFOV(float fFOV);
+            float getFOV() const;
+
             void setVSync(bool bVSync);
+            bool getVSync() const;
+
             void setOpenGL(const glm::uvec2 &vOpenGL);
-            void setFSAA(int8_t iFSAA);
+            const glm::uvec2 getOpenGL() const;            
+
+            void setOpenGLVerbose(int iMajor, int iMinor);
+            int getOpenGLMajor() const;
+            int getOpenGLMinor() const;
+
+            void setFSAA(int iFSAA);
+            int getFSAA() const;
+
             void createTable();
 
-            double getPhysicsRefresh() const;
+            void setPhysicsRefresh(int iRefresh);
+            int getPhysicsRefresh() const;
 
+            void setResolution(const glm::uvec2 &vResolution);
             const glm::uvec2 getResolution() const;
 
-            bool getVSync() const;
-            bool isWindowed() const;
+            void setResolutionVerbose(int iWidth, int iHeight);
+            int getResolutionWidth() const;
+            int getResolutionHeight() const;
 
-            float getFOV() const;
-            
-            int8_t getFSAA() const;
+            void setWindowMode(bool bWindow);
+            bool isWindowed() const;
 
             static void registerLua(Lua *pLua);
 
         protected:
         private:
+            bool checkDefaults();
             void setDefaults();
 
         };
