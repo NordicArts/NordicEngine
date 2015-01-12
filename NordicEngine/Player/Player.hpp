@@ -12,6 +12,7 @@ namespace NordicArts {
         protected:
         private:
             int m_iLife;
+            int m_iId;
 
             bool m_bSetupDone;
         
@@ -23,6 +24,8 @@ namespace NordicArts {
             Player();
             Player(std::string cGameName);
             Player(int iLife);
+
+            void addPlayer();
 
             void setup();
             void setupGame(std::string cGameName);
@@ -43,6 +46,9 @@ namespace NordicArts {
             bool alive() const;
 
             std::string getDetails() const;
+
+            void setPlayerId(int iId);
+            int getPlayerId() const;
 
             static void registerLua(Lua *pLua);
 

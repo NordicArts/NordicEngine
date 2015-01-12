@@ -15,14 +15,10 @@ namespace NordicArts {
             Storage oStorage(m_cGameName);
             
             oStorage.setTable("general_player");
+            oStorage.addPrimary("playerId");
             oStorage.addText("playerName");
             oStorage.addInt("life");
             oStorage.createTable();
-
-            oStorage.setTable("general_player");
-            oStorage.setValue("playerName", m_cName);
-            oStorage.setValue("life", 99);
-            oStorage.insert();
         }
         void Player::setupGame(std::string cGameName) {
             m_cGameName = cGameName;
@@ -37,6 +33,7 @@ namespace NordicArts {
             Storage oStorage(m_cGameName);
             oStorage.setTable("general_player");
             oStorage.setValue("playerName", cName);
+            oStorage.setWhere("playerId", m_iId);
             oStorage.update();
         }
         std::string Player::getName() const {
@@ -45,6 +42,7 @@ namespace NordicArts {
             Storage oStorage(m_cGameName);
             oStorage.setTable("general_player");
             oStorage.setColumn("playerName");
+            oStorage.setWhere("playerId", m_iId);
             oStorage.select();
             std::map<std::string, std::string> mResult = oStorage.getResult();
             for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
@@ -54,12 +52,43 @@ namespace NordicArts {
             return cName;
         }
 
+        void Player::setPlayerId(int iId) {
+            m_iId = iId;
+        }
+        int Player::getPlayerId() const {
+            int iId;
+        
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setColumn("playerId");
+            oStorage.setWhere("playerName", m_cName);
+            oStorage.select();
+            std::map<std::string, std::string> mResult = oStorage.getResult();
+            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                iId = atoi(it->second.c_str());
+            }
+
+            return iId;
+        }
+
+        void Player::addPlayer() {
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_player");
+            oStorage.setValue("playerName", m_cName);
+            oStorage.setValue("life", m_iLife);
+            oStorage.insert();
+
+            int iPlayerId = getPlayerId();
+            setPlayerId(iPlayerId);
+        }
+
         void Player::setLife(int iLife) {
             m_iLife = iLife;
 
             Storage oStorage(m_cGameName);
             oStorage.setTable("general_player");
             oStorage.setValue("life", iLife);
+            oStorage.setWhere("playerId", m_iId);
             oStorage.update();
         }
         int Player::getLife() const {
@@ -134,9 +163,11 @@ namespace NordicArts {
                         .addFunction("decrementLifeAmount", &Player::decrementLifeAmount)
                         .addFunction("incrementLife", &Player::incrementLife)
                         .addFunction("incrementLifeAmount", &Player::incrementLifeAmount)
+                        .addFunction("addPlayer", &Player::addPlayer)
                        
                         .addProperty("name", &Player::getName, &Player::setName) 
                         .addProperty("life", &Player::getLife, &Player::setLife)
+                        .addProperty("id", &Player::getPlayerId, &Player::setPlayerId)
                         .addProperty("alive", &Player::isAlive)
                     .endClass()
                 .endNamespace();
