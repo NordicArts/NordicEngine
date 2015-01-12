@@ -7,11 +7,6 @@
 #include <NordicEngine/Files/Files.hpp>
 
 #include <NordicEngine/ThirdParty/lua/lua/include/lua.hpp>
-//extern "C" {
-//    #include <NordicEngine/ThirdParty/lua/lua/include/lua.h>
-//    #include <NordicEngine/ThirdParty/lua/lua/include/lualib.h>
-//    #include <NordicEngine/ThirdParty/lua/lua/include/lauxlib.h>
-//}
 #include <NordicEngine/ThirdParty/LuaBridge/Source/LuaBridge/LuaBridge.h>
 
 namespace NordicArts {
@@ -22,6 +17,7 @@ namespace NordicArts {
         protected:
         private:
             lua_State *m_pLua;
+            
 
         // Methods
         public:

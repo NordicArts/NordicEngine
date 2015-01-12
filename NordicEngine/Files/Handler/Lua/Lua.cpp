@@ -19,9 +19,7 @@ namespace NordicArts {
                 const char *cError = lua_tostring(m_pLua, iState);
                 lua_pop(m_pLua, 1);
 
-                printIt(cError);
-
-                throw Exceptions(cError);
+                throw Exceptions(cError, iState, true);
             }
         }
 
