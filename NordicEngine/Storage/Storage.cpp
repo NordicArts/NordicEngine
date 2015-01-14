@@ -626,9 +626,10 @@ namespace NordicArts {
             return mResult;
         }
 
-        void Storage::destroyDatabase() {
+        bool Storage::destroyDatabase() {
             Files oFiles(m_cDB);
-            oFiles.deleteFile();
+
+            return oFiles.deleteFile();
         }
     };
 };

@@ -1,0 +1,1 @@
+option(UnitTest "Settings Unit Tests ON" ON)

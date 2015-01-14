@@ -50,7 +50,7 @@ namespace NordicArts {
             }
         }
 
-        void Files::deleteFile() {
+        bool Files::deleteFile() {
             if (m_bSaveException) {
                 TextFile::Writer oWriter(m_cFile, m_bFilePath, false, m_bSaveException);
 

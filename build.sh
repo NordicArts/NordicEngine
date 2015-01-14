@@ -93,7 +93,21 @@ makeTestFullQuiet()
     echo "Make Full Quiet"
 
     cmake -C CMakeConfigs/TestFull.txt . > /dev/null
-    cmake > /dev/null
+    make > /dev/null
+}
+makeTestVerbose()
+{
+    echo "Make Test Verbose"
+
+    cmake -C CMakeConfigs/Test.txt .
+    make
+}
+makeTestQuiet() 
+{
+    echo "Make Test Quiet"
+    
+    cmake -C CMakeConfigs/Test.txt . > /dev/null
+    make > /dev/null
 }
 
 pullVerbose()
@@ -151,6 +165,8 @@ clear
 # Build Standard
 if [[ $OPT == "build" ]] 
 then
+    ./cleaner.sh -t build
+
     if [[ $VERBOSE == 1 ]] 
     then
         if [[ $PULL == 1 ]] 
@@ -158,14 +174,24 @@ then
             pullVerbose
         fi
 
-        makeVerbose
+        if [[ $TEST == 1 ]]
+        then
+            makeTestVerbose
+        else
+            makeVerbose
+        fi
     else
         if [[ $PULL == 1 ]] 
         then
             pullQuiet
         fi
 
-        makeQuiet
+        if [[ $TEST == 1 ]]
+        then
+            makeTestQuiet
+        else
+            makeQuiet
+        fi
     fi
 
     ./cleaner.sh -t cmake

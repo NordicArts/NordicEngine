@@ -24,13 +24,16 @@ namespace NordicArts {
             }
         }
 
-        void FileHandler::handlerDeleteFile() {
+        bool FileHandler::handlerDeleteFile() {
             if (m_cFileStream.is_open()) {
                 m_cFileStream.close();
 
                 OSSpecific oOS;
-                oOS.deleteFile(m_cFilePath);
+
+                return oOS.deleteFile(m_cFilePath);
             }
+
+            return false;
         }                
 
         void FileHandler::throwError(const std::string &cMessage) const {

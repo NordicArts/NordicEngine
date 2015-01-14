@@ -341,8 +341,10 @@ if (UnitTest)
 
     if (OSOnly)
         set(TestSources ${UT}/OSTests.cpp)
-    else()
+    elseif (FullEngine)
         set(TestSources ${UT}/FullTests.cpp)
+    else()
+        set(TestSources ${UT}/Tests.cpp)
     endif()
 
     # Test Framework

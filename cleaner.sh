@@ -9,7 +9,7 @@ This script cleans based on what type
 
 OPTIONS:
     -h  Shows this message
-    -t  Type of cleaning, can be 'all' or 'cmake'
+    -t  Type of cleaning, can be 'all', 'build' or 'cmake'
 EOF
 }
 
@@ -69,15 +69,20 @@ then
     CLEANTYPE=all
 fi
 
-if [ $CLEANTYPE == "all" ]
+if [[ $CLEANTYPE == "all" ]]
 then
     deleteBuild
     deleteCMake
     deleteLibs
 fi
 
-if [ $CLEANTYPE == "cmake" ]
+if [[ $CLEANTYPE == "cmake" ]]
 then
     deleteCMake
+fi
+
+if [[ $CLEANTYPE == "build" ]]
+then
+    deleteBuild
 fi
 

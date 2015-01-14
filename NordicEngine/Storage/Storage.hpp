@@ -130,7 +130,7 @@ namespace NordicArts {
             std::map<std::string, std::string> getResult();
 
             // Destroy DB
-            void destroyDatabase();
+            bool destroyDatabase();
             
         protected:
         private:

@@ -39,7 +39,7 @@ namespace NordicArts {
             std::string read();
             void write(std::string cString);
 
-            void deleteFile();
+            bool deleteFile();
 
         protected:
         private:
