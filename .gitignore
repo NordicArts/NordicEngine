@@ -10,3 +10,5 @@ libNordicEngine.*
 libSQLite.*
 CPackConfig.cmake
 CPackSourceConfig.cmake
+NordicArts.db
+UnitTests.app

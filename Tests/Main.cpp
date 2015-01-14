@@ -6,5 +6,5 @@ TEST_CASE("Player", "[player]") {
     NordicArts::NordicEngine::Player *pPlayer = &oPlayer;
     
     pPlayer->setLife(16);
-    REQUIRE(pPlayer->getLife(), 16);
+    REQUIRE(pPlayer->getLife() == 16);
 }

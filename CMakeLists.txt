@@ -332,6 +332,8 @@ endif()
 # Unit Test
 if (UnitTest)
     add_executable(UnitTests ${TestSources} ${TestHeaders})
+    set_target_properties(UnitTests PROPERTIES LINKER_LANGUAGE CXX)
+    set_target_properties(UnitTests PROPERTIES OUTPUT_NAME "UnitTests.app")
 endif()
 
 # Library Linker
@@ -347,6 +349,6 @@ else()
     target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 
     if (UnitTest)
-        target_link_libraries(${UnitTests} NordicEngine)
+        target_link_libraries(UnitTests NordicEngine)
     endif()
 endif()
