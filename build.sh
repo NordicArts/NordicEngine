@@ -18,7 +18,7 @@ This script can build, clean, and grab new versions,
 OPTIONS:
     -h  Show this message
     -v  Verbose
-    -o  Option, can be 'build', 'rebuild', 'os' or 'pull' [default: build]
+    -o  Option, can be 'build', 'rebuild', 'os', 'test' or 'pull' [default: build]
 EOF
 }
 
@@ -44,13 +44,13 @@ makeOSQuiet()
 }
 makeTestVerbose()
 {
-    cmake -C Tests.txt . > /dev/null
-    make > /dev/null
+    cmake -C Tests.txt .
+    make
 }
 makeTestQuiet()
 {
-    cmake -C Tests.txt .
-    make
+    cmake -C Tests.txt . > /dev/null
+    make > /dev/null
 }
 
 pullVerbose()
@@ -90,7 +90,8 @@ do
     esac
 done
 
-if [[ -z "$OPT" ]] then
+if [[ -z "$OPT" ]] 
+then
     OPT=build
 fi
 
@@ -98,8 +99,10 @@ fi
 clear
 
 # Run it
-if [[ $OPT == "build" ]] then
-    if [[ -z "$VERBOSE" ]] then
+if [[ $OPT == "build" ]] 
+then
+    if [[ -z "$VERBOSE" ]] 
+    then
         makeQuiet
     else
         makeVerbose
@@ -107,10 +110,12 @@ if [[ $OPT == "build" ]] then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "rebuild" ]] then
+if [[ $OPT == "rebuild" ]] 
+then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] then
+    if [[ -z "$VERBOSE" ]] 
+    then
         makeQuiet
     else
         makeVerbose
@@ -118,10 +123,12 @@ if [[ $OPT == "rebuild" ]] then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "pull" ]] then
+if [[ $OPT == "pull" ]] 
+then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] then
+    if [[ -z "$VERBOSE" ]] 
+    then
         pullVerbose
         makeVerbose
     else
@@ -131,10 +138,12 @@ if [[ $OPT == "pull" ]] then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "os" ]] then
+if [[ $OPT == "os" ]] 
+then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] then
+    if [[ -z "$VERBOSE" ]] 
+    then
         pullQuiet
         makeOSQuiet
     else
@@ -144,10 +153,12 @@ if [[ $OPT == "os" ]] then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "test" ]] then
+if [[ $OPT == "test" ]] 
+then
     ./cleaner.sh -t all
     
-    if [[ -z "$VERBOSE" ]] then
+    if [[ -z "$VERBOSE" ]] 
+    then
         pullQuiet
         makeTestQuiet
     else

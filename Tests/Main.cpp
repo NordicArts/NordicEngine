@@ -1,8 +1,9 @@
 #include "Main.hpp"
+#include <NordicEngine/Player/Player.hpp>
 
-TEST_CAST("Player", "[player]") {
-    NordicEngine::Player  oPlayer;
-    NordicEngine::Player *pPlayer = &oPlayer;
+TEST_CASE("Player", "[player]") {
+    NordicArts::NordicEngine::Player  oPlayer;
+    NordicArts::NordicEngine::Player *pPlayer = &oPlayer;
     
     pPlayer->setLife(16);
     REQUIRE(pPlayer->getLife(), 16);
