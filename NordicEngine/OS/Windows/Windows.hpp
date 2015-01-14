@@ -35,6 +35,8 @@ namespace NordicArts {
         public:
             std::string ResourcePath(std::string cFileName);
 
+            bool deleteFile(std::string cFileName);
+
         protected:
         private:
 

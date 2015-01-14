@@ -11,6 +11,7 @@ namespace NordicArts {
             Writer::Writer(const std::string &cFileName, bool bFilePath, bool bAppend, bool bSaveException) : FileHandler(cFileName, bSaveException) {
                 openStream(bAppend);
             }
+
             void Writer::openStream(bool bAppend) {
                 m_cFileStream.open(m_cFilePath.c_str(), (std::ios_base::out | (bAppend ? std::ios_base::app : std::ios_base::trunc)));
                 
@@ -21,6 +22,11 @@ namespace NordicArts {
 
             void Writer::write(const std::string &cMessage) {
                 m_cFileStream << cMessage;
+            }
+
+            void Writer::deleteFile() {
+                openStream(false);
+                m_cFileStream.deleteFile();                
             }
         };
     };

@@ -12,5 +12,13 @@ namespace NordicArts {
 
             return std::string([pPath cStringUsingEncoding: NSUTF8StringEncoding]);
         }
+
+        bool OSSpecific::deleteFile(std::string cFileName) {
+            if (remove(cFileName.c_str()) != 0) {
+                return false;
+            }
+
+            return true;
+        }
     };
 };

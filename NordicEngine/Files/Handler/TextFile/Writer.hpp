@@ -21,6 +21,7 @@ namespace NordicArts {
 
                 void openStream(bool bAppend);        
                 void write(const std::string &cMessage);
+                void deleteFile();
     
             protected:
             private:

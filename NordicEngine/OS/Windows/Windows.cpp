@@ -14,5 +14,13 @@ namespace NordicArts {
 
             return cFilePath;
         }
+
+        bool OSSpecific::deleteFile(std::string cFileName) {
+            if (remove(m_cFileName.c_str()) != 0) {
+                return false;
+            }
+
+            return true;
+        }
     };
 };

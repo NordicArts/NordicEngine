@@ -1,5 +1,6 @@
 #include <NordicEngine/Storage/Storage.hpp>
 #include <NordicEngine/String/String.hpp>
+#include <NordicEngine/Files/Files.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -623,6 +624,11 @@ namespace NordicArts {
             gResult.clear();
             
             return mResult;
+        }
+
+        void Storage::destoryDatabase() {
+            Files oFiles(m_cDB);
+            oFiles.deleteFile();
         }
     };
 };

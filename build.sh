@@ -18,7 +18,8 @@ This script can build, clean, and grab new versions,
 OPTIONS:
     -h  Show this message
     -v  Verbose
-    -o  Option, can be 'build', 'rebuild', 'os', 'test' or 'pull' [default: build]
+    -t  Test Build
+    -o  Option, can be 'build', 'rebuild', 'os' or 'pull' [default: build]
 EOF
 }
 
@@ -42,15 +43,25 @@ makeOSQuiet()
     cmake -C CMakeConfigs/OSOnly.txt . > /dev/null
     make > /dev/null
 }
-makeTestVerbose()
+makeTestOSVerbose()
 {
-    cmake -C CMakeConfigs/Tests.txt .
+    cmake -C CMakeConfigs/TestOS.txt .
     make
 }
-makeTestQuiet()
+makeTestOSQuiet()
 {
-    cmake -C CMakeConfigs/Tests.txt . > /dev/null
+    cmake -C CMakeConfigs/TestOS.txt . > /dev/null
     make > /dev/null
+}
+makeTestFullVerbose()
+{
+    cmake -C CMakeConfigs/TestFull.txt .
+    make
+}
+makeTestFullQuiet()
+{
+    cmake -C CMakeConfigs/TestFull.txt . > /dev/null
+    cmake > /dev/null
 }
 
 pullVerbose()
@@ -69,12 +80,16 @@ pullQuiet()
 
 OPT=
 VERBOSE=
+TEST=
 
-while getopts ":o:?hv" OPTION
+while getopts ":o:?hvt" OPTION
 do
     case $OPTION in
         o)
             OPT=$OPTARG
+            ;;
+        t)
+            TEST=1
             ;;
         h)
             usage
@@ -103,9 +118,19 @@ if [[ $OPT == "build" ]]
 then
     if [[ -z "$VERBOSE" ]] 
     then
-        makeQuiet
+        if [[ -z "$TEST" ]]
+        then
+            makeVerbose
+        else
+            makeFullVerbose
+        fi
     else
-        makeVerbose
+        if [[ -z "$TEST" ]]
+        then
+            makeQuiet
+        else
+            makeFullQuiet
+        fi
     fi
 
     ./cleaner.sh -t cmake
@@ -116,9 +141,9 @@ then
 
     if [[ -z "$VERBOSE" ]] 
     then
-        makeQuiet
-    else
         makeVerbose
+    else
+        makeQuiet
     fi
 
     ./cleaner.sh -t cmake
@@ -130,10 +155,22 @@ then
     if [[ -z "$VERBOSE" ]] 
     then
         pullVerbose
-        makeVerbose
+
+        if [[ -z "$TEST" ]]
+        then
+            makeVerbose
+        else
+            makeFullVerbose
+        fi
     else
         pullQuiet
-        makeQuiet
+
+        if [[ -z "$TEST" ]]
+        then
+            makeQuiet
+        else
+            makeFullQuiet
+        fi
     fi
 
     ./cleaner.sh -t cmake
@@ -145,28 +182,28 @@ then
     if [[ -z "$VERBOSE" ]] 
     then
         pullQuiet
-        makeOSQuiet
+
+        if [[ -z "$TEST" ]]
+        then
+            makeOSQuiet
+        else
+            makeTestOSQuiet
+        fi
     else
         pullVerbose
-        makeOSVerbose
+
+        if [[ -z "$TEST" ]]
+        then
+            makeOSVerbose
+        else
+            makeOSTestVerbose
+        fi
     fi
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "test" ]] 
+if [[ "$TEST" ]] 
 then
-    ./cleaner.sh -t all
-    
-    if [[ -z "$VERBOSE" ]] 
-    then
-        pullQuiet
-        makeTestQuiet
-    else
-        pullVerbose
-        makeTestVerbose
-    fi
-
-    ./cleaner.sh -t cmake
     ./UnitTests.app
 fi
 

@@ -28,30 +28,32 @@ namespace NordicArts {
 
         std::string Files::read() {
             if (m_bAppend) {
-                TextFile::Reader  oReader(m_cFile, m_bAppend);
-                TextFile::Reader *pReader = &oReader;
-        
-                return pReader->readAll();
+                TextFile::Reader oReader(m_cFile, m_bAppend);
             } else {
-                TextFile::Reader  oReader(m_cFile);
-                TextFile::Reader *pReader = &oReader;
-                
-                return pReader->readAll();
+                TextFile::Reader oReader(m_cFile);
             }
+
+            return oReader.readAll();
         }
 
         void Files::write(std::string cString) {
             if (m_bSaveException) {
-                TextFile::Writer  oWriter(m_cFile, m_bFilePath, m_bAppend, m_bSaveException);
-                TextFile::Writer *pWriter = &oWriter;
-
-                return pWriter->write(cString);
+                TextFile::Writer oWriter(m_cFile, m_bFilePath, m_bAppend, m_bSaveException);
             } else {
-                TextFile::Writer  oWriter(m_cFile, m_bFilePath, m_bAppend);
-                TextFile::Writer *pWriter = &oWriter;
-
-                return pWriter->write(cString);
+                TextFile::Writer oWriter(m_cFile, m_bFilePath, m_bAppend);
             }
+
+            return oWriter.write(cString);
+        }
+
+        void Files::deleteFile() {
+            if (m_bSaveException) {
+                TextFile::Writer oWriter(m_cFile, m_bFilePath, false, m_bSaveException);
+            } else {
+                TextFile::Writer oWriter(m_cFile, m_bFilePath, false);
+            }
+            
+            return oWriter.deleteFile();
         }
     };
 };

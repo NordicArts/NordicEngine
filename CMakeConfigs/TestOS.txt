@@ -1,0 +1,3 @@
+option(OSOnly "Setting OS Only ON" ON)
+option(UnitTest "Settings Unit Tests ON" ON)
+option(FullEngine "Setting Full Engine OFF" OFF)

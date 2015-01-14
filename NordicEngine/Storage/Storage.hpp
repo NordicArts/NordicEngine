@@ -128,6 +128,9 @@ namespace NordicArts {
             // Results
             static int setResult(void *pData, int iArgc, char **cArgv, char **cColumn);
             std::map<std::string, std::string> getResult();
+
+            // Destroy DB
+            void destroyDatabase();
             
         protected:
         private:
