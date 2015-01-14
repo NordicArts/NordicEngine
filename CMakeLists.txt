@@ -295,21 +295,6 @@ link_directories(${NET}/LuaBridge/Source/LuaBridge)
 include_directories(${NET}/LuaBridge/Source/LuaBridge)
 list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
-# Unit Tests
-if (UnitTest)
-    project(UnitTests)
-    SET(UT ${PROJECT_SOURCE_DIR}/Tests)
-    link_directories(${UT})
-    include_directories(${UT})
-    set(TestSources ${UT}/Main.cpp)
-    set(TestHeaders ${UT}/Main.hpp)
-
-    link_directories(${UT}/Catch)
-    include_directories(${UT}/Catch)
-    list(APPEND TestHeaders ${UT}/Catch/catch.hpp)
-endif()
-
-
 # System Linker
 if (OSOnly)
     if (WIN32)
@@ -347,8 +332,33 @@ else()
     target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
     target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
     target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
+endif()
 
-    if (UnitTest)
-        target_link_libraries(UnitTests NordicEngine)
+# Unit Tests
+if (UnitTest)
+    project(UnitTests)    
+    SET(UT ${PROJECT_SOURCE_DIR}/Tests)
+
+    link_directories(${UT})
+    include_directories(${UT})
+    set(TestHeaders ${UT}/Main.hpp)
+
+    if (OSOnly)
+        set(TestSources ${UT}/OSTests.cpp)
+    else()
+        set(TestSources ${UT}/FullTests.cpp)
     endif()
+
+    # Test Framework
+    link_directories(${UT}/Catch)
+    include_directories(${UT}/Catch)    
+    list(APPEND TestHeaders ${UT}/Catch/catch.hpp)
+
+    # Build Test Binary
+    add_executable(UnitTests ${TestSources} ${TestHeaders})
+    set_target_properties(UnitTests PROPERTIES LINKER_LANGUAGE CXX)
+    set_target_properties(UnitTests PROPERTIES OUTPUT_NAME "UnitTests.app")
+    
+    # Link Unit Tests to which ever NordicEngine was build
+    target_link_libraries(UnitTests NordicEngine)
 endif()
