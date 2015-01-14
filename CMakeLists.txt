@@ -300,36 +300,35 @@ include_directories(${NET}/LuaBridge/Source/LuaBridge)
 list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
 # System Linker
-if (OSOnly)
+if(FullEngine)
     if (WIN32)
-        target_link_libraries(NordicEngine winmm gdi32 c++abi)
+        target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
     elseif (APPLE)
-        target_link_libraries(NordicEngine "-framework Foundation -framework AppKit -framework IOKit -framework Carbon -framework CoreFoundation" c++abi)
+        target_link_libraries(NordicEngine "-framework OpenGL -framework OpenAL -framework GameKit -framework GLKit -framework CoreVideo")
     else()
-        target_link_libraries(NordicEngine ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
-    endif()
-else()
-    if (WIN32)
-        target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} winmm gdi32 c++abi)
-    elseif (APPLE)
-        target_link_libraries(NordicEngine "-framework Foundation -framework AppKit -framework IOKit -framework Carbon -framework OpenGL -framework CoreFoundation -framework OpenAL -framework GameKit -framework GLKit -framework CoreVideo" c++abi)
-    else()
-        target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
+        target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
     endif()
 endif()
 
-# Library Linker
-if (OSOnly)
-    target_link_libraries(NordicEngine SQLite)
-    target_link_libraries(NordicEngine ${Boost_LIBRARIES})
-    target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
+# Universal ones
+if (WIN32)
+    target_link_libraries(NordicEngine winmm gdi32 c++abi)
+elseif (APPLE)
+    target_link_libraries(NordicEngine "-framework Foundation -framework AppKit -framework IOKit -framework Carbon -framework CoreFoundation" c++abi)
 else()
-    target_link_libraries(NordicEngine SQLite)
-    target_link_libraries(NordicEngine ${Boost_LIBRARIES})
+    target_link_libraries(NordicEgnine ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
+endif()
+
+# Library Linker
+if (FullEngine)
     target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
     target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
-    target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 endif()
+
+# Universal links
+target_link_libraries(NordicEngine SQLite)
+target_link_libraries(NordicEngine ${Boost_LIBRARIES})
+target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 
 # Unit Tests
 if (UnitTest)

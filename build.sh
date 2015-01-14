@@ -119,7 +119,7 @@ VERBOSE=false
 TEST=false
 PULL=false
 
-while getopts ":o:?hvt" OPTION
+while getopts ":o:?hvt" OPTION 
 do
     case $OPTION in
         o)
@@ -151,16 +151,16 @@ clear
 # Build Standard
 if [[ $OPT == "build" ]] 
 then
-    if [[ $VERBOSE == 1 ]]
+    if [[ $VERBOSE == 1 ]] 
     then
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullVerbose
         fi
 
         makeVerbose
     else
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullQuiet
         fi
@@ -191,26 +191,26 @@ if [[ $OPT == "os" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ $VERBOSE == 1 ]]
+    if [[ $VERBOSE == 1 ]] 
     then
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullVerbose
         fi
 
-        if [[ $TEST == 1 ]]
+        if [[ $TEST == 1 ]] 
         then
             makeTestOSVerbose
         else
             makeOSVerbose
         fi
     else
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullQuiet
         fi
 
-        if [[ $TEST == 1 ]]
+        if [[ $TEST == 1 ]] 
         then
             makeTestOSQuiet
         else
@@ -222,30 +222,30 @@ then
 fi
 
 # Build Full
-if [[ $OPT == "full" ]]
-then
+if [[ $OPT == "full" ]] 
+    then
     ./cleaner.sh -t all
 
-    if [[ $VERBOSE == 1 ]]
+    if [[ $VERBOSE == 1 ]] 
     then
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullVerbose
         fi
 
-        if [[ $TEST == 1 ]]
+        if [[ $TEST == 1 ]] 
         then
             makeTestFullVerbose
         else
             makeTestVerbose
         fi
     else
-        if [[ $PULL == 1 ]]
+        if [[ $PULL == 1 ]] 
         then
             pullQuiet
         fi
 
-        if [[ $TEST == 1 ]]
+        if [[ $TEST == 1 ]] 
         then
             makeTestFullQuiet
         else

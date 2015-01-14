@@ -15,6 +15,8 @@ EOF
 
 deleteCMake()
 {
+    echo "Delete CMake"
+
     rm -rf `find . -type d -name CMakeFiles`
     rm -rf `find . -type d -name build`
     rm -rf `find . -type f -name CMakeCache.txt`
@@ -26,20 +28,24 @@ deleteCMake()
 
 deleteBuild()
 {
-    rm -rf Build
+    echo "Delete Build"
+
+    rm -rf `find . -type d -name Build`
     rm -rf `find . -type f -name UnitTests.app`
     rm -rf `find . -type f -name NordicArts.db`
 }
 
 deleteLibs()
 {
+    echo "Delete Libs"
+
     rm -rf `find . -type f -name libglw3.*`
     rm -rf `find . -type f -name liblua.*`
     rm -rf `find . -type f -name libSQLite.*`
     rm -rf `find . -type f -name libNordicEngine.*` 
 }
 
-CLEANTYPE=
+CLEANTYPE=false
 
 while getopts ":t:vh?" OPTION
 do
@@ -58,7 +64,7 @@ do
     esac
 done
 
-if [[ -n "$CLEANTYPE" ]]
+if [[ -z "$CLEANTYPE" ]]
 then
     CLEANTYPE=all
 fi
