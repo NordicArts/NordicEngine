@@ -18,8 +18,9 @@ This script can build, clean, and grab new versions,
 OPTIONS:
     -h  Show this message
     -v  Verbose
+    -p  Pull
     -t  Test Build
-    -o  Option, can be 'build', 'rebuild', 'os' or 'pull' [default: build]
+    -o  Option, can be 'build', 'rebuild', 'full' or 'os' [default: build]
 EOF
 }
 
@@ -116,6 +117,7 @@ pullQuiet()
 OPT='build'
 VERBOSE=false
 TEST=false
+PULL=false
 
 while getopts ":o:?hvt" OPTION
 do
@@ -125,6 +127,9 @@ do
             ;;
         t)
             TEST=1
+            ;;
+        p)
+            PULL=1
             ;;
         h)
             usage
@@ -143,33 +148,35 @@ done
 # Clear screen
 clear
 
-# Run it
+# Build Standard
 if [[ $OPT == "build" ]] 
 then
-    if [[ -z "$VERBOSE" ]] 
+    if [[ $VERBOSE == 1 ]]
     then
-        if [[ -z "$TEST" ]]
+        if [[ $PULL == 1 ]]
         then
-            makeFullVerbose
-        else
-            makeTestFullVerbose
+            pullVerbose
         fi
+
+        makeVerbose
     else
-        if [[ -z "$TEST" ]]
+        if [[ $PULL == 1 ]]
         then
-            makeFullQuiet
-        else
-            makeTestFullQuiet
+            pullQuiet
         fi
+
+        makeQuiet
     fi
 
     ./cleaner.sh -t cmake
 fi
+
+# Rebuild
 if [[ $OPT == "rebuild" ]] 
 then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
+    if [[ $VERBOSE == 1 ]] 
     then
         makeVerbose
     else
@@ -178,61 +185,79 @@ then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "pull" ]] 
-then
-    ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
-    then
-        pullVerbose
-
-        if [[ -z "$TEST" ]]
-        then
-            makeVerbose
-        else
-            makeTestFullVerbose
-        fi
-    else
-        pullQuiet
-
-        if [[ -z "$TEST" ]]
-        then
-            makeQuiet
-        else
-            makeTestFullQuiet
-        fi
-    fi
-
-    ./cleaner.sh -t cmake
-fi
+# Build OS 
 if [[ $OPT == "os" ]] 
 then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
+    if [[ $VERBOSE == 1 ]]
     then
-        pullQuiet
-
-        if [[ -z "$TEST" ]]
+        if [[ $PULL == 1 ]]
         then
-            makeOSQuiet
+            pullVerbose
+        fi
+
+        if [[ $TEST == 1 ]]
+        then
+            makeTestOSVerbose
         else
-            makeTestOSQuiet
+            makeOSVerbose
         fi
     else
-        pullVerbose
-
-        if [[ -z "$TEST" ]]
+        if [[ $PULL == 1 ]]
         then
-            makeOSVerbose
+            pullQuiet
+        fi
+
+        if [[ $TEST == 1 ]]
+        then
+            makeTestOSQuiet
         else
-            makeTestOSVerbose
+            makeOSQuiet
         fi
     fi
 
     ./cleaner.sh -t cmake
 fi
-if [[ "$TEST" ]] 
+
+# Build Full
+if [[ $OPT == "full" ]]
+then
+    ./cleaner.sh -t all
+
+    if [[ $VERBOSE == 1 ]]
+    then
+        if [[ $PULL == 1 ]]
+        then
+            pullVerbose
+        fi
+
+        if [[ $TEST == 1 ]]
+        then
+            makeTestFullVerbose
+        else
+            makeTestVerbose
+        fi
+    else
+        if [[ $PULL == 1 ]]
+        then
+            pullQuiet
+        fi
+
+        if [[ $TEST == 1 ]]
+        then
+            makeTestFullQuiet
+        else
+            makeFullQuiet
+        fi
+    fi
+
+    ./cleaner.sh -t cmake
+fi
+
+# Run the tests if its supposed to
+if [[ $TEST == 1 ]] 
 then
     ./UnitTests.app
 fi
