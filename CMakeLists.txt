@@ -10,6 +10,7 @@ set(CMAKE_MACOSX_RPATH 0)
 
 # Options
 option(OSOnly "OS Only" OFF)
+option(UnitTest "Unit Tests" OFF)
 option(FullEngine "Full Engine" ON)
 
 # NOS Files
@@ -294,6 +295,21 @@ link_directories(${NET}/LuaBridge/Source/LuaBridge)
 include_directories(${NET}/LuaBridge/Source/LuaBridge)
 list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
+# Unit Tests
+if (UnitTest)
+    project(UnitTests)
+    SET(UT ${PROJECT_SOURCE_DIR}/Tests)
+    link_directories(${UT})
+    include_directories(${UT})
+    set(TestSources ${UT}/Main.cpp)
+    set(TestHeaders ${UT}/Main.hpp)
+
+    link_directories(${UT}/Catch)
+    include_directories(${UT}/Catch)
+    list(APPEND TestHeaders ${UT}/Catch/catch.hpp)
+endif()
+
+
 # System Linker
 if (OSOnly)
     if (WIN32)
@@ -313,6 +329,11 @@ else()
     endif()
 endif()
 
+# Unit Test
+if (UnitTest)
+    add_executable(UnitTests ${TestSources} ${TestHeaders})
+endif()
+
 # Library Linker
 if (OSOnly)
     target_link_libraries(NordicEngine SQLite)
@@ -324,4 +345,8 @@ else()
     target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
     target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
     target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
+
+    if (UnitTest)
+        target_link_libraries(${UnitTests} NordicEngine)
+    endif()
 endif()

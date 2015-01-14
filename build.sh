@@ -42,6 +42,16 @@ makeOSQuiet()
     cmake -C OSOnly.txt . > /dev/null
     make > /dev/null
 }
+makeTestVerbose()
+{
+    cmake -C Tests.txt . > /dev/null
+    make > /dev/null
+}
+makeTestQuiet()
+{
+    cmake -C Tests.txt .
+    make
+}
 
 pullVerbose()
 {
@@ -80,8 +90,7 @@ do
     esac
 done
 
-if [[ -z "$OPT" ]]
-then
+if [[ -z "$OPT" ]] then
     OPT=build
 fi
 
@@ -89,10 +98,8 @@ fi
 clear
 
 # Run it
-if [[ $OPT == "build" ]]
-then
-    if [[ -z "$VERBOSE" ]]
-    then
+if [[ $OPT == "build" ]] then
+    if [[ -z "$VERBOSE" ]] then
         makeQuiet
     else
         makeVerbose
@@ -100,12 +107,10 @@ then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "rebuild" ]] 
-then
+if [[ $OPT == "rebuild" ]] then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]]
-    then
+    if [[ -z "$VERBOSE" ]] then
         makeQuiet
     else
         makeVerbose
@@ -113,12 +118,10 @@ then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "pull" ]]
-then
+if [[ $OPT == "pull" ]] then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]]
-    then
+    if [[ -z "$VERBOSE" ]] then
         pullVerbose
         makeVerbose
     else
@@ -128,17 +131,28 @@ then
 
     ./cleaner.sh -t cmake
 fi
-if [[ $OPT == "os" ]]
-then
+if [[ $OPT == "os" ]] then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]]
-    then
+    if [[ -z "$VERBOSE" ]] then
         pullQuiet
         makeOSQuiet
     else
         pullVerbose
         makeOSVerbose
+    fi
+
+    ./cleaner.sh -t cmake
+fi
+if [[ $OPT == "test" ]] then
+    ./cleaner.sh -t all
+    
+    if [[ -z "$VERBOSE" ]] then
+        pullQuiet
+        makeTestQuiet
+    else
+        pullVerbose
+        makeTestVerbose
     fi
 
     ./cleaner.sh -t cmake
