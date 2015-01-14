@@ -113,9 +113,9 @@ pullQuiet()
 }
 
 
-OPT=
-VERBOSE=
-TEST=
+OPT='build'
+VERBOSE=false
+TEST=false
 
 while getopts ":o:?hvt" OPTION
 do
@@ -140,27 +140,22 @@ do
     esac
 done
 
-if [[ -z "$OPT" ]] 
-then
-    OPT=build
-fi
-
 # Clear screen
 clear
 
 # Run it
 if [[ $OPT == "build" ]] 
 then
-    if [[ -n "$VERBOSE" ]] 
+    if [[ -z "$VERBOSE" ]] 
     then
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeFullVerbose
         else
             makeTestFullVerbose
         fi
     else
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeFullQuiet
         else
@@ -174,7 +169,7 @@ if [[ $OPT == "rebuild" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -n "$VERBOSE" ]] 
+    if [[ -z "$VERBOSE" ]] 
     then
         makeVerbose
     else
@@ -187,11 +182,11 @@ if [[ $OPT == "pull" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -n "$VERBOSE" ]] 
+    if [[ -z "$VERBOSE" ]] 
     then
         pullVerbose
 
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeVerbose
         else
@@ -200,7 +195,7 @@ then
     else
         pullQuiet
 
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeQuiet
         else
@@ -214,11 +209,11 @@ if [[ $OPT == "os" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -n "$VERBOSE" ]] 
+    if [[ -z "$VERBOSE" ]] 
     then
         pullQuiet
 
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeOSQuiet
         else
@@ -227,7 +222,7 @@ then
     else
         pullVerbose
 
-        if [[ -n "$TEST" ]]
+        if [[ -z "$TEST" ]]
         then
             makeOSVerbose
         else

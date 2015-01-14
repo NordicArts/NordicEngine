@@ -170,10 +170,12 @@ list(APPEND LibHeaders ${NE}/Color/Color.hpp)
 list(APPEND LibSources ${NE}/Color/Color.cpp)
 
 # Player
-link_directories(${NE}/Player)
-include_directorieS(${NE}/Player)
-list(APPEND LibHeaders ${NE}/Player/Player.hpp)
-list(APPEND LibSources ${NE}/Player/Player.cpp)
+if (FullEngine)
+    link_directories(${NE}/Player)
+    include_directorieS(${NE}/Player)
+    list(APPEND LibHeaders ${NE}/Player/Player.hpp)
+    list(APPEND LibSources ${NE}/Player/Player.cpp)
+endif()
 
 # Input
 if (FullEngine)
@@ -228,10 +230,12 @@ if (FullEngine)
 endif()
 
 # Settings
-link_directories(${NE}/Settings)
-include_directories(${NE}/Settings)
-list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
-list(APPEND LibSources ${NE}/Settings/Settings.cpp)
+if (FullEngine)
+    link_directories(${NE}/Settings)
+    include_directories(${NE}/Settings)
+    list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
+    list(APPEND LibSources ${NE}/Settings/Settings.cpp)
+endif()
 
 # Lua
 link_directories(${NE}/Files/Handler/Lua)
