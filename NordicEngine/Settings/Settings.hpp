@@ -48,6 +48,7 @@ namespace NordicArts {
 
             void setFOV(float fFOV);
             float getFOV() const;
+            float getFOVCalc() const;
 
             void setVSync(bool bVSync);
             bool getVSync() const;

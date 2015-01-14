@@ -23,6 +23,7 @@ namespace NordicArts {
                         .addProperty("gameName", &Settings::getGameName, &Settings::setGameName)
                         .addProperty("seed", &Settings::getRandomSeed, &Settings::setRandomSeed)
                         .addProperty("fov", &Settings::getFOV, &Settings::setFOV)
+                        .addProperty("fovCalc", &Settings::getFOVCalc)
                         .addProperty("windowMode", &Settings::isWindowed, &Settings::setWindowMode)
                         .addProperty("fsaa", &Settings::getFSAA, &Settings::setFSAA)
                         .addProperty("physicsSpeed", &Settings::getPhysicsRefresh, &Settings::setPhysicsRefresh)
@@ -107,7 +108,14 @@ namespace NordicArts {
             }
 
             return fFOV;
-        }       
+        }      
+        float Settings::getFOVCalc() const {
+            float fFOV = getFOV();
+        
+            if (fFOV >= 0.1) { fFOV *= 2; }
+
+            return fFOV;
+        }
 
         void Settings::setWindowMode(bool bWindowed) {
             m_bWindowMode = bWindowed;
