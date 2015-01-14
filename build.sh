@@ -25,53 +25,88 @@ EOF
 
 makeVerbose()
 {
+    echo "Make Verbose"
+
     cmake .
     make
 }
 makeQuiet()
 {
+    echo "Make Quiet"
+
     cmake . > /dev/null
+    make > /dev/null
+}
+
+makeFullVerbose()
+{
+    echo "Make Full Verbose"
+
+    cmake -C CMakeConfigs/Full.txt .
+    make
+}
+makeFullQuiet()
+{
+    echo "Make Full Quiet"
+
+    cmake -C CMakeConfigs/Full.txt . > /dev/null
     make > /dev/null
 }
 makeOSVerbose()
 {
+    echo "Make OS Verbose"
+
     cmake -C CMakeConfigs/OSOnly.txt .
     make
 }
 makeOSQuiet()
 {
+    echo "Make OS Quiet"
+
     cmake -C CMakeConfigs/OSOnly.txt . > /dev/null
     make > /dev/null
 }
 makeTestOSVerbose()
 {
+    echo "Make Test OS Verbose"
+
     cmake -C CMakeConfigs/TestOS.txt .
     make
 }
 makeTestOSQuiet()
 {
+    echo "Make Test OS Quiet"
+
     cmake -C CMakeConfigs/TestOS.txt . > /dev/null
     make > /dev/null
 }
 makeTestFullVerbose()
 {
+    echo "Make Full Verbose"
+
     cmake -C CMakeConfigs/TestFull.txt .
     make
 }
 makeTestFullQuiet()
 {
+    echo "Make Full Quiet"
+
     cmake -C CMakeConfigs/TestFull.txt . > /dev/null
     cmake > /dev/null
 }
 
 pullVerbose()
 {
+    echo "Pull Verbose"
+
     git submodule init
     git submodule update --recursive
     git submodule foreach git pull origin master --recurse-submodules
 }
 pullQuiet()
 {
+    echo "Pull Quiet"    
+
     git submodule init >> /dev/null
     git submodule update --recursive >> /dev/null
     git submodule foreach git pull origin master --recurse-submodules >> /dev/null
@@ -116,20 +151,20 @@ clear
 # Run it
 if [[ $OPT == "build" ]] 
 then
-    if [[ -z "$VERBOSE" ]] 
+    if [[ -n "$VERBOSE" ]] 
     then
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
-            makeVerbose
-        else
             makeFullVerbose
+        else
+            makeTestFullVerbose
         fi
     else
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
-            makeQuiet
-        else
             makeFullQuiet
+        else
+            makeTestFullQuiet
         fi
     fi
 
@@ -139,7 +174,7 @@ if [[ $OPT == "rebuild" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
+    if [[ -n "$VERBOSE" ]] 
     then
         makeVerbose
     else
@@ -152,24 +187,24 @@ if [[ $OPT == "pull" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
+    if [[ -n "$VERBOSE" ]] 
     then
         pullVerbose
 
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
             makeVerbose
         else
-            makeFullVerbose
+            makeTestFullVerbose
         fi
     else
         pullQuiet
 
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
             makeQuiet
         else
-            makeFullQuiet
+            makeTestFullQuiet
         fi
     fi
 
@@ -179,11 +214,11 @@ if [[ $OPT == "os" ]]
 then
     ./cleaner.sh -t all
 
-    if [[ -z "$VERBOSE" ]] 
+    if [[ -n "$VERBOSE" ]] 
     then
         pullQuiet
 
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
             makeOSQuiet
         else
@@ -192,11 +227,11 @@ then
     else
         pullVerbose
 
-        if [[ -z "$TEST" ]]
+        if [[ -n "$TEST" ]]
         then
             makeOSVerbose
         else
-            makeOSTestVerbose
+            makeTestOSVerbose
         fi
     fi
 

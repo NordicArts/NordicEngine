@@ -11,7 +11,7 @@ set(CMAKE_MACOSX_RPATH 0)
 # Options
 option(OSOnly "OS Only" OFF)
 option(UnitTest "Unit Tests" OFF)
-option(FullEngine "Full Engine" ON)
+option(FullEngine "Full Engine" OFF)
 
 # NOS Files
 set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
@@ -312,13 +312,6 @@ else()
     else()
         target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
     endif()
-endif()
-
-# Unit Test
-if (UnitTest)
-    add_executable(UnitTests ${TestSources} ${TestHeaders})
-    set_target_properties(UnitTests PROPERTIES LINKER_LANGUAGE CXX)
-    set_target_properties(UnitTests PROPERTIES OUTPUT_NAME "UnitTests.app")
 endif()
 
 # Library Linker

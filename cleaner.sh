@@ -58,7 +58,7 @@ do
     esac
 done
 
-if [[ -z "$CLEANTYPE" ]]
+if [[ -n "$CLEANTYPE" ]]
 then
     CLEANTYPE=all
 fi

@@ -29,31 +29,37 @@ namespace NordicArts {
         std::string Files::read() {
             if (m_bAppend) {
                 TextFile::Reader oReader(m_cFile, m_bAppend);
+
+                return oReader.readAll();
             } else {
                 TextFile::Reader oReader(m_cFile);
-            }
 
-            return oReader.readAll();
+                return oReader.readAll();
+            }
         }
 
         void Files::write(std::string cString) {
             if (m_bSaveException) {
                 TextFile::Writer oWriter(m_cFile, m_bFilePath, m_bAppend, m_bSaveException);
+
+                return oWriter.write(cString);
             } else {
                 TextFile::Writer oWriter(m_cFile, m_bFilePath, m_bAppend);
-            }
 
-            return oWriter.write(cString);
+                return oWriter.write(cString);
+            }
         }
 
         void Files::deleteFile() {
             if (m_bSaveException) {
                 TextFile::Writer oWriter(m_cFile, m_bFilePath, false, m_bSaveException);
+
+                return oWriter.deleteFile();
             } else {
                 TextFile::Writer oWriter(m_cFile, m_bFilePath, false);
-            }
             
-            return oWriter.deleteFile();
+                return oWriter.deleteFile();
+            }
         }
     };
 };

@@ -26,7 +26,7 @@ namespace NordicArts {
 
             void Writer::deleteFile() {
                 openStream(false);
-                m_cFileStream.deleteFile();                
+                handlerDeleteFile();
             }
         };
     };

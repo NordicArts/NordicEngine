@@ -24,7 +24,7 @@ namespace NordicArts {
             
             std::string getFilePath() const;
 
-            void deleteFile();
+            void handlerDeleteFile();
             
         protected:
             FileHandler(bool bSaveException);
