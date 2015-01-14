@@ -27,6 +27,8 @@ deleteCMake()
 deleteBuild()
 {
     rm -rf Build
+    rm -rf `find . -type f -name UnitTests.app`
+    rm -rf `find . -type f -name NordicArts.db`
 }
 
 deleteLibs()

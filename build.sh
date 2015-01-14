@@ -34,22 +34,22 @@ makeQuiet()
 }
 makeOSVerbose()
 {
-    cmake -C OSOnly.txt .
+    cmake -C CMakeConfigs/OSOnly.txt .
     make
 }
 makeOSQuiet()
 {
-    cmake -C OSOnly.txt . > /dev/null
+    cmake -C CMakeConfigs/OSOnly.txt . > /dev/null
     make > /dev/null
 }
 makeTestVerbose()
 {
-    cmake -C Tests.txt .
+    cmake -C CMakeConfigs/Tests.txt .
     make
 }
 makeTestQuiet()
 {
-    cmake -C Tests.txt . > /dev/null
+    cmake -C CMakeConfigs/Tests.txt . > /dev/null
     make > /dev/null
 }
 
@@ -167,6 +167,7 @@ then
     fi
 
     ./cleaner.sh -t cmake
+    ./UnitTests.app
 fi
 
 # Set Compiler Back
