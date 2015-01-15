@@ -63,6 +63,9 @@ namespace NordicArts {
                     throw Exceptions(glewGetErrorString(glewStatus), true);
                 }
 
+                glfwMakeContextCurrent(m_pWindow);
+                glfwSetKeyCallback(m_pWindow, Input::handleInput);
+
                 return 0;
             } else {
                 throw Exceptions("Settings Class not in use", true);
