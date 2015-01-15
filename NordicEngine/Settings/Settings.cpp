@@ -259,6 +259,10 @@ namespace NordicArts {
 
             return iMinor;
         }
+        const glm::uvec2 Settings::getOpenGL() const {            
+            return m_vOpenGL;
+        }
+
 
         void Settings::setResolution(const glm::uvec2 &vResolution) {
             setResolutionVerbose(vResolution.x, vResolution.y);
@@ -300,6 +304,9 @@ namespace NordicArts {
             }
         
             return iHeight;
+        }
+        const glm::uvec2 Settings::getResolution() const {
+            return m_vResolution;
         }
 
         bool Settings::checkDefaults() {

@@ -4,6 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Color/Color.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/Settings/Settings.hpp>
 
 #include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
@@ -21,15 +22,18 @@ namespace NordicArts {
 			GLFWwindow  *m_pWindow;
 
             Logger      *m_pLogger;
+            Settings    *m_pSettings;
 
         // Methods
         public:
             Window();
             Window(Logger *pLogger);
+            Window(Logger *pLogger, Settings *pSettings);
             
             virtual ~Window();
 
-            int createWindow(int iWidth = 800, int iHeight = 600, std::string cTitle = "Hello World");
+            int createWindow();
+            int createWindow(int iWidth, int iHeight, std::string cTitle);
 
             bool isWindowOpen() const;
             void closeWindow();
