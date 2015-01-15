@@ -4,9 +4,9 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        Settings::Settings() : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_cGameName("NordicArts"), m_bSettingsDone(false) {
+        Settings::Settings() : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName("NordicArts"), m_bSettingsDone(false) {
         }
-        Settings::Settings(std::string cGameName) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_cGameName(cGameName), m_bSettingsDone(false) {
+        Settings::Settings(std::string cGameName) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName(cGameName), m_bSettingsDone(false) {
         }
 
         Settings::~Settings() {
@@ -62,24 +62,28 @@ namespace NordicArts {
 
         void Settings::setRandomSeed(int iSeed) {
             m_iRandomNumberSeed = iSeed;
-    
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("randomSeed", iSeed);
-            oStorage.update();
+
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("randomSeed", iSeed);
+                oStorage.update();
+            }
 
             return;
         }
         int Settings::getRandomSeed() const {
-            int iSeed;
+            int iSeed = m_iRandomNumberSeed;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("randomSeed");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iSeed = atoi(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("randomSeed");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iSeed = atoi(it->second.c_str());
+                }
             }
 
             return iSeed;
@@ -88,23 +92,27 @@ namespace NordicArts {
         void Settings::setFOV(float fFOV) {
             m_fFOV = fFOV;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("fov", fFOV);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("fov", fFOV);
+                oStorage.update();
+            }
 
             return;
         }
         float Settings::getFOV() const {
-            float fFOV;
+            float fFOV = m_fFOV;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("fov");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                fFOV = atof(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("fov");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    fFOV = atof(it->second.c_str());
+                }
             }
 
             return fFOV;
@@ -120,28 +128,32 @@ namespace NordicArts {
         void Settings::setWindowMode(bool bWindowed) {
             m_bWindowMode = bWindowed;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("windowMode", bWindowed);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("windowMode", bWindowed);
+                oStorage.update();
+            }
 
             return;
         }
         bool Settings::isWindowed() const {
-            bool bWindowed = false;
+            bool bWindowed = m_bWindowMode;
             int iWindowed;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("windowMode");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iWindowed = atoi(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("windowMode");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iWindowed = atoi(it->second.c_str());
+                }
+
+                // Turn it into windowed mode
+                if (iWindowed) { bWindowed = true; }
             }
-            
-            // Turn it into windowed mode
-            if (iWindowed) { bWindowed = true; }
 
             return bWindowed;
         }
@@ -149,21 +161,25 @@ namespace NordicArts {
         void Settings::setFSAA(int iFSAA) {
             m_iFSAA = iFSAA;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("fsaa", iFSAA);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("fsaa", iFSAA);
+                oStorage.update();
+            }
         }
         int Settings::getFSAA() const {
-            int iFSAA;
-    
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("fsaa");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iFSAA = atoi(it->second.c_str());
+            int iFSAA = m_iFSAA;
+
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("fsaa");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iFSAA = atoi(it->second.c_str());
+                }
             }
 
             return iFSAA;
@@ -172,21 +188,25 @@ namespace NordicArts {
         void Settings::setPhysicsRefresh(int iRefresh) {
             m_iPhysicsRefreshRate = iRefresh;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("physics", iRefresh);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("physics", iRefresh);
+                oStorage.update();
+            }
         }
         int Settings::getPhysicsRefresh() const {
-            int iPhysics;
+            int iPhysics = m_iPhysicsRefreshRate;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("physics");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iPhysics = atoi(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("physics");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iPhysics = atoi(it->second.c_str());
+                }
             }
 
             return iPhysics;
@@ -195,25 +215,29 @@ namespace NordicArts {
         void Settings::setVSync(bool bSync) {
             m_bVSync = bSync;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("vsync", bSync);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("vsync", bSync);
+                oStorage.update();
+            }
         }
         bool Settings::getVSync() const {
-            bool bVSync = false;
+            bool bVSync = m_bVSync;
             int iVSync;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("vSync");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iVSync = atoi(it->second.c_str());
-            }
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("vSync");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iVSync = atoi(it->second.c_str());
+                }
 
-            if (iVSync) { bVSync = true; }
+                if (iVSync) { bVSync = true; }
+            }
 
             return bVSync;
         }
@@ -225,36 +249,42 @@ namespace NordicArts {
             m_vOpenGL.x = iMajor;
             m_vOpenGL.y = iMinor;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("opengl_major", iMajor);
-            oStorage.setValue("opengl_minor", iMinor);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("opengl_major", iMajor);
+                oStorage.setValue("opengl_minor", iMinor);
+                oStorage.update();
+            }
         }
         int Settings::getOpenGLMajor() const {
-            int iMajor;
+            int iMajor = m_vOpenGL.x;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("opengl_major");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iMajor = atoi(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("opengl_major");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iMajor = atoi(it->second.c_str());
+                }
             }
         
             return iMajor;
         }
         int Settings::getOpenGLMinor() const {
-            int iMinor;
-            
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("opengl_minor");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iMinor = atoi(it->second.c_str());
+            int iMinor = m_vOpenGL.y;
+
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("opengl_minor");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iMinor = atoi(it->second.c_str());
+                }
             }
 
             return iMinor;
@@ -263,7 +293,6 @@ namespace NordicArts {
             return m_vOpenGL;
         }
 
-
         void Settings::setResolution(const glm::uvec2 &vResolution) {
             setResolutionVerbose(vResolution.x, vResolution.y);
         }
@@ -271,36 +300,42 @@ namespace NordicArts {
             m_vResolution.x = iWidth;
             m_vResolution.y = iHeight;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setValue("resolution_width", iWidth);
-            oStorage.setValue("resolution_height", iHeight);
-            oStorage.update();
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setValue("resolution_width", iWidth);
+                oStorage.setValue("resolution_height", iHeight);
+                oStorage.update();
+            }
         }
         int Settings::getResolutionWidth() const {
-            int iWidth;
+            int iWidth = m_vResolution.x;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("resolution_width");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iWidth = atoi(it->second.c_str());
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("resolution_width");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iWidth = atoi(it->second.c_str());
+                }
             }
             
             return iWidth;
         }
         int Settings::getResolutionHeight() const {
-            int iHeight;
-            
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("resolution_height");
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                iHeight = atoi(it->second.c_str());
+            int iHeight = m_vResolution.y;
+
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("resolution_height");
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    iHeight = atoi(it->second.c_str());
+                }
             }
         
             return iHeight;
@@ -313,17 +348,19 @@ namespace NordicArts {
             std::string cGameName;
             bool bReturn = false;
 
-            Storage oStorage(m_cGameName);
-            oStorage.setTable("general_settings");
-            oStorage.setColumn("gameName");
-            oStorage.setWhere("gameName", m_cGameName);
-            oStorage.select();
-            std::map<std::string, std::string> mResult = oStorage.getResult();
-            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                cGameName = it->second;
-            }
+            if (m_bSettingsDone) {
+                Storage oStorage(m_cGameName);
+                oStorage.setTable("general_settings");
+                oStorage.setColumn("gameName");
+                oStorage.setWhere("gameName", m_cGameName);
+                oStorage.select();
+                std::map<std::string, std::string> mResult = oStorage.getResult();
+                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                    cGameName = it->second;
+                }
 
-            if (cGameName != "") { bReturn = true; }
+                if (cGameName != "") { bReturn = true; }
+            }
 
             return bReturn;
         }            
