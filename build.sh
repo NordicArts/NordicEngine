@@ -18,8 +18,8 @@ This script can build, clean, and grab new versions,
 OPTIONS:
     -h  Show this message
     -v  Verbose
-    -p  Pull
-    -t  Test Build
+    -p  Pull, pulls the latest code and all its gitmodules
+    -t  Test Build, once built run the unit tests    
     -o  Option, can be 'build', 'rebuild', 'full' or 'os' [default: build]
 EOF
 }
