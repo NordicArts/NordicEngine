@@ -1,3 +1,6 @@
-option(UnitTest "Setting UnitTests ON" ON)
-option(OSOnly "Setting OS Only OFF" OFF)
-option(FullEngine "Setting Full Engine ON" ON)
+option(NordicEngine_UnitTest "Setting UnitTests ON" ON)
+option(NordicEngine_OSOnly "Setting OS Only OFF" OFF)
+option(NordicEngine_FullEngine "Setting Full Engine ON" ON)
+
+option(GLFW_BUILD_EXAMPLES "Setting GLFW Examples OFF" OFF)
+option(GLFW_BUILD_DOCS "Setting GLFW Docs OFF" OFF)

@@ -1,1 +1,1 @@
-option(UnitTest "Settings Unit Tests ON" ON)
+option(NordicEngine_UnitTest "Settings Unit Tests ON" ON)

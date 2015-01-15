@@ -9,9 +9,9 @@ project(NordicEngine)
 set(CMAKE_MACOSX_RPATH 0)
 
 # Options
-option(OSOnly "OS Only" OFF)
-option(UnitTest "Unit Tests" OFF)
-option(FullEngine "Full Engine" OFF)
+option(NordicEngine_OSOnly "OS Only" OFF)
+option(NordicEngine_UnitTest "Unit Tests" OFF)
+option(NordicEngine_FullEngine "Full Engine" OFF)
 
 # NOS Files
 set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
@@ -118,7 +118,7 @@ list(APPEND LibHeaders ${NE}/Files/Handler/BitMap/BitMap.hpp)
 list(APPEND LibSources ${NE}/Files/Handler/BitMap/BitMap.cpp)
 
 # Texture
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Files/Texture)
     include_directories(${NE}/Files/Texture)
     list(APPEND LibHeaders ${NE}/Files/Texture/Texture.hpp)
@@ -156,7 +156,7 @@ list(APPEND LibHeaders ${NE}/Utility/Utility.hpp)
 list(APPEND LibSources ${NE}/Utility/Utility.cpp)
 
 # Window
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Window)
     include_directories(${NE}/Window)
     list(APPEND LibHeaders ${NE}/Window/Window.hpp)
@@ -170,7 +170,7 @@ list(APPEND LibHeaders ${NE}/Color/Color.hpp)
 list(APPEND LibSources ${NE}/Color/Color.cpp)
 
 # Player
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Player)
     include_directorieS(${NE}/Player)
     list(APPEND LibHeaders ${NE}/Player/Player.hpp)
@@ -178,7 +178,7 @@ if (FullEngine)
 endif()
 
 # Input
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Input)
     include_directories(${NE}/Input)
     list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
@@ -187,7 +187,7 @@ if (FullEngine)
 endif()
 
 # Renderer
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Renderer)
     include_directories(${NE}/Renderer)
     list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
@@ -195,7 +195,7 @@ if (FullEngine)
 endif()
 
 # Shaders
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Shaders)
     include_directories(${NE}/Shaders)
     list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
@@ -206,7 +206,7 @@ if (FullEngine)
 endif()
 
 # Camera
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Camera)
     include_directories(${NE}/Camera)
     list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
@@ -214,7 +214,7 @@ if (FullEngine)
 endif()
 
 # Model
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Model)
     include_directories(${NE}/Model)
     list(APPEND LibHeaders ${NE}/Model/Model.hpp)
@@ -222,7 +222,7 @@ if (FullEngine)
 endif()
 
 # Light
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Light)
     include_directories(${NE}/Light)
     list(APPEND LibHeaders ${NE}/Light/Light.hpp)
@@ -230,7 +230,7 @@ if (FullEngine)
 endif()
 
 # Settings
-if (FullEngine)
+if (NordicEngine_FullEngine)
     link_directories(${NE}/Settings)
     include_directories(${NE}/Settings)
     list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
@@ -262,15 +262,14 @@ set_target_properties(NordicEngine PROPERTIES OUTPUT_NAME "NordicEngine")
 find_package(Boost COMPONENTS locale REQUIRED)
 include_directories(${Boost_INCLUDES})
 
-if (FullEngine)
+if (NordicEngine_FullEngine)
     # GLFW
-    option(GLFW_BUILD_EXAMPLES OFF)
-    option(GLFW_BUILD_TESTS OFF)
-    option(GLFW_BUILD_DOCS OFF)
     link_directories(${NET}/glfw)
     include_directories(${NET}/glfw/include)
     add_subdirectory(${NET}/glfw)
+endif()
 
+if (NordicEngine_FullEngine)
     # GLEW
     find_package(GLEW REQUIRED)
     link_directories(${GLEW_INCLUDES})
@@ -300,7 +299,7 @@ include_directories(${NET}/LuaBridge/Source/LuaBridge)
 list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
 # System Linker
-if(FullEngine)
+if(NordicEngine_FullEngine)
     if (WIN32)
         target_link_libraries(NordicEngine ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
     elseif (APPLE)
@@ -320,7 +319,7 @@ else()
 endif()
 
 # Library Linker
-if (FullEngine)
+if (NordicEngine_FullEngine)
     target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
     target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
 endif()
@@ -331,7 +330,7 @@ target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 
 # Unit Tests
-if (UnitTest)
+if (NordicEngine_UnitTest)
     project(UnitTests)    
     SET(UT ${PROJECT_SOURCE_DIR}/Tests)
 
@@ -339,7 +338,7 @@ if (UnitTest)
     include_directories(${UT})
     set(TestHeaders ${UT}/Main.hpp)
 
-    if (OSOnly)
+    if (NordicEngine_OSOnly)
         set(TestSources ${UT}/OSTests.cpp)
     elseif (FullEngine)
         set(TestSources ${UT}/FullTests.cpp)

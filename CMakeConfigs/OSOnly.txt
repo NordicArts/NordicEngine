@@ -1,2 +1,2 @@
-option(OSOnly "Setting OS Only ON" ON)
-option(FullEngine "Setting Full Engine OFF" OFF)
+option(NordicEngine_OSOnly "Setting OS Only ON" ON)
+option(NordicEngine_FullEngine "Setting Full Engine OFF" OFF)

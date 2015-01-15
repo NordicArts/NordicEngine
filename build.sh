@@ -263,7 +263,7 @@ if [[ $OPT == "full" ]]
         then
             makeTestFullVerbose
         else
-            makeTestVerbose
+            makeFullVerbose
         fi
     else
         if [[ $PULL == 1 ]] 
