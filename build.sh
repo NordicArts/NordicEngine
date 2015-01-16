@@ -21,7 +21,17 @@ OPTIONS:
     -p  Pull, pulls the latest code and all its gitmodules
     -t  Test Build, once built run the unit tests    
     -o  Option, can be 'build', 'rebuild', 'full' or 'os' [default: build]
+    -g  Generate build files, can be 'osx', 'windows' or 'linux' [default: linux]
 EOF
+}
+
+makeItQuiet()
+{
+    make > /dev/null
+}
+makeItVerbose()
+{
+    make
 }
 
 makeVerbose()
@@ -129,15 +139,19 @@ pullQuiet()
 
 
 OPT='build'
+GENERATE='linux'
 VERBOSE=false
 TEST=false
 PULL=false
 
-while getopts ":o:?hvt" OPTION 
+while getopts ":o:g:?hvt" OPTION 
 do
     case $OPTION in
         o)
             OPT=$OPTARG
+            ;;
+        g)
+            GENERATE=$OPTARG
             ;;
         t)
             TEST=1

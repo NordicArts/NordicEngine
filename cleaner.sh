@@ -24,6 +24,7 @@ deleteCMake()
     rm -rf `find . -type f -name cmake_install.cmake`
     rm -rf `find . -type f -name CPackConfig.cmake`
     rm -rf `find . -type f -name CPackSourceConfig.cmake`
+    rm -rf `find . -type d -name CMakeScripts`
 }
 
 deleteBuild()
