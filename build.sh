@@ -9,14 +9,12 @@ export CXX=/usr/bin/clang++
 usage()
 {
 cat << EOF
+This script can build, clean, and grab new versions,
+
 usage: $0 options
 
-This script can build, clean, and grab new versions,
-    Rebuild = Clean and Build
-    Pull = Clean, Pull Dependencies and BuildOPTIONS:
-
+OPTIONS:
     -h  Show this message
-
     -v  Verbose
     -p  Pull, pulls the latest code and all its gitmodules
     -t  Test Build, once built run the unit tests
@@ -172,8 +170,8 @@ builder()
         endResult+=" >> /dev/null"
     fi
 
-    echo endEcho
-    eval endResult
+    echo $endEcho
+    eval $endResult
 
     makeIt $beLoud
 }
@@ -187,7 +185,7 @@ PULL=false
 MAKER=false
 
 # Go through the options
-while getopts ":o:g:?hvt" OPTION; do
+while getopts ":o:g:?phvt" OPTION; do
     case $OPTION in
         o)
             OPT=$OPTARG

@@ -340,7 +340,7 @@ if (NordicEngine_UnitTest)
 
     if (NordicEngine_OSOnly)
         set(TestSources ${UT}/OSTests.cpp)
-    elseif (FullEngine)
+    elseif (NordicEngine_FullEngine)
         set(TestSources ${UT}/FullTests.cpp)
     else()
         set(TestSources ${UT}/Tests.cpp)
