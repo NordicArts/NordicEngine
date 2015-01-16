@@ -10,142 +10,184 @@ usage()
 {
 cat << EOF
 usage: $0 options
-    
+
 This script can build, clean, and grab new versions,
     Rebuild = Clean and Build
-    Pull = Clean, Pull Dependencies and Build
+    Pull = Clean, Pull Dependencies and BuildOPTIONS:
 
-OPTIONS:
     -h  Show this message
+
     -v  Verbose
     -p  Pull, pulls the latest code and all its gitmodules
-    -t  Test Build, once built run the unit tests    
-    -o  Option, can be 'build', 'rebuild', 'full' or 'os' [default: build]
+    -t  Test Build, once built run the unit tests
+    -o  Option, can be 'build', 'full' or 'os' [default: build]
     -g  Generate build files, can be 'osx', 'windows' or 'linux' [default: linux]
 EOF
 }
 
-makeItQuiet()
+# Make the build
+makeIt()
 {
-    make > /dev/null
-}
-makeItVerbose()
-{
-    make
-}
+    beLoud=$1
 
-makeVerbose()
-{
-    echo "Make Verbose"
+    if [[ $beLoud == 1 ]]; then
+        echo "Make Verbose"
 
-    cmake .
-    make
-}
-makeQuiet()
-{
-    echo "Make Quiet"
+        make
+    else
+        echo "Make Quiet"
 
-    cmake . > /dev/null
-    make > /dev/null
+        make >> /dev/null
+    fi
 }
 
-makeFullVerbose()
+# Pull the latest stuff
+pullCode()
 {
-    echo "Make Full Verbose"
+    beLoud=$1
 
-    cmake -C CMakeConfigs/Full.txt .
-    make
-}
-makeFullQuiet()
-{
-    echo "Make Full Quiet"
+    if [[ $beLoud == 1 ]]; then
+        echo "Pull Verbose"
 
-    cmake -C CMakeConfigs/Full.txt . > /dev/null
-    make > /dev/null
-}
-makeOSVerbose()
-{
-    echo "Make OS Verbose"
+        git submodule init
+        git submodule update --recursive
+        git submodule foreach git pull origin master --recurse-submodules
+    else
+        echo "Pull Quiet"
 
-    cmake -C CMakeConfigs/OSOnly.txt .
-    make
-}
-makeOSQuiet()
-{
-    echo "Make OS Quiet"
-
-    cmake -C CMakeConfigs/OSOnly.txt . > /dev/null
-    make > /dev/null
-}
-makeTestOSVerbose()
-{
-    echo "Make Test OS Verbose"
-
-    cmake -C CMakeConfigs/TestOS.txt .
-    make
-}
-makeTestOSQuiet()
-{
-    echo "Make Test OS Quiet"
-
-    cmake -C CMakeConfigs/TestOS.txt . > /dev/null
-    make > /dev/null
-}
-makeTestFullVerbose()
-{
-    echo "Make Full Verbose"
-
-    cmake -C CMakeConfigs/TestFull.txt .
-    make
-}
-makeTestFullQuiet()
-{
-    echo "Make Full Quiet"
-
-    cmake -C CMakeConfigs/TestFull.txt . > /dev/null
-    make > /dev/null
-}
-makeTestVerbose()
-{
-    echo "Make Test Verbose"
-
-    cmake -C CMakeConfigs/Test.txt .
-    make
-}
-makeTestQuiet() 
-{
-    echo "Make Test Quiet"
-    
-    cmake -C CMakeConfigs/Test.txt . > /dev/null
-    make > /dev/null
+        git submodule init >> /dev/null
+        git submodule update --recursive >> /dev/null
+        git submodule foreach git pull origin master --recurse-submodules >> /dev/null
+    fi
 }
 
-pullVerbose()
+# Full Engine
+fullEngine()
 {
-    echo "Pull Verbose"
+    beLoud=$1
+    testIt=$2
+    doGenerate=$3
 
-    git submodule init
-    git submodule update --recursive
-    git submodule foreach git pull origin master --recurse-submodules
+    endEcho="Full Engine"
+    endResult="cmake -C CMakeConfigs/"
+
+    # Test Build
+    if [[ $testIt == 1 ]]; then
+        endEcho+=", Test"
+        endResult+="TestFull.txt"
+    else
+        endEcho+=", Non-Test"
+        endResult+="Full.txt"
+    fi
+
+    # Generate IDE builds or Make
+    if [[ $doGenerate == "osx" ]]; then
+        endEcho+=", XCode Build"
+        endResult+=" -G Xcode ."
+    elif [[ $doGenerate == "windows" ]]; then
+        endEcho+=", Ninja Build"
+        endResult+=" -G Ninja ."
+    else
+        endEcho+=", MakeFiles Build"
+        endResult+=" ."
+    fi
+
+    # Verbose
+    if [[ $beLoud == 1 ]]; then
+        endEcho+=", Verbose"
+    else
+        endEcho+=", Quiet"
+        endResult+=" >> /dev/null"
+    fi
+
+    echo $endEcho
+    eval $endResult
 }
-pullQuiet()
+
+# OS Only
+osOnly()
 {
-    echo "Pull Quiet"    
+    beLoud=$1
+    testIt=$2
+    doGenerate=$3
 
-    git submodule init >> /dev/null
-    git submodule update --recursive >> /dev/null
-    git submodule foreach git pull origin master --recurse-submodules >> /dev/null
+    endEcho="OS Only"
+    endResult="cmake -C CMakeConfigs/"
+
+    # Test Build
+    if [[ $testIt == 1 ]]; then
+        endEcho+=", Test"
+        endResult+="TestOS.txt"
+    else
+        endEcho+=", Non-Test"
+        endResult+="OSOnly.txt"
+    fi
+
+    # Generate IDE builds or Make
+    if [[ $doGenerate == "osx" ]]; then
+        endEcho+=", XCode Build"
+        endResult+=" -G Xcode ."
+    elif [[ $doGenerate == "windows" ]]; then
+        endEcho+=", Ninja Build"
+        endResult+=" -G Ninja ."
+    else
+        endEcho+=", MakeFiles Build"
+        endResult+=" ."
+    fi
+
+    # Verbose
+    if [[ $beLoud == 1 ]]; then
+        endEcho+=", Verbose"
+    else
+        endEcho+=", Quiet"
+        endResult+=" >> /dev/null"
+    fi
+
+    echo $endEcho
+    eval $endResult
+}
+builder()
+{
+
+    beLoud=$1
+    testIt=$2
+
+    endEcho="ReBuild"
+    endResult=""
+
+    # Testing
+    if [[ $testIt == 1 ]]; then
+        endEcho+=", Test"
+        endResult+="cmake -C CMakeConfigs/Test.txt ."
+    else
+        endEcho+=", Non-Test"
+        endResult+="cmake ."
+    fi
+
+    # Verbose
+    if [[ $beLoud == 1 ]]; then
+        endEcho+=", Verbose"
+    else
+        endEcho+=", Quiet"
+        endResult+=" >> /dev/null"
+    fi
+
+    echo endEcho
+    eval endResult
+
+    makeIt $beLoud
 }
 
-
+# Variables
 OPT='build'
 GENERATE='linux'
 VERBOSE=false
 TEST=false
 PULL=false
+MAKER=false
 
-while getopts ":o:g:?hvt" OPTION 
-do
+# Go through the options
+while getopts ":o:g:?hvt" OPTION; do
     case $OPTION in
         o)
             OPT=$OPTARG
@@ -176,129 +218,48 @@ done
 # Clear screen
 clear
 
+# Pull
+if [[ $PULL == 1 ]]; then
+    pullCode $VERBOSE
+fi
+
 # Build Standard
-if [[ $OPT == "build" ]] 
-then
+if [[ $OPT == "build" ]]; then
     ./cleaner.sh -t build
 
-    if [[ $VERBOSE == 1 ]] 
-    then
-        if [[ $PULL == 1 ]] 
-        then
-            pullVerbose
-        fi
-
-        if [[ $TEST == 1 ]]
-        then
-            makeTestVerbose
-        else
-            makeVerbose
-        fi
-    else
-        if [[ $PULL == 1 ]] 
-        then
-            pullQuiet
-        fi
-
-        if [[ $TEST == 1 ]]
-        then
-            makeTestQuiet
-        else
-            makeQuiet
-        fi
-    fi
+    builder $VERBOSE $TEST
 
     ./cleaner.sh -t cmake
 fi
 
-# Rebuild
-if [[ $OPT == "rebuild" ]] 
-then
+# Build OS
+if [[ $OPT == "os" ]]; then
     ./cleaner.sh -t all
 
-    if [[ $VERBOSE == 1 ]] 
-    then
-        makeVerbose
-    else
-        makeQuiet
-    fi
+    osOnly $VERBOSE $TEST $GENERATE
 
-    ./cleaner.sh -t cmake
-fi
-
-# Build OS 
-if [[ $OPT == "os" ]] 
-then
-    ./cleaner.sh -t all
-
-    if [[ $VERBOSE == 1 ]] 
-    then
-        if [[ $PULL == 1 ]] 
-        then
-            pullVerbose
-        fi
-
-        if [[ $TEST == 1 ]] 
-        then
-            makeTestOSVerbose
-        else
-            makeOSVerbose
-        fi
-    else
-        if [[ $PULL == 1 ]] 
-        then
-            pullQuiet
-        fi
-
-        if [[ $TEST == 1 ]] 
-        then
-            makeTestOSQuiet
-        else
-            makeOSQuiet
-        fi
+    if [[ $GENERATE == "linux" ]]; then
+        makeIt $VERBOSE
     fi
 
     ./cleaner.sh -t cmake
 fi
 
 # Build Full
-if [[ $OPT == "full" ]] 
-    then
+if [[ $OPT == "full" ]]; then
     ./cleaner.sh -t all
 
-    if [[ $VERBOSE == 1 ]] 
-    then
-        if [[ $PULL == 1 ]] 
-        then
-            pullVerbose
-        fi
+    fullEngine $VERBOSE $TEST $GENERATE
 
-        if [[ $TEST == 1 ]] 
-        then
-            makeTestFullVerbose
-        else
-            makeFullVerbose
-        fi
-    else
-        if [[ $PULL == 1 ]] 
-        then
-            pullQuiet
-        fi
-
-        if [[ $TEST == 1 ]] 
-        then
-            makeTestFullQuiet
-        else
-            makeFullQuiet
-        fi
+    if [[ $GENERATE == "linux" ]]; then
+        makeIt $VERBOSE
     fi
 
     ./cleaner.sh -t cmake
 fi
 
 # Run the tests if its supposed to
-if [[ $TEST == 1 ]] 
-then
+if [[ $TEST == 1 ]]; then
     ./UnitTests.app
 fi
 
