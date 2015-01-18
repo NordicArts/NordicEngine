@@ -1,6 +1,5 @@
 #include <NordicEngine/Shaders/Simple.hpp>
 #include <NordicEngine/Files/Files.hpp>
-#include <OpenGL/OpenGL.h>
 
 namespace NordicArts {
     namespace NordicEngine {
