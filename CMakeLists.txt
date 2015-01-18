@@ -318,7 +318,7 @@ if (WIN32)
 elseif (APPLE)
     target_link_libraries(NordicEngine "-framework Foundation -framework AppKit -framework IOKit -framework Carbon -framework CoreFoundation" c++abi)
 else()
-    target_link_libraries(NordicEgnine ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
+    target_link_libraries(NordicEngine ${X11_X11_LIB} ${X11_Xrandr_LIB} c++abi)
 endif()
 
 # Library Linker
