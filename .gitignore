@@ -12,3 +12,6 @@ CPackConfig.cmake
 CPackSourceConfig.cmake
 NordicArts.db
 UnitTests.app
+.DS_Store/
+.DS_Store
+
