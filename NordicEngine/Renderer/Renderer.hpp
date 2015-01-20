@@ -2,13 +2,14 @@
 #define NordicArts_NordicEngine_Renderer_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/Window/Window.hpp>
-#include <NordicEngine/Color/Color.hpp>
 #include <NordicEngine/Shaders/Program.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
+        class Window;
+        class Logger;
+        class Color;
+
         class Renderer {
         // Variables
         public:

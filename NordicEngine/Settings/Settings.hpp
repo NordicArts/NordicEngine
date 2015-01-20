@@ -8,6 +8,8 @@
 
 namespace NordicArts {
     namespace NordicEngine {
+        class Logger;
+
         class Settings {
         // Variables
         public:
@@ -31,12 +33,17 @@ namespace NordicArts {
 
             std::string     m_cGameName;
 
+            Logger         *m_pLogger;
+
         // Methods
         public:
             Settings();
             Settings(std::string cGameName);
+            Settings(Logger *pLogger, std::string cGameName);
 
             virtual ~Settings();
+
+            void setup();
 
             void setRandomSeed(int iSeed);
             int getRandomSeed() const;
@@ -63,8 +70,6 @@ namespace NordicArts {
             void setFSAA(int iFSAA);
             int getFSAA() const;
 
-            void createTable();
-
             void setPhysicsRefresh(int iRefresh);
             int getPhysicsRefresh() const;
 
@@ -83,8 +88,9 @@ namespace NordicArts {
         protected:
         private:
             bool checkDefaults();
-            void setDefaults();
 
+            void setDefaults();
+            void createTable();
         };
     };
 };

@@ -4,12 +4,19 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        Settings::Settings() : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName("NordicArts"), m_bSettingsDone(false) {
+        Settings::Settings() : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName("NordicArts"), m_bSettingsDone(false), m_pLogger(nullptr) {
         }
-        Settings::Settings(std::string cGameName) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName(cGameName), m_bSettingsDone(false) {
+        Settings::Settings(std::string cGameName) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName(cGameName), m_bSettingsDone(false), m_pLogger(nullptr) {
+        }
+        Settings::Settings(Logger *pLogger, std::string cGameName) : m_iPhysicsRefreshRate(100), m_bWindowMode(true), m_iRandomNumberSeed(0), m_vOpenGL(3, 3), m_vResolution(800, 600), m_cGameName(cGameName), m_bSettingsDone(false), m_pLogger(pLogger) {
         }
 
         Settings::~Settings() {
+        }
+
+        void Settings::setup() {
+            createTable();
+            setDefaults();
         }
 
         void Settings::registerLua(Lua *pLua) {
@@ -37,7 +44,7 @@ namespace NordicArts {
                         .addProperty("getResolutionHeight", &Settings::getResolutionHeight)
                         .addFunction("setResolution", &Settings::setResolutionVerbose)
                         
-                        .addFunction("createSettings", &Settings::createTable)
+                        .addFunction("createSettings", &Settings::setup)
                     .endClass()
                 .endNamespace();
 
@@ -45,6 +52,10 @@ namespace NordicArts {
         }
 
         void Settings::setGameName(std::string cGameName) {
+            if (m_pLogger) {
+                m_pLogger->log("Set Gamename: " + cGameName);
+            }
+
             m_cGameName = cGameName;
 
             if (m_bSettingsDone) {
@@ -349,6 +360,8 @@ namespace NordicArts {
             bool bReturn = false;
 
             if (m_bSettingsDone) {
+                if (m_pLogger) { m_pLogger->log("Checking Defaults"); }
+
                 Storage oStorage(m_cGameName);
                 oStorage.setTable("general_settings");
                 oStorage.setColumn("gameName");
@@ -360,6 +373,8 @@ namespace NordicArts {
                 }
 
                 if (cGameName != "") { bReturn = true; }
+
+                if (m_pLogger) { m_pLogger->log("Checked Defaults"); }
             }
 
             return bReturn;
@@ -368,6 +383,8 @@ namespace NordicArts {
             m_bSettingsDone = checkDefaults();
 
             if (!m_bSettingsDone) {
+                if (m_pLogger) { m_pLogger->log("Setting Defaults"); }
+
                 Storage  oStorage(m_cGameName);
     
                 oStorage.setTable("general_settings");
@@ -387,12 +404,16 @@ namespace NordicArts {
                 oStorage.insert();
     
                 m_bSettingsDone = true;
+
+                if (m_pLogger) { m_pLogger->log("Set Defaults"); }
             }
 
             return;
         }
 
         void Settings::createTable() {
+            if (m_pLogger) { m_pLogger->log("Creating Settings Table"); } 
+
             Storage  oStorage(m_cGameName);
 
             oStorage.setTable("general_settings");
@@ -411,7 +432,7 @@ namespace NordicArts {
                 
             oStorage.createTable();
 
-            setDefaults();
+            if (m_pLogger) { m_pLogger->log("Created Settings Table"); }
 
             return;
         }

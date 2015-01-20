@@ -1,11 +1,14 @@
 #include <NordicEngine/Renderer/Renderer.hpp>
+#include <NordicEngine/Color/Color.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/Window/Window.hpp>
 
 #include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
     namespace NordicEngine {
-        Renderer::Renderer(Window *pWindow) : m_pWindow(pWindow) {
+        Renderer::Renderer(Window *pWindow) : m_pWindow(pWindow), m_pLogger(nullptr) {
         }
         Renderer::Renderer(Logger *pLogger, Window *pWindow) : m_pLogger(pLogger), m_pWindow(pWindow) {
         }
@@ -98,5 +101,6 @@ namespace NordicArts {
         void Renderer::end() {
             glEnd();
         }
+
     };
 };

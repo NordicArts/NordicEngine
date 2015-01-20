@@ -8,7 +8,7 @@ namespace NordicArts {
     namespace NordicEngine {
         static Logger *s_pLogger = nullptr;
 
-        Logger::Logger(const std::string &cFile) : Singleton(TYPE_LOGGER), m_cLogFile(cFile), m_ulFileLength(0), m_cUnknownLogType("UNKNOWN") {
+        Logger::Logger(std::string cFile) : Singleton(TYPE_LOGGER), m_ulFileLength(0), m_cUnknownLogType("UNKNOWN") {
             m_aLogTypes[0] = "Info";
             m_aLogTypes[1] = "Warning";
             m_aLogTypes[2] = "Error";
@@ -20,6 +20,11 @@ namespace NordicArts {
                     m_ulFileLength = cType.size();
                 }
             }
+
+            // Set the logfile to have a log filetype
+            std::size_t nFound = cFile.find(".log");
+            if (nFound == std::string::npos) { cFile += ".log"; }
+            m_cLogFile = cFile;
 
             createCritical(m_Critical);
             BlockThread blockThread(m_Critical);

@@ -30,7 +30,7 @@ namespace NordicArts {
 
         // Methods
         public:
-            explicit Logger(const std::string &cFileName);
+            explicit Logger(std::string cFileName);
             virtual ~Logger();
 
             static void log(const char *cLog);

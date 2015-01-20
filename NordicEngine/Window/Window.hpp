@@ -2,15 +2,15 @@
 #define NordicArts_NordicEngine_Window_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Color/Color.hpp>
-#include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/Settings/Settings.hpp>
 
 #include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
     namespace NordicEngine {
+        class Logger;
+        class Settings;
+
         class Window {
         // Variables
         public:
@@ -29,6 +29,11 @@ namespace NordicArts {
             Window();
             Window(Logger *pLogger);
             Window(Logger *pLogger, Settings *pSettings);
+
+            void setup();
+            void doGLEW();
+            void makeContext();
+            void setCallback();
             
             virtual ~Window();
 
@@ -43,6 +48,9 @@ namespace NordicArts {
             void setOpenGL();
             void setOpenGL(int iMajor, int iMinor);
 
+            void setFSAA();
+            void setFSAA(int iFSAA);
+
             void getFrameBufferSize(int *iWidth, int *iHeight);
             void draw();
             void display();
@@ -51,8 +59,7 @@ namespace NordicArts {
 
         protected:
         private:
-            void initWindow();
-
+        
         };
     };
 };

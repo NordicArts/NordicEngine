@@ -2,6 +2,7 @@
 #include <NordicEngine/Player/Player.hpp>
 #include <NordicEngine/Color/Color.hpp>
 #include <NordicEngine/Settings/Settings.hpp>
+#include <NordicEngine/Shaders/Simple.hpp>
 
 TEST_CASE("Color", "[color]") {
     SECTION("Create Black Color") {
@@ -87,4 +88,12 @@ TEST_CASE("Player", "[player]") {
         
         REQUIRE(oPlayer.getLife() == 15);
     }
+}
+
+TEST_CASE("Shaders", "[shaders]") {
+    NordicArts::NordicEngine::Shaders::Simple oShaders;
+    
+//    oShaders.LoadShaders("GameFiles/Shaders/Simple.vertex", "GameFiles/Shaders/Simple.fragment");
+
+    REQUIRE(true == false);
 }

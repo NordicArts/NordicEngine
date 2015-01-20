@@ -240,9 +240,7 @@ namespace NordicArts {
 
             // Connect to DB
             std::size_t nFound = m_cDB.find(".db");
-            if (nFound == std::string::npos) {
-                m_cDB += ".db";
-            }
+            if (nFound == std::string::npos) { m_cDB += ".db"; }
 
             sqlite3 *pDB;
             int iConnection = sqlite3_open(m_cDB.c_str(), &pDB);

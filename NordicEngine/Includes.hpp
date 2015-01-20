@@ -5,7 +5,6 @@
 
 // Includes
 #include <cassert> // Asserts
-#include <time.h> // Time
 #include <ctime> // Time
 #include <iostream> // Input-Output stream
 #include <string> // Strings
@@ -16,15 +15,14 @@
 #include <sstream> // Streams
 #include <vector> // Vector Array
 #include <cstddef> // Standard Defs
-#include <stdlib.h> // STD lib
-#include <stdio.h> // STD input-Output
+#include <cstdlib> // STD lib
+#include <cstdio> // STD input-output
 #include <cstring> // Strings
 #include <list> // List Array
-#include <stdarg.h> // STD Arguments
-#include <stdint.h> // STD integer
+#include <cstdarg> // STD args
+#include <cstdint> // STD int
 #include <array> // Array
 #include <iomanip> // Input-Output Manipulation
-#include <math.h> // Math
 #include <algorithm> // Misc
 #include <unordered_map> // Unordered Map
 #include <map> // Map
