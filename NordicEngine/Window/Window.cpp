@@ -67,6 +67,9 @@ namespace NordicArts {
                 if (m_pLogger) { m_pLogger->log("Making Context with GLFW"); }
                 
                 glfwMakeContextCurrent(m_pWindow);
+
+                setCallback();
+                doGLEW();
                 
                 if (m_pLogger) { m_pLogger->log("Made Context with GLFW"); }
             }
@@ -107,9 +110,6 @@ namespace NordicArts {
             }
 
             if (m_pLogger) { m_pLogger->log("Created Window with GLFW"); }
-
-            setCallback();
-            doGLEW();
 
             if (m_pLogger) { m_pLogger->log("Created Window"); }
             return 0;
