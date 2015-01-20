@@ -86,8 +86,6 @@ namespace NordicArts {
 
                 setOpenGL(vOpenGL.x, vOpenGL.y);
                 createWindow(vResolution.x, vResolution.y, cTitle);
-                setCallback();
-                doGLEW();
 
                 if (m_pLogger) { m_pLogger->log("Created Window using NA::Settings"); }
 
