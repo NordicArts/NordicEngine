@@ -121,6 +121,14 @@ if (NordicEngine_FullEngine)
     list(APPEND LibSources ${NE}/Files/Texture/Texture.cpp)
 endif()
 
+# Obj
+if (NordicEngine_FullEngine)
+    link_directories(${NE}/Files/Format/Obj)
+    include_directories(${NE}/Files/Format/Obj)
+    list(APPEND LibHeaders ${NE}/Files/Format/Obj/Obj.hpp)
+    list(APPEND LibSources ${NE}/Files/Format/Obj/Obj.cpp)
+endif()
+
 # Threads
 link_directories(${NE}/Threading/Threads)
 include_directories(${NE}/Threading/Threads)
