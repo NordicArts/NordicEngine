@@ -33,7 +33,7 @@ namespace NordicArts {
 
         // Methods
         public:
-            std::string ResourcePath(std::string cFileName);
+            std::string getResourcePath(std::string cFileName);
 
             bool deleteFile(std::string cFileName);
 

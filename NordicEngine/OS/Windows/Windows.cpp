@@ -2,7 +2,7 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        std::string OSSpecific::ResourcePath(std::string cFileName) {
+        std::string OSSpecific::getResourcePath(std::string cFileName) {
             std::string cFilePath;
 
             std::string::size_type iLastIndex = cFileName.find_last_of("/\\");

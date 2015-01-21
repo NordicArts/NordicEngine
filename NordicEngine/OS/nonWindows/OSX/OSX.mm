@@ -6,7 +6,7 @@
 
 namespace NordicArts {
     namespace NordicEngine {
-        std::string OSSpecific::ResourcePath(std::string cFileName) {
+        std::string OSSpecific::getResourcePath(std::string cFileName) {
             NSString* pFileName     = [NSString stringWithCString: cFileName.c_str() encoding:NSUTF8StringEncoding];
             NSString* pPath         = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: pFileName];
 
