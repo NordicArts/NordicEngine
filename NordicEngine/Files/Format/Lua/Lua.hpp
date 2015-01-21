@@ -8,6 +8,8 @@
 
 namespace NordicArts {
     namespace NordicEngine {
+        class Logger;
+
         namespace Files {
             class Lua {
             // Variables
@@ -16,9 +18,12 @@ namespace NordicArts {
             private:
                 lua_State *m_pLua;
 
+                Logger    *m_pLogger;
+
             // Methods
             public:
                 Lua();
+                Lua(Logger *pLogger);
                 Lua(const Lua &oOther);
 
                 ~Lua();

@@ -7,12 +7,12 @@ namespace NordicArts {
         namespace Shaders {
             Program::Program(const std::vector<Shader> &vShaders) : m_iObject(0) {
                 if (vShaders.size() <= 0) {
-                    throw Exceptions("No shaders were provided", true);
+                    throw Exception("No shaders were provided", true);
                 }
 
                 m_iObject = glCreateProgram();
                 if (m_iObject == 0) {
-                    throw Exceptions("glCreateProgram failed", true);
+                    throw Exception("glCreateProgram failed", true);
                 }
 
                 // Attach shaders
@@ -45,7 +45,7 @@ namespace NordicArts {
                     glDeleteShader(m_iObject);
                     m_iObject = 0;
     
-                    throw Exceptions(cMsg, true);
+                    throw Exception(cMsg, true);
                 }
             }
 
@@ -61,12 +61,12 @@ namespace NordicArts {
 
             int Program::getAttrib(const char *cName) const {
                 if (!cName) {
-                    throw Exceptions("Attribute name was NULL", true);
+                    throw Exception("Attribute name was NULL", true);
                 }
 
                 int iAttrib = glGetAttribLocation(m_iObject, cName);
                 if (iAttrib == -1) {
-                    throw Exceptions((std::string("Program attribute not found") + cName), true);
+                    throw Exception((std::string("Program attribute not found") + cName), true);
                 }
 
                 return iAttrib;
@@ -74,12 +74,12 @@ namespace NordicArts {
 
             int Program::getUniform(const char *cName) const {
                 if (!cName) {
-                    throw Exceptions("Unform name was NULL", true);
+                    throw Exception("Unform name was NULL", true);
                 }
 
                 int iUniform = glGetUniformLocation(m_iObject, cName);
                 if (iUniform == -1) {
-                    throw Exceptions((std::string("Program unform not found") + cName), true);
+                    throw Exception((std::string("Program unform not found") + cName), true);
                 }
 
                 return iUniform;

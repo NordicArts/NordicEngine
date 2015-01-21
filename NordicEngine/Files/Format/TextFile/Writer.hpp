@@ -8,7 +8,7 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Files {
             namespace TextFile {
-                class Writer : public FileHandler {
+                class Writer : public Handler {
                 // Variables
                 public:
                 protected:

@@ -41,14 +41,14 @@ namespace NordicArts {
                     const char *cError = lua_tostring(m_pLua, iState);
 
                     lua_pop(m_pLua, 1);
+
+                    std::string cEndError = cError;
+                    cEndError += ": ";
+                    cEndError += getString(iState);
             
                     if (m_pLogger) { 
-                        pLogger->log(cError, iState); 
+                        m_pLogger->log(cEndError); 
                     } else {
-                        std::string cEndError = cError;
-                        cEndError += ": ";
-                        cEndError += getString(iState);
-                            
                         printIt(cEndError);
                     }
                 }

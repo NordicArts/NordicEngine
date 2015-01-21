@@ -13,11 +13,11 @@ namespace NordicArts {
                     openStream(bAppend);
                 }
 
-                void Writer::openstream(bool bAppend) {
-                    m_cFileStream.open(getFilePath().c_str(), (std::ios_base::out | (bAppend ? std::ios_base::app : std::ios-base::trunc)));
+                void Writer::openStream(bool bAppend) {
+                    m_cFileStream.open(getFilePath().c_str(), (std::ios_base::out | (bAppend ? std::ios_base::app : std::ios_base::trunc)));
 
-                    if (m_cFileStream.is_open()) {
-                        throwError(__FUNCTION__ + std::string("can't open file for writing"));
+                    if (!m_cFileStream.is_open()) {
+                        throwError(__FUNCTION__ + std::string(" can't open file for writing"));
                     }
                 }
 

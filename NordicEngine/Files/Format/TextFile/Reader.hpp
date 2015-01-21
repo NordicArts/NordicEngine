@@ -8,7 +8,7 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Files {
             namespace TextFile {
-                class Reader : public FileHandler {
+                class Reader : public Handler {
                 // Variables
                 public:
                 protected:
@@ -16,17 +16,15 @@ namespace NordicArts {
 
                 // Methods
                 public:
-                    explicit Reader();
-                    explicit Reader(const std::string &cFileName);
-                    explicit Reader(const std::string &cFileName, bool bFilePath);
+                    Reader();
+                    Reader(const std::string &cFileName);
+                    Reader(const std::string &cFileName, bool bFilePath);
 
-                    std::string readAll() const;
                     std::string read() const;
+                    std::string readAll() const;
 
                 protected:
                 private:
-                    void openFile();
-                    void closeFile();
 
                 };
             };

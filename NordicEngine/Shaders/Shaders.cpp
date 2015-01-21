@@ -1,5 +1,5 @@
 #include <NordicEngine/Shaders/Shaders.hpp>
-#include <NordicEngine/Files/Files.hpp>
+#include <NordicEngine/Files/Loader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -7,7 +7,7 @@ namespace NordicArts {
             Shader::Shader(const std::string &cShaderCode, GLenum eShaderType) : m_iObject(0), m_pRefCount(NULL) {
                 m_iObject = glCreateShader(eShaderType);
                 if (m_iObject == 0) {
-                    throw Exceptions("glCreateShader failed", true);
+                    throw Exception("glCreateShader failed", true);
                 }
 
                 const char *cCode = cShaderCode.c_str();
@@ -31,7 +31,7 @@ namespace NordicArts {
                     glDeleteShader(m_iObject);
                     m_iObject = 0;
     
-                    throw Exceptions(cMsg, true);
+                    throw Exception(cMsg, true);
                 }
 
                 m_pRefCount     = new unsigned int;
@@ -64,7 +64,7 @@ namespace NordicArts {
             }
 
             Shader Shader::shaderFromFile(const std::string &cFilePath, GLenum eShaderType) {
-                Files oFile(cFilePath, true);
+                Files::Loader oFile(cFilePath, true);
 
                 Shader oShader(oFile.read(), eShaderType);
                 return oShader;

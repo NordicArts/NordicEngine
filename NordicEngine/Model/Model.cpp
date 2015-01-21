@@ -1,4 +1,6 @@
 #include <NordicEngine/Model/Model.hpp>
+#include <NordicEngine/Files/Texture/Texture.hpp>
+#include <NordicEngine/Shaders/Program.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -16,7 +18,7 @@ namespace NordicArts {
             return fReturn;
         }
 
-        ModelAsset Model::addModel(Shaders::Program *pShaders, Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData) {
+        ModelAsset Model::addModel(Shaders::Program *pShaders, Files::Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData) {
             ModelAsset oAsset;
             oAsset.pShaders         = pShaders;
             oAsset.pTexture         = pTexture;

@@ -2,7 +2,7 @@
 #define NordicArts_NordicEngine_Files_Texture_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Files/Handler/BitMap/BitMap.hpp>
+#include <NordicEngine/Files/Format/BitMap/BitMap.hpp>
 
 #include <GL/glew.h>
 

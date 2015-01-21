@@ -1,7 +1,7 @@
 #ifndef NordicArts_NordicEngine_Shaders_INL
 #define NordicArts_NordicEngine_Shaders_INL
 
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 
 template <typename T>
 void SetLightUniform(Shaders::Program *pShaders, const char *cPropertyName, size_t lightIndex, const T &value) {

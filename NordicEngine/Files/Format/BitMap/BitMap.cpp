@@ -69,7 +69,7 @@ namespace NordicArts {
             typedef void(*FormatConverterFunc)(unsigned char *, unsigned char *);
             static FormatConverterFunc ConverterFuncForFormats(BitMap::Format eSrcFormat, BitMap::Format eDestFormat) {
                 if (eSrcFormat == eDestFormat) {
-                    throw Exceptions("Just use memcpy if pixel formats are the same");
+                    throw Exception("Just use memcpy if pixel formats are the same");
                 }
 
                 switch (eSrcFormat) {
@@ -79,7 +79,7 @@ namespace NordicArts {
                             case BitMap::Format_RGB: return Grayscale2RGB;
                             case BitMap::Format_RGBA: return Grayscale2RGBA;
                             default: {
-                                throw Exceptions("Unhandled BitMap Format 1");
+                                throw Exception("Unhandled BitMap Format 1");
                             }
                         }
                         break;
@@ -91,7 +91,7 @@ namespace NordicArts {
                             case BitMap::Format_RGB: return Grayscale2RGB;
                             case BitMap::Format_RGBA: return Grayscale2RGBA;
                             default: {
-                                throw Exceptions("Unhandled BitMap Format 2");
+                                throw Exception("Unhandled BitMap Format 2");
                             }
                         }
                         break;
@@ -103,7 +103,7 @@ namespace NordicArts {
                             case BitMap::Format_GrayscaleAlpha: return RGB2GrayscaleAlpha;
                             case BitMap::Format_RGBA: return RGB2RGBA;
                             default: {
-                                throw Exceptions("Unhandled BitMap Format 3");
+                                throw Exception("Unhandled BitMap Format 3");
                             }
                         }
                         break;
@@ -115,14 +115,14 @@ namespace NordicArts {
                             case BitMap::Format_GrayscaleAlpha: return RGBA2GrayscaleAlpha;
                             case BitMap::Format_RGB: return RGB2RGBA;
                             default: {
-                                throw Exceptions("Unhandled BitMap Format 4");
+                                throw Exception("Unhandled BitMap Format 4");
                             }
                         }
                         break;
                     };
 
                     default: {
-                        throw Exceptions("Unhandled BitMap Format 5");
+                        throw Exception("Unhandled BitMap Format 5");
                     }
                 }
             }
@@ -165,7 +165,7 @@ namespace NordicArts {
 
                 unsigned char *cPixels = stbi_load(cFile.c_str(), &iWidth, &iHeight, &iChannels, 0);
                 if (!cPixels) {
-                    throw Exceptions(stbi_failure_reason());
+                    throw Exception(stbi_failure_reason());
                 }
 
                 BitMap bmp(iWidth, iHeight, (Format)iChannels, cPixels);
@@ -198,7 +198,7 @@ namespace NordicArts {
 
             unsigned char *BitMap::getPixel(unsigned int iColumn, unsigned int iRow) const {
                 if ((iColumn >= m_iWidth) || (iRow >= m_iHeight)) {
-                    throw Exceptions("Pixel coordinate out of bounds");
+                    throw Exception("Pixel coordinate out of bounds");
                 }
 
                 return (m_cPixels + GetPixelOffset(iColumn, iRow, m_iWidth, m_iHeight, m_eFormat));
@@ -254,15 +254,15 @@ namespace NordicArts {
                 }
 
                 if ((iWidth == 0) || (iHeight == 0)) {
-                    throw Exceptions("Can't copy zero height / width rectangle");
+                    throw Exception("Can't copy zero height / width rectangle");
                 }
 
                 if (((iSrcCol + iWidth) >= oSrc.getWidth()) || ((iSrcRow + iHeight) >= oSrc.getHeight())) {
-                    throw Exceptions("Rectangle doesn't fit with source bitmap");
+                    throw Exception("Rectangle doesn't fit with source bitmap");
                 }
 
                 if ((m_cPixels == oSrc.m_cPixels) && RectsOverlap(iSrcCol, iSrcRow, iDestCol, iDestRow, iWidth, iHeight)) {
-                    throw Exceptions("Source and destination are the same bitmap, and rects overlap, not allowed");
+                    throw Exception("Source and destination are the same bitmap, and rects overlap, not allowed");
                 }
         
                 FormatConverterFunc converter = NULL;
@@ -285,10 +285,10 @@ namespace NordicArts {
             }
 
             void BitMap::set(unsigned int iWidth, unsigned int iHeight, Format eFormat, const unsigned char *cPixels) {
-                if (iWidth == 0) { throw Exceptions("Zero width bitmap"); }
-                if (iHeight == 0) { throw Exceptions("Zero height bitmap"); }
+                if (iWidth == 0) { throw Exception("Zero width bitmap"); }
+                if (iHeight == 0) { throw Exception("Zero height bitmap"); }
                 if ((eFormat <= 0) || (eFormat > 4)) {
-                    throw Exceptions("Invalid bitmap format");
+                    throw Exception("Invalid bitmap format");
                 }
 
                 m_iWidth    = iWidth;

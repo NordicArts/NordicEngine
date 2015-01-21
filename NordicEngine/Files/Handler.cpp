@@ -25,7 +25,7 @@ namespace NordicArts {
 
             bool Handler::handlerDeleteFile() {
                 if (m_cFileStream.is_open()) {
-                    m_cFileStram.close();
+                    m_cFileStream.close();
                 }
 
                 OSSpecific oOS;

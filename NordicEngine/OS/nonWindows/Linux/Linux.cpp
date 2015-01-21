@@ -2,6 +2,10 @@
 
 namespace NordicArts {
     namespace NordicEngine {
+        std::string OSSpecific::getPath(std::string cFileName) {
+            return getResourcePath(cFileName);
+        }
+
         std::string OSSpecific::getResourcePath(std::string cFileName) {
             return cFileName;
         }

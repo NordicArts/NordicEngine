@@ -1,6 +1,6 @@
 #include <NordicEngine/Storage/Storage.hpp>
 #include <NordicEngine/String/String.hpp>
-#include <NordicEngine/Files/Files.hpp>
+#include <NordicEngine/Files/Loader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -245,7 +245,7 @@ namespace NordicArts {
             sqlite3 *pDB;
             int iConnection = sqlite3_open(m_cDB.c_str(), &pDB);
             if (iConnection) {
-                throw Exceptions(sqlite3_errmsg(pDB), true);
+                throw Exception(sqlite3_errmsg(pDB), true);
             }
     
             // Execute SQL
@@ -267,7 +267,7 @@ namespace NordicArts {
 
                 sqlite3_close(pDB);
 
-                throw Exceptions(cStringError, true);
+                throw Exception(cStringError, true);
             }
 
             sqlite3_close(pDB);
@@ -625,7 +625,7 @@ namespace NordicArts {
         }
 
         bool Storage::destroyDatabase() {
-            Files oFiles(m_cDB);
+            Files::Loader oFiles(m_cDB);
 
             return oFiles.deleteFile();
         }

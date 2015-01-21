@@ -10,7 +10,7 @@ namespace NordicArts {
                     case BitMap::Format_RGB: return (bSRGB ? GL_SRGB : GL_RGB);
                     case BitMap::Format_RGBA: return (bSRGB ? GL_SRGB_ALPHA : GL_RGBA);
                     default: {
-                        throw Exceptions("Unrecognised BitMap::Format");
+                        throw Exception("Unrecognised BitMap::Format");
                     };
                 }
             }

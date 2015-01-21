@@ -90,6 +90,8 @@ list(APPEND LibSources ${NE}/Exception/Exception.cpp)
 # Files
 link_directories(${NE}/Files)
 include_directories(${NE}/Files)
+list(APPEND LibHeaders ${NE}/Files/Loader.hpp)
+list(APPEND LibSources ${NE}/Files/Loader.cpp)
 list(APPEND LibHeaders ${NE}/Files/Handler.hpp)
 list(APPEND LibSources ${NE}/Files/Handler.cpp)
 list(APPEND LibHeaders ${NE}/Files/Utils.hpp)

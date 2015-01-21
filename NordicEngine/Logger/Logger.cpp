@@ -1,6 +1,6 @@
 #include <NordicEngine/Logger/Logger.hpp>
 #include <NordicEngine/Exception/Exception.hpp>
-#include <NordicEngine/Files/Files.hpp>
+#include <NordicEngine/Files/Loader.hpp>
 #include <NordicEngine/Threading/Threads/Threads.hpp>
 #include <NordicEngine/String/String.hpp>
 
@@ -29,7 +29,7 @@ namespace NordicArts {
             createCritical(m_Critical);
             BlockThread blockThread(m_Critical);
     
-            Files file(m_cLogFile, false, false, false);
+            Files::Loader oFile(m_cLogFile, false, false, false);
 
             s_pLogger = this;
         }
@@ -99,8 +99,8 @@ namespace NordicArts {
 
             // Write to file
             try {
-                Files file(s_pLogger->m_cLogFile, true, true, false);
-                file.write(cStream.str());
+                Files::Loader oFile(s_pLogger->m_cLogFile, true, true, false);
+                oFile.write(cStream.str());
             } catch( ... ) {
                 char *cError;
                 std::sprintf(cError, "%s using logger failed to write, %s", __FUNCTION__, cStream.str().c_str());

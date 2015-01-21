@@ -1,5 +1,5 @@
 #include <NordicEngine/Shaders/Simple.hpp>
-#include <NordicEngine/Files/Files.hpp>
+#include <NordicEngine/Files/Loader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -12,10 +12,10 @@ namespace NordicArts {
                 GLuint iFragmentID  = glCreateShader(GL_FRAGMENT_SHADER);
 
                 // get code
-                Files oVertex(cVertex);
+                Files::Loader oVertex(cVertex);
                 std::string cVertexCode = oVertex.read();
 
-                Files oFragment(cFragment);
+                Files::Loader oFragment(cFragment);
                 std::string cFragmentCode = oFragment.read();
 
                 GLint iResult = GL_FALSE;

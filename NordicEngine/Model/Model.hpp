@@ -2,16 +2,22 @@
 #define NordicArts_NordicEngine_Model_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Shaders/Program.hpp>
-#include <NordicEngine/Files/Texture/Texture.hpp>
+#include <NordicEngine/Window/Window.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
+        namespace Shaders {
+            class Program;
+        };
+        namespace Files {
+            class Texture;
+        };
+
         struct ModelAsset {
             Shaders::Program *pShaders;
-            Texture *pTexture;
+            Files::Texture *pTexture;
 
             unsigned int iVBO;
             unsigned int iVAO;
@@ -53,7 +59,7 @@ namespace NordicArts {
 
             std::vector<ModelAsset> getModels() const;
 
-            ModelAsset addModel(Shaders::Program *pShaders, Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData);
+            ModelAsset addModel(Shaders::Program *pShaders, Files::Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData);
 
         protected:
         private:
