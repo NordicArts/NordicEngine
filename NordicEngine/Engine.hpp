@@ -41,7 +41,7 @@
 #endif
 
 // Exceptions
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

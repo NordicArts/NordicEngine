@@ -2,12 +2,15 @@
 #define NordicArts_NordicEngine_Camera_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
+        namespace Files {
+            class Lua;
+        };
+
         class Camera {
         // Variables
         public:
@@ -68,7 +71,7 @@ namespace NordicArts {
             glm::mat4 getView() const;
 
             // Lua integration
-            static void registerLua(Lua *pLua);
+            static void registerLua(Files::Lua *pLua);
 
         protected:
         private:

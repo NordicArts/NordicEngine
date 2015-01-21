@@ -1,5 +1,5 @@
 #include <NordicEngine/Utility/Utility.hpp>
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

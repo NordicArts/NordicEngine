@@ -1,6 +1,7 @@
 #include <NordicEngine/Settings/Settings.hpp>
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 #include <NordicEngine/Storage/Storage.hpp>
+#include <NordicEngine/Files/Format/Lua/Lua.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -19,7 +20,7 @@ namespace NordicArts {
             setDefaults();
         }
 
-        void Settings::registerLua(Lua *pLua) {
+        void Settings::registerLua(Files::Lua *pLua) {
             lua_State *pState = pLua->getLua();
 
             luabridge::getGlobalNamespace(pState)

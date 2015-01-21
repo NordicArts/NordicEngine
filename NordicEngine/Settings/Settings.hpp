@@ -2,12 +2,15 @@
 #define NordicArts_NordicEngine_Settings_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
+        namespace Files {
+            class Lua;
+        };
+
         class Logger;
 
         class Settings {
@@ -83,7 +86,7 @@ namespace NordicArts {
             void setWindowMode(bool bWindow);
             bool isWindowed() const;
 
-            static void registerLua(Lua *pLua);
+            static void registerLua(Files::Lua *pLua);
 
         protected:
         private:

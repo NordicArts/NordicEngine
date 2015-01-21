@@ -1,6 +1,7 @@
 #include <NordicEngine/Player/Player.hpp>
 #include <NordicEngine/String/String.hpp>
 #include <NordicEngine/Storage/Storage.hpp>
+#include <NordicEngine/Files/Format/Lua/Lua.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -149,7 +150,7 @@ namespace NordicArts {
             return cReturn;
         }
 
-        void Player::registerLua(Lua *pLua) {
+        void Player::registerLua(Files::Lua *pLua) {
             lua_State *pState = pLua->getLua();
             
             luabridge::getGlobalNamespace(pState)

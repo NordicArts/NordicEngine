@@ -1,6 +1,6 @@
 #include <NordicEngine/Window/Window.hpp>
 #include <NordicEngine/Input/Input.hpp>
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 #include <NordicEngine/Settings/Settings.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
 
@@ -20,7 +20,7 @@ namespace NordicArts {
 
             // GLFW
             if (!glfwInit()) {
-                throw Exceptions("Can't initalize GLFW", true);
+                throw Exception("Can't initalize GLFW", true);
             }
 
             if (m_pLogger) { m_pLogger->log("Setup Window"); }
@@ -55,7 +55,7 @@ namespace NordicArts {
                 glewExperimental = true;
                 GLenum glewStatus = glewInit();
                 if (glewStatus != GLEW_OK) {
-                    throw Exceptions(glewGetErrorString(glewStatus), true);
+                    throw Exception(glewGetErrorString(glewStatus), true);
                 }
 
                 if (m_pLogger) { m_pLogger->log("Initalized GLEW"); }
@@ -94,7 +94,7 @@ namespace NordicArts {
 
                 return 0;
             } else {
-                throw Exceptions("Settings Class not in use", true);
+                throw Exception("Settings Class not in use", true);
             }
         }
         int Window::createWindow(int iWidth, int iHeight, std::string cTitle) {
@@ -106,7 +106,7 @@ namespace NordicArts {
             if (!m_pWindow) {
                 glfwTerminate();
         
-                throw Exceptions("Can't create the window", true);
+                throw Exception("Can't create the window", true);
             }
 
             if (m_pLogger) { m_pLogger->log("Created Window with GLFW"); }
@@ -161,7 +161,7 @@ namespace NordicArts {
         }
 
         void Window::errorHandler(int iError, const char *cDescription) {
-            throw Exceptions(cDescription, iError, true);
+            throw Exception(cDescription, iError, true);
         }
 
         void Window::getFrameBufferSize(int *iWidth, int *iHeight) {

@@ -1,4 +1,5 @@
 #include <NordicEngine/Camera/Camera.hpp>
+#include <NordicEngine/Files/Format/Lua/Lua.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/gtc/matrix_transform.hpp>
 
@@ -154,7 +155,7 @@ namespace NordicArts {
             }
         }
 
-        void Camera::registerLua(Lua *pLua) {
+        void Camera::registerLua(Files::Lua *pLua) {
             lua_State *pState = pLua->getLua();
 
             luabridge::getGlobalNamespace(pState)

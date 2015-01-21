@@ -82,40 +82,34 @@ list(APPEND LibHeaders ${NE}/Logger/Logger.hpp)
 list(APPEND LibSources ${NE}/Logger/Logger.cpp)
 
 # Exceptions
-link_directories(${NE}/Exceptions)
-include_directories(${NE}/Exceptions)
-list(APPEND LibHeaders ${NE}/Exceptions/Exceptions.hpp)
-list(APPEND LibSources ${NE}/Exceptions/Exceptions.cpp)
+link_directories(${NE}/Exception)
+include_directories(${NE}/Exception)
+list(APPEND LibHeaders ${NE}/Exception/Exception.hpp)
+list(APPEND LibSources ${NE}/Exception/Exception.cpp)
 
 # Files
 link_directories(${NE}/Files)
 include_directories(${NE}/Files)
-list(APPEND LibHeaders ${NE}/Files/Files.hpp)
-list(APPEND LibSources ${NE}/Files/Files.cpp)
-
-# File Utils
+list(APPEND LibHeaders ${NE}/Files/Handler.hpp)
+list(APPEND LibSources ${NE}/Files/Handler.cpp)
 list(APPEND LibHeaders ${NE}/Files/Utils.hpp)
 list(APPEND LibSources ${NE}/Files/Utils.cpp)
 
-# File Handler
-link_directories(${NE}/Files/Handler)
-include_directories(${NE}/Files/Handler)
-list(APPEND LibHeaders ${NE}/Files/Handler/Handler.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/Handler.cpp)
-
 # TextFile
-link_directories(${NE}/Files/Handler/TextFile)
-include_directories(${NE}/Files/Handler/TextFile)
-list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Writer.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/TextFile/Writer.cpp)
-list(APPEND LibHeaders ${NE}/Files/Handler/TextFile/Reader.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/TextFile/Reader.cpp)
+link_directories(${NE}/Files/Format/TextFile)
+include_directories(${NE}/Files/Format/TextFile)
+list(APPEND LibHeaders ${NE}/Files/Format/TextFile/Writer.hpp)
+list(APPEND LibSources ${NE}/Files/Format/TextFile/Writer.cpp)
+list(APPEND LibHeaders ${NE}/Files/Format/TextFile/Reader.hpp)
+list(APPEND LibSources ${NE}/Files/Format/TextFile/Reader.cpp)
 
 # BitMap
-link_directories(${NE}/Files/Handler/BitMap)
-include_directories(${NE}/Files/Handler/BitMap)
-list(APPEND LibHeaders ${NE}/Files/Handler/BitMap/BitMap.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/BitMap/BitMap.cpp)
+if (NordicEngine_FullEngine)
+    link_directories(${NE}/Files/Format/BitMap)
+    include_directories(${NE}/Files/Format/BitMap)
+    list(APPEND LibHeaders ${NE}/Files/Format/BitMap/BitMap.hpp)
+    list(APPEND LibSources ${NE}/Files/Format/BitMap/BitMap.cpp)
+endif()
 
 # Texture
 if (NordicEngine_FullEngine)
@@ -241,10 +235,10 @@ if (NordicEngine_FullEngine)
 endif()
 
 # Lua
-link_directories(${NE}/Files/Handler/Lua)
-include_directories(${NE}/Files/Handler/Lua)
-list(APPEND LibHeaders ${NE}/Files/Handler/Lua/Lua.hpp)
-list(APPEND LibSources ${NE}/Files/Handler/Lua/Lua.cpp)
+link_directories(${NE}/Files/Format/Lua)
+include_directories(${NE}/Files/Format/Lua)
+list(APPEND LibHeaders ${NE}/Files/Format/Lua/Lua.hpp)
+list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
 
 # SQLite
 link_directories(${NET}/sqlite)

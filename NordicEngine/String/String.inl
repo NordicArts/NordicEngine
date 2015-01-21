@@ -1,7 +1,7 @@
 #ifndef NordicArts_NordicEngine_String_INL
 #define NordicArts_NordicEngine_String_INL
 
-#include <NordicEngine/Exceptions/Exceptions.hpp>
+#include <NordicEngine/Exception/Exception.hpp>
 
 template<typename T>
 T convertToType(const std::string &cString, std::ios_base &(*pFormat)(std::ios_base&)) {
@@ -13,7 +13,7 @@ T convertToType(const std::string &cString, std::ios_base &(*pFormat)(std::ios_b
     if (!input) {
         std::ostringstream cStream;
         cStream << __FUNCTION__ << ": Bad conversion of [" << cString << "] to " << typeid(output).name();
-        throw NordicArts::NordicEngine::Exceptions(cStream);
+        throw NordicArts::NordicEngine::Exception(cStream);
     }    
 
     char cChar;
@@ -21,7 +21,7 @@ T convertToType(const std::string &cString, std::ios_base &(*pFormat)(std::ios_b
         std::ostringstream cStream;
         cStream << __FUNCTION__ << ": Conversion of [" << cString << "] to " << typeid(output).name() << " - [" << output << "] Failed";
         
-        throw NordicArts::NordicEngine::Exceptions(cStream);
+        throw NordicArts::NordicEngine::Exception(cStream);
     }
 
     return output;

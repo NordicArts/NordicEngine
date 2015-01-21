@@ -2,10 +2,13 @@
 #define NordicArts_NordicEngine_Player_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Files/Handler/Lua/Lua.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
+        namespace Files {
+            class Lua;
+        };
+
         class Player {
         // Variables   
         public:
@@ -50,7 +53,7 @@ namespace NordicArts {
             void setPlayerId(int iId);
             int getPlayerId() const;
 
-            static void registerLua(Lua *pLua);
+            static void registerLua(Files::Lua *pLua);
 
         protected:
         private:
