@@ -36,13 +36,6 @@ namespace NordicArts {
             std::string Handler::getFilePath() const {
                 return m_cFilePath;
             }
-
-            void Handler::throwError(const std::ostringstream &cMessage) const {
-                return throwError(cMessage.str().c_str());
-            }
-            void Handler::throwError(const std::string &cMessage) const {
-                throw Exception("File [" + m_cFileName + "] " + cMessage, m_bSaveException);
-            }
         };
     };
 };

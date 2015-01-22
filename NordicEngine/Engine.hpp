@@ -46,6 +46,9 @@
 namespace NordicArts {
     namespace NordicEngine {
         const char *getBuildNumber();
+
+        void throwError(const std::ostringstream &cMessage);
+        void throwError(const std::string &cMessage);
     };
 };
 #endif

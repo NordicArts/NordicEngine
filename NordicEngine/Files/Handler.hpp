@@ -32,9 +32,6 @@ namespace NordicArts {
                 Handler(bool bSaveException);
                 Handler(std::string cFileName, bool bSaveException);
 
-                void throwError(const std::string &cMessage) const;
-                void throwError(const std::ostringstream &cMessage) const;
-
             private:
 
             };

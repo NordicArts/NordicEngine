@@ -1,8 +1,9 @@
 #include <NordicEngine/Render/Text/Text.hpp>
-#include <NordicEngine/Files/Format/BitMap/BitMap.hpp>
-#include <NordicEngine/Files/Format/DDS/DDS.hpp>
-#include <NordicEngine/String/String.hpp>
+#include <NordicEngine/Files/Texture/Texture.hpp>
 #include <NordicEngine/Shaders/Simple.hpp>
+
+#include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
+#include <NordicEngine/ThirdParty/glm/glm/gtc/matrix_transform.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -14,45 +15,14 @@ namespace NordicArts {
             }
 
             void Text::setup(std::string cFileName) {
-                // Is the texture a DDS or BMP
-                bool bBMP = false;
-                bool bDDS = false;
-
-                // Copy of filename to uppercase it
-                std::string cCopy = cFileName;
-                cCopy = toUpper(cCopy);
-
-                std::size_t nFound = cCopy.find(".DDS");
-                if (nFound != std::string::npos) {
-                    bDDS = true;
-                }
-
-                nFound == cCopy.find(".BMP");
-                if (nFound != std::string::npos) {
-                    bBMP = true;
-                }
-
-                // now we know which one it is
-                if (bBMP || bDDS) {
-                    if (bBMP) {
-                        Files::BitMap   = oBMP(cFileName);
-                        m_iTextureID    = oMBP.loadBitMap();
-                    }
-
-                    if (bDDS) {
-                        Files::DDS      = oDDS(cFileName);
-                        m_iTextureID    = oDDS.loadDDS();
-                    }
-                } else {
-                    throwError(__FUNCTION__ + std::string(" File needs to be BMP or DDS"));
-                
-                    return;
-                }
+                Files::Texture oTexture(cFileName);
+                m_iTextureID = oTexture.loadTexture();
 
                 glGenBuffers(1, &m_iVertexBufferID);
                 glGenBuffers(1, &m_iUVBufferID);
 
-                m_iShaderID     = Shaders::LoadShaders("Shaders/Text.vertex", "Shaders/Text.fragment");
+                Shaders::Simple oShaders;
+                m_iShaderID     = oShaders.LoadShaders("Shaders/Text.vertex", "Shaders/Text.fragment");
                 m_iUniformID    = glGetUniformLocation(m_iShaderID, "myTextureSampler");
             }
 
@@ -87,9 +57,9 @@ namespace NordicArts {
                     vUVs.push_back(vUVUpLeft);
                     vUVs.push_back(vUVDownLeft);
                     vUVs.push_back(vUVUpRight);
-                    vUVs.push_back(vDownRight);
-                    vUVs.push_back(vUpRight);
-                    vUVs.push_back(vDownLeft);
+                    vUVs.push_back(vUVDownRight);
+                    vUVs.push_back(vUVUpRight);
+                    vUVs.push_back(vUVDownLeft);
                 }
 
                 // Bind the buffers
@@ -103,7 +73,7 @@ namespace NordicArts {
 
                 // Bind texture
                 glActiveTexture(GL_TEXTURE0);
-                glBindTexture(GL_TEXTURE2D, m_iTextureID);
+                glBindTexture(GL_TEXTURE_2D, m_iTextureID);
                 glUniform1i(m_iUniformID, 0);
 
                 // Vertex buffer

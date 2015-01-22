@@ -7,5 +7,12 @@ namespace NordicArts {
             output << NORDICENGINE_BUILDNUMBER;
             return output.str().c_str();
         }
+
+        void throwError(const std::ostringstream &cMessage) {
+            return throwError(cMessage.str().c_str());
+        }
+        void throwError(const std::string &cMessage) {
+            throw Exception("Error Thrown: " + cMessage, true);
+        }
     }
 };

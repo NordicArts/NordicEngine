@@ -15,11 +15,11 @@ namespace NordicArts {
             public:
             protected:
             private:
-                int     m_iTextureID;
-                int     m_iVertexBufferID;
-                int     m_iUVBufferID;
-                int     m_iShaderID;
-                int     m_iUniformID;
+                unsigned int     m_iTextureID;
+                unsigned int     m_iVertexBufferID;
+                unsigned int     m_iUVBufferID;
+                unsigned int     m_iShaderID;
+                unsigned int     m_iUniformID;
 
             // Methods
             public:
