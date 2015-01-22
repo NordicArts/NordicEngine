@@ -8,7 +8,7 @@ namespace NordicArts {
             Obj::Obj(std::string cFile) : Handler(cFile, true) {
             }
 
-            bool Obj::loadModel(std::vector<glm::vec3> &vVerticies, std::vector<glm::vec2> &vUVs, std::vector<glm::vec3> &vNormals) {
+            bool Obj::loadModel(std::vector<glm::vec3> &vOutVerticies, std::vector<glm::vec2> &vOutUVs, std::vector<glm::vec3> &vOutNormals) {
                 std::vector<unsigned int> vVertexIndicies;
                 std::vector<unsigned int> vUVIndicies;
                 std::vector<unsigned int> vNormalIndicies;
@@ -38,7 +38,7 @@ namespace NordicArts {
                     
                         fscanf(pFile, "%f %f %f\n", &vVertex.x, &vVertex.y, &vVertex.z);
                     
-                        vTempVerticies.push-back(vVertex);
+                        vTempVerticies.push_back(vVertex);
                     } else if (strcmp(cLineHeader, "vt") == 0) {
                         glm::vec2 vUV;
                     
@@ -48,7 +48,7 @@ namespace NordicArts {
                     } else if (strcmp(cLineHeader, "vn") == 0) {
                         glm::vec3 vNormal;
                     
-                        fscanf(pFile, "%f %f %f\n", &vNormal.x, &vNormal.y, &vNoraml.z);
+                        fscanf(pFile, "%f %f %f\n", &vNormal.x, &vNormal.y, &vNormal.z);
                     
                         vTempNormals.push_back(vNormal);
                     } else if (strcmp(cLineHeader, "f") == 0) {
@@ -56,7 +56,51 @@ namespace NordicArts {
                         std::string cVertex2;
                         std::string cVertex3;
 
+                        unsigned int iVertexIndex[3];
+                        unsigned int iUVIndex[3];
+                        unsigned int iNormalIndex[3];
                         
+                        int iMatches = fscanf(pFile, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &iVertexIndex[0], &iUVIndex[0], &iNormalIndex[0], &iVertexIndex[1], &iUVIndex[1], &iNormalIndex[1], &iVertexIndex[2], &iUVIndex[2], &iNormalIndex[2]);
+                        if (iMatches != 9) {
+                            throwError(__FUNCTION__ + std::string(" cant read the OBJ file properlly"));
+                            
+                            return false;
+                        }
+
+                        vVertexIndicies.push_back(iVertexIndex[0]);
+                        vVertexIndicies.push_back(iVertexIndex[1]);
+                        vVertexIndicies.push_back(iVertexIndex[2]);
+
+                        vUVIndicies.push_back(iUVIndex[0]);
+                        vUVIndicies.push_back(iUVIndex[1]);
+                        vUVIndicies.push_back(iUVIndex[2]);
+
+                        vNormalIndicies.push_back(iNormalIndex[0]);
+                        vNormalIndicies.push_back(iNormalIndex[1]);
+                        vNormalIndicies.push_back(iNormalIndex[2]);
+                    } else {
+                        // Comment
+                        char commentBuffer[1000];
+                        fgets(commentBuffer, 1000, pFile);
+                    }
+                }
+
+                // do the vertexs
+                for (unsigned int i = 0; i < vVertexIndicies.size(); i++) {
+                    // get the index of attributes
+                    unsigned int iVertexIndex   = vVertexIndicies[i];
+                    unsigned int iUVIndex       = vUVIndicies[i];
+                    unsigned int iNormalIndex   = vNormalIndicies[i];
+
+                    // get the attribute
+                    glm::vec3 vVertex   = vTempVerticies[iVertexIndex - 1];
+                    glm::vec2 vUV       = vTempUVs[iUVIndex - 1];
+                    glm::vec3 vNormal   = vTempNormals[iNormalIndex - 1];
+
+                    // put arrays into buffers
+                    vOutVerticies.push_back(vVertex);
+                    vOutUVs.push_back(vUV);
+                    vOutNormals.push_back(vNormal);
                 }
 
                 return true;

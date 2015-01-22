@@ -18,6 +18,7 @@ set(NE ${PROJECT_SOURCE_DIR}/NordicEngine)
 set(LibHeaders ${NE}/Engine.hpp)
 set(LibSources ${NE}/Engine.cpp)
 
+# Set Third Party Directory
 set(NET ${PROJECT_SOURCE_DIR}/NordicEngine/ThirdParty)
 
 # NOS Includes
@@ -26,6 +27,10 @@ list(APPEND LibHeaders ${NE}/Includes.hpp)
 # link path
 link_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
+
+################################################################
+########################### OS STUFF ###########################
+################################################################
 
 # OS Specific Classes
 if (WIN32)
@@ -61,6 +66,10 @@ else()
         list(APPEND LibSources ${NE}/OS/nonWindows/Linux/Linux.cpp)
     endif()
 endif()
+
+####################################################################
+########################### ALL COMPILES ###########################
+####################################################################
 
 # String
 link_directories(${NE}/String)
@@ -105,30 +114,6 @@ list(APPEND LibSources ${NE}/Files/Format/TextFile/Writer.cpp)
 list(APPEND LibHeaders ${NE}/Files/Format/TextFile/Reader.hpp)
 list(APPEND LibSources ${NE}/Files/Format/TextFile/Reader.cpp)
 
-# BitMap
-if (NordicEngine_FullEngine)
-    link_directories(${NE}/Files/Format/BitMap)
-    include_directories(${NE}/Files/Format/BitMap)
-    list(APPEND LibHeaders ${NE}/Files/Format/BitMap/BitMap.hpp)
-    list(APPEND LibSources ${NE}/Files/Format/BitMap/BitMap.cpp)
-endif()
-
-# Texture
-if (NordicEngine_FullEngine)
-    link_directories(${NE}/Files/Texture)
-    include_directories(${NE}/Files/Texture)
-    list(APPEND LibHeaders ${NE}/Files/Texture/Texture.hpp)
-    list(APPEND LibSources ${NE}/Files/Texture/Texture.cpp)
-endif()
-
-# Obj
-if (NordicEngine_FullEngine)
-    link_directories(${NE}/Files/Format/Obj)
-    include_directories(${NE}/Files/Format/Obj)
-    list(APPEND LibHeaders ${NE}/Files/Format/Obj/Obj.hpp)
-    list(APPEND LibSources ${NE}/Files/Format/Obj/Obj.cpp)
-endif()
-
 # Threads
 link_directories(${NE}/Threading/Threads)
 include_directories(${NE}/Threading/Threads)
@@ -159,47 +144,67 @@ include_directories(${NE}/Utility)
 list(APPEND LibHeaders ${NE}/Utility/Utility.hpp)
 list(APPEND LibSources ${NE}/Utility/Utility.cpp)
 
-# Window
-if (NordicEngine_FullEngine)
-    link_directories(${NE}/Window)
-    include_directories(${NE}/Window)
-    list(APPEND LibHeaders ${NE}/Window/Window.hpp)
-    list(APPEND LibSources ${NE}/Window/Window.cpp)
-endif()
-
 # Color
 link_directories(${NE}/Color)
 include_directories(${NE}/Color)
 list(APPEND LibHeaders ${NE}/Color/Color.hpp)
 list(APPEND LibSources ${NE}/Color/Color.cpp)
 
-# Player
+# Lua
+link_directories(${NE}/Files/Format/Lua)
+include_directories(${NE}/Files/Format/Lua)
+list(APPEND LibHeaders ${NE}/Files/Format/Lua/Lua.hpp)
+list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
+
+#########################################################################
+########################### FULL ENGINE STUFF ###########################
+#########################################################################
+
 if (NordicEngine_FullEngine)
+    # BitMap
+    link_directories(${NE}/Files/Format/BitMap)
+    include_directories(${NE}/Files/Format/BitMap)
+    list(APPEND LibHeaders ${NE}/Files/Format/BitMap/BitMap.hpp)
+    list(APPEND LibSources ${NE}/Files/Format/BitMap/BitMap.cpp)
+
+    # Texture
+    link_directories(${NE}/Files/Texture)
+    include_directories(${NE}/Files/Texture)
+    list(APPEND LibHeaders ${NE}/Files/Texture/Texture.hpp)
+    list(APPEND LibSources ${NE}/Files/Texture/Texture.cpp)
+
+    # Obj
+    link_directories(${NE}/Files/Format/Obj)
+    include_directories(${NE}/Files/Format/Obj)
+    list(APPEND LibHeaders ${NE}/Files/Format/Obj/Obj.hpp)
+    list(APPEND LibSources ${NE}/Files/Format/Obj/Obj.cpp)
+
+    # Window    
+    link_directories(${NE}/Window)
+    include_directories(${NE}/Window)
+    list(APPEND LibHeaders ${NE}/Window/Window.hpp)
+    list(APPEND LibSources ${NE}/Window/Window.cpp)
+
+    # Player
     link_directories(${NE}/Player)
     include_directorieS(${NE}/Player)
     list(APPEND LibHeaders ${NE}/Player/Player.hpp)
     list(APPEND LibSources ${NE}/Player/Player.cpp)
-endif()
 
-# Input
-if (NordicEngine_FullEngine)
+    # Input
     link_directories(${NE}/Input)
     include_directories(${NE}/Input)
     list(APPEND LibHeaders ${NE}/Input/Definitions.hpp)
     list(APPEND LibHeaders ${NE}/Input/Input.hpp)
     list(APPEND LibSources ${NE}/Input/Input.cpp)
-endif()
 
-# Renderer
-if (NordicEngine_FullEngine)
+    # Renderer
     link_directories(${NE}/Renderer)
     include_directories(${NE}/Renderer)
     list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
     list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
-endif()
 
-# Shaders
-if (NordicEngine_FullEngine)
+    # Shaders
     link_directories(${NE}/Shaders)
     include_directories(${NE}/Shaders)
     list(APPEND LibHeaders ${NE}/Shaders/Simple.hpp)
@@ -210,60 +215,40 @@ if (NordicEngine_FullEngine)
     list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
     list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
     list(APPEND LibSources ${NE}/Shaders/Program.cpp)
-endif()
 
-# Camera
-if (NordicEngine_FullEngine)
+    # Camera
     link_directories(${NE}/Camera)
     include_directories(${NE}/Camera)
     list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
     list(APPEND LibSources ${NE}/Camera/Camera.cpp)
-endif()
 
-# Model
-if (NordicEngine_FullEngine)
+    # Model
     link_directories(${NE}/Model)
     include_directories(${NE}/Model)
     list(APPEND LibHeaders ${NE}/Model/Model.hpp)
     list(APPEND LibSources ${NE}/Model/Model.cpp)
-endif()
 
-# Light
-if (NordicEngine_FullEngine)
+    # Light
     link_directories(${NE}/Light)
     include_directories(${NE}/Light)
     list(APPEND LibHeaders ${NE}/Light/Light.hpp)
     list(APPEND LibSources ${NE}/Light/Light.cpp)
-endif()
 
-# Settings
-if (NordicEngine_FullEngine)
+    # Settings
     link_directories(${NE}/Settings)
     include_directories(${NE}/Settings)
     list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
     list(APPEND LibSources ${NE}/Settings/Settings.cpp)
 endif()
 
-# Lua
-link_directories(${NE}/Files/Format/Lua)
-include_directories(${NE}/Files/Format/Lua)
-list(APPEND LibHeaders ${NE}/Files/Format/Lua/Lua.hpp)
-list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
+########################################################################
+########################### THIRD PARTY BITS ###########################
+########################################################################
 
 # SQLite
 link_directories(${NET}/sqlite)
 include_directories(${NET}/sqlite)
 add_subdirectory(${NET}/sqlite)
-
-# Build Number
-string(TIMESTAMP buildNumber "9%j%y%H%M")
-file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
-list(APPEND LibHeaders ${NE}/buildNumber.hpp)
-
-# Generate Library
-add_library(NordicEngine SHARED ${LibSources} ${LibHeaders})
-set_target_properties(NordicEngine PROPERTIES LINKER_LANGUAGE CXX)
-set_target_properties(NordicEngine PROPERTIES OUTPUT_NAME "NordicEngine")
 
 # Boost
 find_package(Boost COMPONENTS locale REQUIRED)
@@ -310,6 +295,24 @@ link_directories(${NET}/miniz)
 include_directories(${NET}/miniz)
 add_subdirectory(${NET}/miniz)
 
+#########################################################################
+########################### BUILD THE LIBRARY ###########################
+#########################################################################
+
+# Build Number
+string(TIMESTAMP buildNumber "9%j%y%H%M")
+file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
+list(APPEND LibHeaders ${NE}/buildNumber.hpp)
+
+# Generate Library
+add_library(NordicEngine SHARED ${LibSources} ${LibHeaders})
+set_target_properties(NordicEngine PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(NordicEngine PROPERTIES OUTPUT_NAME "NordicEngine")
+
+########################################################################
+########################### LINK THE LIBRARY ###########################
+########################################################################
+
 # System Linker
 if(NordicEngine_FullEngine)
     if (WIN32)
@@ -340,7 +343,11 @@ endif()
 target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
-target_link_libraries(NordicEngine miniz)
+target_link_libraries(NordicEngine MiniZ)
+
+##################################################################
+########################### UNIT TESTS ###########################
+##################################################################
 
 # Unit Tests
 if (NordicEngine_UnitTest)
