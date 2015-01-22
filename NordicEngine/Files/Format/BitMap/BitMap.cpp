@@ -1,16 +1,17 @@
-#include <NordicEngine/Files/Format/BMP/BMP.hpp>
+#include <NordicEngine/Files/Format/BitMap/BitMap.hpp>
 #include <NordicEngine/Window/Window.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
         namespace Files {
-            BMP::BMP() : Handler(true) {
+            BitMap::BitMap() : Handler(true) {
             }
-            BMP::BMP(std::string cFileName) : Handler(cFilename, true) {
+            BitMap::BitMap(std::string cFileName) : Handler(cFileName, true) {
             }
 
-            unsigned int BMP::loadBMP() {
+            unsigned int BitMap::loadBitMap() {
                 std::string cFile = getFilePath();
+                m_cFileName = cFile;
 
                 unsigned char cHeader[54];
 
@@ -18,27 +19,31 @@ namespace NordicArts {
                 unsigned char *cData;
 
                 // Open the file
-                FILES *pFile = fopen(cFile, "rb");
+                FILE *pFile = fopen(cFile.c_str(), "rb");
                 if (!pFile) { 
                     throwError(__FUNCTION__ + std::string(" cant open file"));
+
                     return 0; 
                 }
 
                 // Needs to be at least 54 bytes
                 if (fread(cHeader, 1, 54, pFile) != 54) {
                     throwError(__FUNCTION__ + std::string(" not a BMP file"));
+
                     return 0;
                 }
 
                 // BMPs have BM at start of file
                 if ((cHeader[0] != 'B') || (cHeader[1] != 'M')) {
                     throwError(__FUNCTION__ + std::string(" not a valid BMP file"));
+
                     return 0;   
                 }
 
                 // 24bpp
                 if ((*(int *)&(cHeader[0x1E]) != 0) || (*(int *)&(cHeader[0x1C]) != 24)) {
                     throwError(__FUNCTION__ + std::string(" not a valid BMP file"));
+
                     return 0;
                 }
 
@@ -84,15 +89,15 @@ namespace NordicArts {
                 return m_iTextureID;
             }
 
-            unsigned int BMP::getTextureID() const {
+            unsigned int BitMap::getTextureID() const {
                 return m_iTextureID;
             }
 
-            unsigned int BMP::getWidth() const {
+            unsigned int BitMap::getWidth() const {
                 return m_iWidth;
             }
     
-            unsigned int BMP::getHeight() const {
+            unsigned int BitMap::getHeight() const {
                 return m_iHeight;
             }
         };

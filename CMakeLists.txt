@@ -167,6 +167,12 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/Files/Format/BitMap/BitMap.hpp)
     list(APPEND LibSources ${NE}/Files/Format/BitMap/BitMap.cpp)
 
+    # DDS
+    link_directories(${NE}/Files/Format/DDS)
+    include_directories(${NE}/Files/Format/DDS)
+    list(APPEND LibHeaders ${NE}/Files/Format/DDS/DDS.hpp)
+    list(APPEND LibSources ${NE}/Files/Format/DDS/DDS.cpp)
+
     # Texture
     link_directories(${NE}/Files/Texture)
     include_directories(${NE}/Files/Texture)
@@ -239,6 +245,12 @@ if (NordicEngine_FullEngine)
     include_directories(${NE}/Settings)
     list(APPEND LibHeaders ${NE}/Settings/Settings.hpp)
     list(APPEND LibSources ${NE}/Settings/Settings.cpp)
+
+    # 2D Text
+    link_directories(${NE}/Render/Text)
+    include_directories(${NE}/Render/Text)
+    list(APPEND LibHeaders ${NE}/Render/Text/Text.hpp)
+    list(APPEND LibSources ${NE}/Render/Text/Text.cpp)
 endif()
 
 ########################################################################

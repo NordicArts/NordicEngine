@@ -7,11 +7,12 @@
 namespace NordicArts {
     namespace NordicEngine {
         namespace Files {
-            class BMP : public Handler {
+            class BitMap : public Handler {
             // Variables
             public:
             protected:
             private:
+                unsigned int m_iTextureID;
                 unsigned int m_iImageSize;
                 unsigned int m_iWidth;
                 unsigned int m_iHeight;
@@ -20,10 +21,10 @@ namespace NordicArts {
 
             // Methods
             public:
-                BMP();
-                BMP(std::string cFileName);
+                BitMap();
+                BitMap(std::string cFileName);
 
-                unsigned int loadBMP();
+                unsigned int loadBitMap();
                 unsigned int getTextureID() const;
                 unsigned int getWidth() const;
                 unsigned int getHeight() const;
