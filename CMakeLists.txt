@@ -305,6 +305,11 @@ link_directories(${NET}/LuaBridge/Source/LuaBridge)
 include_directories(${NET}/LuaBridge/Source/LuaBridge)
 list(APPEND LibHeaders ${NET}/LuaBridge/Source/LuaBridge/LuaBridge.h)
 
+# ZLib
+link_directories(${NET}/miniz)
+include_directories(${NET}/miniz)
+add_subdirectory(${NET}/miniz)
+
 # System Linker
 if(NordicEngine_FullEngine)
     if (WIN32)
@@ -335,6 +340,7 @@ endif()
 target_link_libraries(NordicEngine SQLite)
 target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
+target_link_libraries(NordicEngine miniz)
 
 # Unit Tests
 if (NordicEngine_UnitTest)
