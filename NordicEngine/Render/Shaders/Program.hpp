@@ -2,26 +2,29 @@
 #define NordicArts_NordicEngine_Render_Shaders_Program_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
+#include <NordicEngine/Render/Shaders/Shader.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Shaders {
-                class Shader;
-
                 class Program {
                 // Variables
                 public:
                 protected:
-                private;
+                private:
                     unsigned int m_iID;
-                    unsigned int m_iPosID;
+                    unsigned int m_iPositionID;
+                    unsigned int m_iMatrixID;
             
                     bool m_bIsLinked;
 
                     Shader *m_pVertex;
                     Shader *m_pFragment;
                     Shader *m_pGeometry;
+                    Shader *m_pTessCtrl;
+                    Shader *m_pTessEval;
 
                 // Methods
                 public:
@@ -34,14 +37,18 @@ namespace NordicArts {
                     void link();
                     void use();
                     void stopUsing();
-                    void setAttributeId(std::string cName, unsigned int iID);
+                    void setAttributeID(std::string cName, unsigned int iID);
                     void dumpActiveAttributes();
 
                     int getUniformID(std::string cName);
                     int getAttributeID(std::string cName);
 
+                    unsigned int getID() const;
+
                 protected:
                 private:
+                    void check(GLenum eCheck);
+                    void postLinkHook();
                 };
             };            
         };

@@ -4,6 +4,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
 
+#include <mach-o/dyld.h>
+
 namespace NordicArts {
     namespace NordicEngine {
         std::string OSSpecific::getPath(std::string cFileName) {

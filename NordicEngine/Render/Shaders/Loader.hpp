@@ -2,33 +2,13 @@
 #define NordicArts_NordicEngine_Render_Shaders_Loader_H
 
 #include <NordicEngine/Engine.hpp>
-#include <NordicEngine/Window/Window.hpp>
-
-// Not using GL 4.0
-#ifndef GL_TESS_EVALUATION_SHADER
-    #define GL_TESS_EVALUATION_SHADER NULL
-    #define GL_TESS_CONTROL_SHADER NULL
-#endif
-
-// Not using GL 4.3
-#ifndef GL_COMPUTE_SHADER
-    #define GL_COMPUTE_SHADER NULL
-#endif
+#include <NordicEngine/OS/OpenGL.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Shaders {
                 class Shader;
-
-                enum ShaderTypes {
-                    NES_VERTEX          = GL_VERTEX_SHADER,
-                    NES_FRAGMENT        = GL_FRAGMENT_SHADER,
-                    NES_GEOMETRY        = GL_GEOMETRY_SHADER,
-                    NES_COMPUTE         = GL_COMPUTE_SHADER,
-                    NES_TESS_CONTROL    = GL_TESS_CONTOL_SHADER,
-                    NES_TESS_EVAL       = GL_TESS_EVALUATION_SHADER
-                };
 
                 class Loader {
                 // Variables
@@ -39,7 +19,7 @@ namespace NordicArts {
                     unsigned int m_iVertexID;
                     unsigned int m_iFragmentID;
 
-                    std::vector<Shader> m_vShaders;
+                    std::vector<Shader*> m_vShaders;
 
                 // Methods
                 public:
@@ -47,7 +27,7 @@ namespace NordicArts {
                     Loader(std::string cVertex, std::string cFragment);
     
                     unsigned int buildShader();
-                    unsigned int addShader(std::string cFilename, ShaderTypes eType);
+                    unsigned int addShader(std::string cFilename, ShaderType eType);
                     unsigned int getProgramID() const;
 
                     void unloadShader(unsigned int iShaderID);

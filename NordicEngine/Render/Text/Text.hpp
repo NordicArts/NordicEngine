@@ -2,6 +2,7 @@
 #define NordicArts_NordicEngine_Render_Text_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

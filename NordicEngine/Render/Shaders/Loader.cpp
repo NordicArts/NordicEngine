@@ -14,14 +14,14 @@ namespace NordicArts {
 
                 unsigned int Loader::buildShader() {
                     if (checkRequiredShaders() < 2) { 
-                        throwError(__FUNCTION__ + ", You need at least 2 shaders to build a program");
+                        throwError(__FUNCTION__ + std::string(", You need at least 2 shaders to build a program"));
 
                         return 0;
                     }
 
                     Program oProgram;
-                    for (std::vector<Shader>::iterator it = m_vShaders.begin(); it != m_vShaders.end(); it++) {
-                        oProgram.attachShader(it->first.getID(), it->first.getType());
+                    for (auto it = m_vShaders.begin(); it != m_vShaders.end(); it++) {
+                        oProgram.attachShader(*it);
                     }
                     oProgram.link();
                     m_iProgramID = oProgram.getID();
@@ -30,10 +30,9 @@ namespace NordicArts {
                 }
 
                 unsigned int Loader::addShader(std::string cShader, ShaderType eType) {
-                    Shader oShader;
-                    oShader.create(cShader, eType);
+                    Shader oShader(eType, cShader);
                     
-                    m_vShaders.push_back(oShader);
+                    m_vShaders.push_back(&oShader);
                     
                     return oShader.getID();
                 }
@@ -48,10 +47,6 @@ namespace NordicArts {
 
                 void Loader::unloadShader(unsigned int iShaderID) {
                     glDeleteShader(iShaderID);
-                }
-            
-                void Loader::unloadProgram(unsigned int iProgramID) {
-                    glDeleteProgramID(iProgramID);
                 }
             };
         };

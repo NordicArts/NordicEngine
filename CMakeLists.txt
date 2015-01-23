@@ -161,6 +161,19 @@ list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
 #########################################################################
 
 if (NordicEngine_FullEngine)
+    # OpenGL Header
+    list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
+
+    # Shaders
+    link_directories(${NE}/Render/Shaders)
+    include_directories(${NE}/Render/Shaders)
+    list(APPEND LibHeaders ${NE}/Render/Shaders/Shader.hpp)
+    list(APPEND LibSources ${NE}/Render/Shaders/Shader.cpp)
+    list(APPEND LibHeaders ${NE}/Render/Shaders/Program.hpp)
+    list(APPEND LibSources ${NE}/Render/Shaders/Program.cpp)
+    list(APPEND LibHeaders ${NE}/Render/Shaders/Loader.hpp)
+    list(APPEND LibSources ${NE}/Render/Shaders/Loader.cpp)
+
     # BitMap
     link_directories(${NE}/Files/Format/BitMap)
     include_directories(${NE}/Files/Format/BitMap)
@@ -216,11 +229,11 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/Shaders/Simple.hpp)
     list(APPEND LibSources ${NE}/Shaders/Simple.cpp)
 
-    list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
-    list(APPEND LibHeaders ${NE}/Shaders/Shaders.inl)
-    list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
-    list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
-    list(APPEND LibSources ${NE}/Shaders/Program.cpp)
+    #list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
+    #list(APPEND LibHeaders ${NE}/Shaders/Shaders.inl)
+    #list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
+    #list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
+    #list(APPEND LibSources ${NE}/Shaders/Program.cpp)
 
     # Camera
     link_directories(${NE}/Camera)
