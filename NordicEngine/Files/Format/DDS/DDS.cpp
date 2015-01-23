@@ -26,8 +26,10 @@ namespace NordicArts {
                 // Verify file
                 char cFileCode[4];
                 fread(cFileCode, 1, 4, pFile);
-                if (strncmp(cFileCode, "DDS", 4) != 0) {
+                if (strncmp(cFileCode, "DDS ", 4) != 0) {
                     fclose(pFile);
+
+                    printIt(cFileCode);
 
                     throwError(__FUNCTION__ + std::string(" not a valid file"));
                 

@@ -60,6 +60,7 @@ namespace NordicArts {
 
                     if (bDDS) {
                         DDS oDDS(m_cTexture);
+
                         m_iTextureID = oDDS.loadDDS();
                     }
                 } else {

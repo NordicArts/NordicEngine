@@ -22,7 +22,7 @@ namespace NordicArts {
                 glGenBuffers(1, &m_iUVBufferID);
 
                 Shaders::Simple oShaders;
-                m_iShaderID     = oShaders.LoadShaders("Shaders/Text.vertex", "Shaders/Text.fragment");
+                m_iShaderID     = oShaders.LoadShaders("GameFiles/Shaders/Text.vertex", "GameFiles/Shaders/Text.fragment");
                 m_iUniformID    = glGetUniformLocation(m_iShaderID, "myTextureSampler");
             }
 
