@@ -6,6 +6,8 @@
 
 namespace NordicArts {
     namespace NordicEngine {
+        class Logger;
+
         namespace Render {
             namespace Shaders {
                 class Shader;
@@ -21,9 +23,12 @@ namespace NordicArts {
 
                     std::vector<Shader*> m_vShaders;
 
+                    Logger *m_pLogger;
+
                 // Methods
                 public:
                     Loader();
+                    Loader(Logger *pLogger);
                     Loader(std::string cVertex, std::string cFragment);
     
                     unsigned int buildShader();

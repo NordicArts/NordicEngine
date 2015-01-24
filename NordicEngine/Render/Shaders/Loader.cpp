@@ -6,10 +6,10 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Shaders {
-                Loader::Loader() : m_iProgramID(0) {
+                Loader::Loader() : m_iProgramID(0), m_pLogger(nullptr) {
                 }
 
-                Loader::Loader(std::string cVertex, std::string cFragment) : m_iProgramID(0) {
+                Loader::Loader(std::string cVertex, std::string cFragment) : m_iProgramID(0), m_pLogger(nullptr) {
                 }
 
                 unsigned int Loader::buildShader() {

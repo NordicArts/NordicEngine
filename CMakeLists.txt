@@ -218,10 +218,10 @@ if (NordicEngine_FullEngine)
     list(APPEND LibSources ${NE}/Input/Input.cpp)
 
     # Renderer
-    link_directories(${NE}/Renderer)
-    include_directories(${NE}/Renderer)
-    list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
-    list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
+    #link_directories(${NE}/Renderer)
+    #include_directories(${NE}/Renderer)
+    #list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
+    #list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
 
     # Shaders
     link_directories(${NE}/Shaders)
