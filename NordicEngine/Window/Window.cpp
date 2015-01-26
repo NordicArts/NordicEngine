@@ -1,8 +1,8 @@
 #include <NordicEngine/Window/Window.hpp>
 #include <NordicEngine/Input/Input.hpp>
-#include <NordicEngine/Exception/Exception.hpp>
 #include <NordicEngine/Settings/Settings.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/Color/Color.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -171,6 +171,14 @@ namespace NordicArts {
             if (m_pWindow) {
                 glfwGetFramebufferSize(m_pWindow, iWidth, iHeight);
             }
+        }
+
+        void Window::initColor(Color oColor) const {
+            glClearColor((float)oColor.m_iRed, (float)oColor.m_iGreen, (float)oColor.m_iBlue, (float)oColor.m_iAlpha);
+        }
+
+        void Window::clear() const {
+            glClear(GL_COLOR_BUFFER_BIT);
         }
         
         void Window::closeWindow() {

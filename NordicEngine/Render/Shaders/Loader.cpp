@@ -1,6 +1,7 @@
 #include <NordicEngine/Render/Shaders/Loader.hpp>
-#include <NordicEngine/Render/Shaders/Shader.hpp>
 #include <NordicEngine/Render/Shaders/Program.hpp>
+#include <NordicEngine/Render/Shaders/Shader.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -10,43 +11,38 @@ namespace NordicArts {
                 }
 
                 Loader::Loader(std::string cVertex, std::string cFragment) : m_iProgramID(0), m_pLogger(nullptr) {
+                    addShader(cFragment, "FRAGMENT");
+                    addShader(cVertex, "VERTEX");
+                }
+
+                Loader::~Loader() {
+                    m_pLogger   = nullptr;
+                }
+
+                void Loader::addShader(std::string cShader, std::string cType) {
+                    m_vShaders.push_back(std::vector<std::string, std::string>(cShader, cType));
                 }
 
                 unsigned int Loader::buildShader() {
-                    if (checkRequiredShaders() < 2) { 
-                        throwError(__FUNCTION__ + std::string(", You need at least 2 shaders to build a program"));
+                    bool bVertex;
+                    for (std::vector<std::string, std::string>::iterator it = m_vShaders.begin(); it != m_vShaders.end(); it++) {
+                        std::string cType = toUpper(it->second);
 
-                        return 0;
+                        if (cType == "VERTEX") {
+
+                        }
                     }
+
+                    Shader *pShader = m_pVertex;
 
                     Program oProgram;
-                    for (auto it = m_vShaders.begin(); it != m_vShaders.end(); it++) {
-                        oProgram.attachShader(*it);
-                    }
+                    oProgram.attachShader(m_pVertex);
                     oProgram.link();
-                    m_iProgramID = oProgram.getID();
-
-                    return m_iProgramID;
-                }
-
-                unsigned int Loader::addShader(std::string cShader, ShaderType eType) {
-                    Shader oShader(eType, cShader);
-                    
-                    m_vShaders.push_back(&oShader);
-                    
-                    return oShader.getID();
+                    return oProgram.getID();
                 }
             
                 unsigned int Loader::getProgramID() const {
                     return m_iProgramID;
-                }
-
-                unsigned int Loader::checkRequiredShaders() const {
-                    return m_vShaders.size();
-                }
-
-                void Loader::unloadShader(unsigned int iShaderID) {
-                    glDeleteShader(iShaderID);
                 }
             };
         };

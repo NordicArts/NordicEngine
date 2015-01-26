@@ -9,13 +9,13 @@ namespace NordicArts {
                 Reader::Reader(const std::string &cFileName) : Handler(cFileName, true) {
                     m_cFileStream.open(getFilePath().c_str(), std::ios_base::in);
                     if (!m_cFileStream.is_open()) {
-                        throwError(__FUNCTION__ + std::string(" can't open file for reading, ") + m_cFileName);
+                        throwError(__FUNCTION__ + std::string(" can't open file for reading 1, ") + m_cFileName);
                     }
                 }
                 Reader::Reader(const std::string &cFileName, bool bFilePath) : Handler(cFileName, true) {
                     m_cFileStream.open(getFilePath().c_str(), std::ios_base::in);
                     if (!m_cFileStream.is_open()) {
-                        throwError(__FUNCTION__ + std::string(" can't open file for reading, ") + m_cFileName);
+                        throwError(__FUNCTION__ + std::string(" can't open file for reading 2, ") + m_cFileName);
                     }
                 }
 

@@ -51,6 +51,7 @@ namespace NordicArts {
                 Shader::Shader(ShaderType eType, std::string cFile) {
                     m_iID   = glCreateShader(eType);
                     m_eType = eType;
+                    m_cType = getShaderType(eType);
 
                     // load the file
                     Files::Loader oFile(cFile);

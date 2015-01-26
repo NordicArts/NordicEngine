@@ -18,10 +18,8 @@ namespace NordicArts {
                 protected:
                 private:
                     unsigned int m_iProgramID;
-                    unsigned int m_iVertexID;
-                    unsigned int m_iFragmentID;
 
-                    std::vector<Shader*> m_vShaders;
+                    std::vector<std::string, std::string> m_vShaders;
 
                     Logger *m_pLogger;
 
@@ -30,17 +28,16 @@ namespace NordicArts {
                     Loader();
                     Loader(Logger *pLogger);
                     Loader(std::string cVertex, std::string cFragment);
+
+                    ~Loader();
+
+                    void addShader(std::string cFilename, std::string cType);
     
                     unsigned int buildShader();
-                    unsigned int addShader(std::string cFilename, ShaderType eType);
                     unsigned int getProgramID() const;
-
-                    void unloadShader(unsigned int iShaderID);
-                    void unloadProgram(unsigned int iProgramID);
 
                 protected:
                 private:
-                    unsigned int checkRequiredShaders() const;
                 };
             };
         };

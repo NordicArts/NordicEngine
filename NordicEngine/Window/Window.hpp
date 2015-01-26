@@ -10,6 +10,7 @@ namespace NordicArts {
     namespace NordicEngine {
         class Logger;
         class Settings;
+        class Color;
 
         class Window {
         // Variables
@@ -54,6 +55,9 @@ namespace NordicArts {
             void getFrameBufferSize(int *iWidth, int *iHeight);
             void draw();
             void display();
+
+            void initColor(Color oColor) const;
+            void clear() const;
 
             static void errorHandler(int iError, const char *cDescription);
 
