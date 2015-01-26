@@ -30,7 +30,8 @@ namespace NordicArts {
             NES_GEOMETRY        = GL_GEOMETRY_SHADER,
             NES_COMPUTE         = GL_COMPUTE_SHADER,
             NES_TESS_CONTROL    = GL_TESS_CONTROL_SHADER,
-            NES_TESS_EVAL       = GL_TESS_EVALUATION_SHADER
+            NES_TESS_EVAL       = GL_TESS_EVALUATION_SHADER,
+            NES_UNKNOWN         = NULL
         };
     };
 };

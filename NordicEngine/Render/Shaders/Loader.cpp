@@ -7,6 +7,17 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Shaders {
+                ShaderType getShaderType(std::string cType) {
+                    std::string cKey = cType;
+                    cKey = toUpper(cKey);
+
+                    if (cKey == "VERTEX") { return NES_VERTEX; }
+                    if (cKey == "FRAGMENT") { return NES_FRAGMENT; }
+                    if (cKey == "GEOMETRY") { return NES_GEOMETRY; }
+            
+                    return NES_UNKNOWN;
+                }
+
                 Loader::Loader() : m_iProgramID(0), m_pLogger(nullptr) {
                 }
 
@@ -20,23 +31,47 @@ namespace NordicArts {
                 }
 
                 void Loader::addShader(std::string cShader, std::string cType) {
-                    m_vShaders.push_back(std::vector<std::string, std::string>(cShader, cType));
+                    m_mShaders.insert(std::pair<std::string, std::string>(cType, cShader));
                 }
 
                 unsigned int Loader::buildShader() {
                     bool bVertex;
-                    for (std::vector<std::string, std::string>::iterator it = m_vShaders.begin(); it != m_vShaders.end(); it++) {
-                        std::string cType = toUpper(it->second);
+                    bool bFragment;
 
-                        if (cType == "VERTEX") {
+                    std::string cKey;
 
+                    Program oProgram;
+
+                    for (std::map<std::string, std::string>::iterator it = m_mShaders.begin(); it != m_mShaders.end(); it++) {
+                        ShaderType eType = getShaderType(it->first);
+
+                        switch (eType) { 
+                            case NES_VERTEX: {
+                                Shader oShader(NES_VERTEX, it->second);
+                                oProgram.attachShader(&oShader);
+                                break;
+                            }
+
+                            case NES_FRAGMENT: {
+                                Shader oShader(NES_FRAGMENT, it->second);
+                                oProgram.attachShader(&oShader);
+                                break;
+                            }
+
+                            case NES_GEOMETRY: {
+                                Shader oShader(NES_GEOMETRY, it->second);
+                                oProgram.attachShader(&oShader);
+                                break;
+                            }
+
+                            case NES_COMPUTE:
+                            case NES_TESS_CONTROL:
+                            case NES_TESS_EVAL:
+                            default:
+                                break;
                         }
                     }
 
-                    Shader *pShader = m_pVertex;
-
-                    Program oProgram;
-                    oProgram.attachShader(m_pVertex);
                     oProgram.link();
                     return oProgram.getID();
                 }

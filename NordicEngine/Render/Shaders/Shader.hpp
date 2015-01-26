@@ -20,6 +20,8 @@ namespace NordicArts {
                     ShaderType m_eType;
 
                     std::string m_cType;
+                    
+                    std::map<std::string, std::string> m_mShaders;
 
                 // Methods
                 public:

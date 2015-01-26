@@ -10,6 +10,8 @@ namespace NordicArts {
 
         namespace Render {
             namespace Shaders {
+                ShaderType getShaderType(std::string cType);
+
                 class Shader;
 
                 class Loader {
@@ -19,9 +21,9 @@ namespace NordicArts {
                 private:
                     unsigned int m_iProgramID;
 
-                    std::vector<std::string, std::string> m_vShaders;
-
                     Logger *m_pLogger;
+
+                    std::map<std::string, std::string> m_mShaders;
 
                 // Methods
                 public:
