@@ -16,11 +16,19 @@ TEST_CASE("Color", "[color]") {
     
         REQUIRE(oColor == NordicArts::NordicEngine::Color::Magenta);
     }
+
+    SECTION("Hex Color") {
+        NordicArts::NordicEngine::Color oColor("#648a87");
+
+        REQUIRE(oColor.getRed() == 100);
+        REQUIRE(oColor.getGreen() == 138);
+        REQUIRE(oColor.getBlue() == 135);
+    }
 }
 
 TEST_CASE("Settings", "[settings]") {
     NordicArts::NordicEngine::Settings oSettings;
-    oSettings.createTable();
+    oSettings.setup();
 
     SECTION("Window Mode") {
         oSettings.setWindowMode(true);
@@ -91,9 +99,11 @@ TEST_CASE("Player", "[player]") {
 }
 
 TEST_CASE("Shaders", "[shaders]") {
-    NordicArts::NordicEngine::Shaders::Simple oShaders;
+//    NordicArts::NordicEngine::Shaders::Simple oShaders;
     
 //    oShaders.LoadShaders("GameFiles/Shaders/Simple.vertex", "GameFiles/Shaders/Simple.fragment");
+}
 
+TEST_CASE("Should Fail", "[forcedFailer]") {
     REQUIRE(true == false);
 }

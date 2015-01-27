@@ -24,6 +24,7 @@ namespace NordicArts {
 
             Logger      *m_pLogger;
             Settings    *m_pSettings;
+            Color       *m_pColor;
 
         // Methods
         public:
@@ -56,7 +57,7 @@ namespace NordicArts {
             void draw();
             void display();
 
-            void initColor(Color oColor) const;
+            void initColor(Color oColor);
             void clear() const;
 
             static void errorHandler(int iError, const char *cDescription);

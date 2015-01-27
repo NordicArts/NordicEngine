@@ -173,11 +173,13 @@ namespace NordicArts {
             }
         }
 
-        void Window::initColor(Color oColor) const {
-            glClearColor((float)oColor.m_iRed, (float)oColor.m_iGreen, (float)oColor.m_iBlue, (float)oColor.m_iAlpha);
+        void Window::initColor(Color oColor) {
+            m_pColor = &oColor;
+            clear();
         }
 
         void Window::clear() const {
+            glClearColor(m_pColor->getRed(), m_pColor->getGreen(), m_pColor->getBlue(), m_pColor->getAlpha());
             glClear(GL_COLOR_BUFFER_BIT);
         }
         

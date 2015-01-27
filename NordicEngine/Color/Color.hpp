@@ -30,6 +30,12 @@ namespace NordicArts {
         public:
             Color();
             Color(uint8_t iRed, uint8_t iGreen, uint8_t iBlue, uint8_t iAlpha = 255);
+            Color(std::string cHex);
+
+            float getRed() const;
+            float getGreen() const;
+            float getBlue() const;
+            float getAlpha() const;
 
         protected:
         private:

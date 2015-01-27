@@ -14,8 +14,34 @@ namespace NordicArts {
 
         Color::Color() : m_iRed(0), m_iGreen(0), m_iBlue(0), m_iAlpha(255) {
         }
-
         Color::Color(uint8_t iRed, uint8_t iGreen, uint8_t iBlue, uint8_t iAlpha) : m_iRed(iRed), m_iGreen(iGreen), m_iBlue(iBlue), m_iAlpha(iAlpha) {
+        }
+        Color::Color(std::string cHex) {
+            // Remove the hash
+            size_t nFound = cHex.find("#");
+            if (nFound != std::string::npos) { cHex = cHex.erase(0, 1); }
+
+            int iColor  = (int)std::strtol(cHex.c_str(), NULL, 16);
+            m_iRed      = (iColor >> 16);
+            m_iGreen    = (iColor >> (8 & 0xFF));
+            m_iBlue     = (iColor & 0xFF);
+            m_iAlpha    = 255;
+        }
+
+        float Color::getRed() const {
+            return (float)m_iRed;
+        }
+        
+        float Color::getGreen() const {
+            return (float)m_iGreen;
+        }
+
+        float Color::getBlue() const {
+            return (float)m_iBlue;
+        }
+        
+        float Color::getAlpha() const {
+            return (float)m_iAlpha;
         }
 
         bool operator ==(const Color &oLeft, const Color &oRight) {
