@@ -270,28 +270,27 @@ endif()
 ########################### THIRD PARTY BITS ###########################
 ########################################################################
 
-# SQLite
-link_directories(${NET}/sqlite)
-include_directories(${NET}/sqlite)
-add_subdirectory(${NET}/sqlite)
-
 # Boost
-find_package(Boost COMPONENTS locale REQUIRED)
-include_directories(${Boost_INCLUDES})
+#find_package(Boost COMPONENTS locale REQUIRED)
+#include_directories(${Boost_INCLUDES})
 
+# Full Engine Deps
 if (NordicEngine_FullEngine)
     # GLFW
     link_directories(${NET}/glfw)
     include_directories(${NET}/glfw/include)
     add_subdirectory(${NET}/glfw)
-endif()
-
-if (NordicEngine_FullEngine)
+    
     # GLEW
     find_package(GLEW REQUIRED)
     link_directories(${GLEW_INCLUDES})
     include_directories(${GLEW_INCLUDES})
 endif()
+
+# SQLite
+link_directories(${NET}/sqlite)
+include_directories(${NET}/sqlite)
+add_subdirectory(${NET}/sqlite)
 
 # GLM
 link_directories(${NET}/glm)
@@ -366,7 +365,7 @@ endif()
 
 # Universal links
 target_link_libraries(NordicEngine SQLite)
-target_link_libraries(NordicEngine ${Boost_LIBRARIES})
+#target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 target_link_libraries(NordicEngine MiniZ)
 
