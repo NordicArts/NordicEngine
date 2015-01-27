@@ -18,7 +18,7 @@ namespace NordicArts {
                 pthread_mutex_init(&oCritical, &mAttr);
                 pthread_mutexattr_destroy(&mAttr);
             #else
-                InitalizeCriticalSection(&oCritical);
+                InitializeCriticalSection(&oCritical);
             #endif
         }
         void enterCritical(NA_CRITICAL &oCritical) {
