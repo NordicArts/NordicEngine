@@ -44,6 +44,26 @@
 #include <NordicEngine/Exception/Exception.hpp>
 
 namespace NordicArts {
+    // signed types
+    typedef signed char     NA_INT8;
+    typedef signed short    NA_INT16;
+    typedef int             NA_INT32;
+    #if defined(_MSC_VER)
+        typedef signed __int64  NA_INT64;
+    #else
+        typedef signed long long NA_INT64;
+    #endif
+    
+    // unsigned types
+    typedef unsigned char   NA_UINT8;
+    typedef unsigned short  NA_UINT16;
+    typedef unsigned int    NA_UINT32;
+    #if defined(_MSC_VER)
+        typedef unsigned __uint64 NA_UINT64;
+    #else
+        typedef unsigned long long NA_UINT64;
+    #endif
+
     namespace NordicEngine {
         const char *getBuildNumber();
 
