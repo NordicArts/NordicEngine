@@ -350,7 +350,7 @@ endif()
 
 # Universal ones
 if (WIN32)
-    target_link_libraries(NordicEngine winmm gdi32 c++abi)
+    target_link_libraries(NordicEngine winmm gdi32)
 elseif (APPLE)
     target_link_libraries(NordicEngine "-framework Foundation -framework AppKit -framework IOKit -framework Carbon -framework CoreFoundation" c++abi)
 else()
