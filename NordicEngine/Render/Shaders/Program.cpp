@@ -9,7 +9,7 @@ namespace NordicArts {
                     m_iID = glCreateProgram();
                 }
 
-                Program::Program(Shader *pVertex, Shader *pFragment) {
+                Program::Program(Shader *pVertex, Shader *pFragment) : m_bIsLinked(false) {
                     attachShader(pVertex);
                     attachShader(pFragment);
                 }
@@ -82,6 +82,7 @@ namespace NordicArts {
 
                         char *cInfoLog = new char[iLogLength];
                         glGetProgramInfoLog(m_iID, iLogLength, NULL, cInfoLog);
+                        printIt(cInfoLog);
 
                         std::string cWhat = "";
                         switch (eCheck) {
@@ -106,7 +107,7 @@ namespace NordicArts {
                             }
                         }
 
-                        throwError(__FUNCTION__ + std::string(", ") + cWhat + std::string(", ") + std::string(cInfoLog));
+                        throwError(__FUNCTION__, cWhat + std::string(", ") + std::string(cInfoLog));
                         SAFE_DELETE_ARRAY(cInfoLog);
                     }
                 }
@@ -141,7 +142,7 @@ namespace NordicArts {
                 }
 
                 void Program::setAttributeID(std::string cName, unsigned int iID) {
-                    if (!m_bIsLinked) {
+                    if (m_bIsLinked) {
                         glBindAttribLocation(m_iID, iID, cName.c_str());
                     } else {
                         throwError(__FUNCTION__ + std::string(" trying to assigned attributes after linking, ") + cName);
@@ -166,9 +167,13 @@ namespace NordicArts {
                     }
                 }
 
+                void Program::attachData(int iColor, std::string cData) {
+                    glBindFragDataLocation(m_iID, iColor, cData.c_str());
+                }
+
                 void Program::postLinkHook() {
-                    m_iPositionID = getAttributeID("vertex_position");
-                    m_iMatrixID   = getUniformID("mvp_matrix");
+                    //m_iPositionID = getAttributeID("vertex_position");
+                    //m_iMatrixID   = getUniformID("mvp_matrix");
                 }
             };
         };

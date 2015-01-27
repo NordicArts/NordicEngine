@@ -49,6 +49,7 @@ namespace NordicArts {
 
         void throwError(const std::ostringstream &cMessage);
         void throwError(const std::string &cMessage);
+        void throwError(const std::string &cFunction, const std::string &cMessage);
     };
 };
 #endif

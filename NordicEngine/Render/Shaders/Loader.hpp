@@ -13,6 +13,7 @@ namespace NordicArts {
                 ShaderType getShaderType(std::string cType);
 
                 class Shader;
+                class Program;
 
                 class Loader {
                 // Variables
@@ -23,7 +24,10 @@ namespace NordicArts {
 
                     Logger *m_pLogger;
 
+                    Program *m_pProgram;
+
                     std::map<std::string, std::string> m_mShaders;
+                    std::map<int, std::string> m_mData;
 
                 // Methods
                 public:
@@ -34,12 +38,18 @@ namespace NordicArts {
                     ~Loader();
 
                     void addShader(std::string cFilename, std::string cType);
+                    void attachFragmentData(int iColor, std::string cLocation);
     
                     unsigned int buildShader();
                     unsigned int getProgramID() const;
 
+                    int getAttrib(std::string cLocation);
+                    int getUniform(std::string cLocation);
+
                 protected:
                 private:
+                    void buildFragmentData();
+
                 };
             };
         };

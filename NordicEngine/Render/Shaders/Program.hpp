@@ -34,6 +34,8 @@ namespace NordicArts {
                     ~Program();
 
                     void attachShader(Shader *pShader);
+                    void attachData(int iColor, std::string cData);
+
                     void link();
                     void use();
                     void stopUsing();
