@@ -282,9 +282,9 @@ if (NordicEngine_FullEngine)
     add_subdirectory(${NET}/glfw)
     
     # GLEW
-    find_package(GLEW REQUIRED)
-    link_directories(${GLEW_INCLUDES})
-    include_directories(${GLEW_INCLUDES})
+    link_directories(${NET}/glew)
+    include_directories(${NET}/glew)
+    add_subdirectory(${NET}/glew)
 endif()
 
 # SQLite
@@ -360,7 +360,7 @@ endif()
 # Library Linker
 if (NordicEngine_FullEngine)
     target_link_libraries(NordicEngine glfw ${GLFW_LIBRARIES})
-    target_link_libraries(NordicEngine ${GLEW_LIBRARIES})
+    target_link_libraries(NordicEngine glew ${GLEW_LIBRARIES})
 endif()
 
 # Universal links
