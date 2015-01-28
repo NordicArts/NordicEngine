@@ -15,4 +15,5 @@ UnitTests.app
 .DS_Store/
 .DS_Store
 *.dylib
+lib/
 
