@@ -29,6 +29,7 @@ namespace NordicArts {
                 // Methods
                 public:
                     Program();
+                    Program(int iProgramID);
                     Program(Shader *pVertex, Shader *pFragment);
                     
                     ~Program();

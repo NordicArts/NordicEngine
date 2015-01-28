@@ -8,7 +8,9 @@ namespace NordicArts {
                 Program::Program() : m_bIsLinked(false), m_pVertex(nullptr), m_pFragment(nullptr), m_pGeometry(nullptr) {
                     m_iID = glCreateProgram();
                 }
-
+                Program::Program(unsigned int iProgramID) {
+                    m_iID = iProgramID;
+                }
                 Program::Program(Shader *pVertex, Shader *pFragment) : m_bIsLinked(false) {
                     attachShader(pVertex);
                     attachShader(pFragment);

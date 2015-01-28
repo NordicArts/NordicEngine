@@ -59,7 +59,7 @@ namespace NordicArts {
     typedef unsigned short  NA_UINT16;
     typedef unsigned int    NA_UINT32;
     #if defined(_MSC_VER)
-        typedef unsigned __uint64 NA_UINT64;
+        typedef unsigned __int64 NA_UINT64;
     #else
         typedef unsigned long long NA_UINT64;
     #endif

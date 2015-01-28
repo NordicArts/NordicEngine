@@ -20,11 +20,7 @@ namespace NordicArts {
                 public:
                 protected:
                 private:
-                    unsigned int m_iProgramID;
-
                     Logger *m_pLogger;
-
-                    Program *m_pProgram;
 
                     std::map<std::string, std::string> m_mShaders;
                     std::map<int, std::string> m_mData;
@@ -38,18 +34,19 @@ namespace NordicArts {
                     ~Loader();
 
                     void addShader(std::string cFilename, std::string cType);
-                    void attachFragmentData(int iColor, std::string cLocation);
+                    void addFragmentData(int iColor, std::string cLocation);
     
                     unsigned int buildShader();
-                    unsigned int getProgramID() const;
 
-                    int getAttrib(std::string cLocation);
-                    int getUniform(std::string cLocation);
+                    int getAttrib(int iProgramID, std::string cLocation);
+                    int getUniform(int iProgramID, std::string cLocation);
 
                 protected:
                 private:
-                    void buildFragmentData();
+                    void buildFragmentData(Program *pProgram);
+                    void buildShaders(Program *pProgram);
 
+                    unsigned int build();
                 };
             };
         };

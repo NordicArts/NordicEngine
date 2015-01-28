@@ -19,27 +19,11 @@ namespace NordicArts {
                 }
 
                 Loader::Loader() : m_iProgramID(0), m_pLogger(nullptr) {
-                    Program oProgram;
-                    m_pProgram      = &oProgram;
-                    m_iProgramID    = m_pProgram->getID();
-
-                    printIt("Blank Constructor");
-                    printIt(m_pProgram->getID());
                 }
 
                 Loader::Loader(std::string cVertex, std::string cFragment) : m_iProgramID(0), m_pLogger(nullptr) {
-                    Program oProgram;
-                    m_pProgram      = &oProgram;
-                    m_iProgramID    = m_pProgram->getID();
-
-                    printIt("Value Constructor");
-                    printIt(m_pProgram->getID());
-
                     addShader(cFragment, "FRAGMENT");
                     addShader(cVertex, "VERTEX");
-
-                    printIt("End Constructor");
-                    printIt(m_pProgram->getID());
                 }
 
                 Loader::~Loader() {
@@ -48,58 +32,39 @@ namespace NordicArts {
                 }
 
                 void Loader::addShader(std::string cShader, std::string cType) {
-                    printIt("Adding Shader");
-                    printIt(m_pProgram->getID());
-
                     m_mShaders.insert(std::pair<std::string, std::string>(cType, cShader));
-
-                    printIt("Added Shader");
-                    printIt(m_pProgram->getID());
                 }
 
-                void Loader::attachFragmentData(int iColor, std::string cLocation) {
+                void Loader::addFragmentData(int iColor, std::string cLocation) {
                     m_mData.insert(std::pair<int, std::string>(iColor, cLocation));
                 }
 
-                void Loader::buildFragmentData() {
-                    printIt("Building Fragment");
-                    printIt(m_pProgram->getID());
-
+                void Loader::buildFragmentData(Program *pProgram) {
                     for (std::map<int, std::string>::iterator it = m_mData.begin(); it != m_mData.end(); it++) {
-                        m_pProgram->attachData(it->first, it->second);
+                        pProgram->attachData(it->first, it->second);
                     }
-
-                    printIt("Built Fragment");
-                    printIt(m_pProgram->getID());
                 }
 
-                unsigned int Loader::buildShader() {
-                    bool bVertex;
-                    bool bFragment;
-
-                    std::string cKey;
-                    printIt("Building Shader");
-                    printIt(m_pProgram->getID());
-
+                void Loader::buildShaders(Program *pProgram) {
                     for (std::map<std::string, std::string>::iterator it = m_mShaders.begin(); it != m_mShaders.end(); it++) {
                         ShaderType eType = getShaderType(it->first);
 
-                        switch (eType) { 
+                        switch (eType) {
                             case NES_VERTEX: {
                                 Shader oShader(NES_VERTEX, it->second);
-                                m_pProgram->attachShader(&oShader);
+                                pProgram->attachShader(&oShader);
                                 break;
                             }
 
                             case NES_FRAGMENT: {
                                 Shader oShader(NES_FRAGMENT, it->second);
-                                m_pProgram->attachShader(&oShader);
+                                pProgram->attachShader(&oShader);
                                 break;
                             }
 
                             case NES_GEOMETRY: {
                                 Shader oShader(NES_GEOMETRY, it->second);
-                                m_pProgram->attachShader(&oShader);
+                                pProgram->attachShader(&oShader);
                                 break;
                             }
 
@@ -110,22 +75,33 @@ namespace NordicArts {
                                 break;
                         }
                     }
-
-                    buildFragmentData();
-                    m_pProgram->link();
-
-                    printIt("Built Shader");
-                    printIt(m_pProgram->getID());
-
-                    return m_pProgram->getID();
                 }
 
-                int Loader::getAttrib(std::string cLocation) {
-                    return m_pProgram->getAttributeID(cLocation);
+                unsigned int Loader::buildShader() {
+                    return build();
                 }
 
-                int Loader::getUniform(std::string cLocation) {
-                    return m_pProgram->getUniformID(cLocation);
+                unsigned int Loader::build() {
+                    Program  oProgram;
+                    Program *pProgram = &oProgram;
+
+                    m_iProgramID = pProgram->getID();
+
+                    buildShaders(pProgram)
+                    buildFragmentData(pProgram);
+                    pProgram->link();
+
+                    return m_iProgramID;
+                }
+
+                int Loader::getAttrib(int iProgramID, std::string cLocation) {
+                    Program oProgram(iProgramID);
+                    return oProgram.getAttributeID(cLocation);
+                }
+
+                int Loader::getUniform(int iProgramID, std::string cLocation) {
+                    Program oProgram(iProgramID);
+                    return oProgram.getUniformID(cLocation);
                 }
             
                 unsigned int Loader::getProgramID() const {

@@ -20,7 +20,7 @@ namespace NordicArts {
         }
 
         bool OSSpecific::deleteFile(std::string cFileName) {
-            if (remove(m_cFileName.c_str()) != 0) {
+            if (remove(cFileName.c_str()) != 0) {
                 return false;
             }
 

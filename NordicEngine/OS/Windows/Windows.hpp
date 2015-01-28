@@ -17,8 +17,13 @@
 typedef HANDLE MUTEX_THREAD;
 
 // Time
-typedef SYSTEMTIME NA_TIME;
-typedef NULL NA_TIMEINFO;
+#ifndef NA_TIME
+#define NA_TIME SYSTEMTIME
+#endif
+
+#ifndef NA_TIMEINFO
+#define NA_TIMEINFO NULL
+#endif
 
 // Critical Section
 typedef CRITICAL_SECTION NA_CRITICAL;
