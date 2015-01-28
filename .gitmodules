@@ -16,6 +16,3 @@
 [submodule "NordicEngine/ThirdParty/sqlite"]
 	path = NordicEngine/ThirdParty/sqlite
 	url = https://github.com/NordicArts/sqlite.git
-[submodule "NordicEngine/ThirdParty/glew"]
-	path = NordicEngine/ThirdParty/glew
-	url = https://github.com/Perlmint/glew-cmake.git

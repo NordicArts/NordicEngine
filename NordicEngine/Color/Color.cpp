@@ -58,18 +58,18 @@ namespace NordicArts {
 
         Color operator +(const Color &oLeft, const Color &oRight) {
             return Color(
-                NA_UINT8(min(int(oLeft.m_iRed) + oRight.m_iRed, 255)),
-                NA_UINT8(min(int(oLeft.m_iGreen) + oRight.m_iGreen, 255)),
-                NA_UINT8(min(int(oLeft.m_iBlue) + oRight.m_iBlue, 255)),
-                NA_UINT8(min(int(oLeft.m_iAlpha) + oRight.m_iAlpha, 255))
+                NA_UINT8(std::min(int(oLeft.m_iRed) + oRight.m_iRed, 255)),
+                NA_UINT8(std::min(int(oLeft.m_iGreen) + oRight.m_iGreen, 255)),
+                NA_UINT8(std::min(int(oLeft.m_iBlue) + oRight.m_iBlue, 255)),
+                NA_UINT8(std::min(int(oLeft.m_iAlpha) + oRight.m_iAlpha, 255))
             );
         }
         Color operator -(const Color &oLeft, const Color &oRight) {
             return Color(
-                NA_UINT8(max(int(oLeft.m_iRed) - oRight.m_iRed, 0)),
-                NA_UINT8(max(int(oLeft.m_iGreen) - oRight.m_iGreen, 0)),
-                NA_UINT8(max(int(oLeft.m_iBlue) - oRight.m_iBlue, 0)),
-                NA_UINT8(max(int(oLeft.m_iAlpha) - oRight.m_iAlpha, 0))
+                NA_UINT8(std::max(int(oLeft.m_iRed) - oRight.m_iRed, 0)),
+                NA_UINT8(std::max(int(oLeft.m_iGreen) - oRight.m_iGreen, 0)),
+                NA_UINT8(std::max(int(oLeft.m_iBlue) - oRight.m_iBlue, 0)),
+                NA_UINT8(std::max(int(oLeft.m_iAlpha) - oRight.m_iAlpha, 0))
             );
         }        
         Color operator *(const Color &oLeft, const Color &oRight) {

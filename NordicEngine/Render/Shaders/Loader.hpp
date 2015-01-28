@@ -25,6 +25,8 @@ namespace NordicArts {
                     std::map<std::string, std::string> m_mShaders;
                     std::map<int, std::string> m_mData;
 
+                    unsigned int m_iProgramID;
+
                 // Methods
                 public:
                     Loader();
@@ -37,6 +39,7 @@ namespace NordicArts {
                     void addFragmentData(int iColor, std::string cLocation);
     
                     unsigned int buildShader();
+                    unsigned int getProgramID() const;
 
                     int getAttrib(int iProgramID, std::string cLocation);
                     int getUniform(int iProgramID, std::string cLocation);

@@ -87,7 +87,7 @@ namespace NordicArts {
 
                     m_iProgramID = pProgram->getID();
 
-                    buildShaders(pProgram)
+                    buildShaders(pProgram);
                     buildFragmentData(pProgram);
                     pProgram->link();
 
