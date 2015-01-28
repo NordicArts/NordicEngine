@@ -82,7 +82,8 @@ namespace NordicArts {
 
                         char *cInfoLog = new char[iLogLength];
                         glGetProgramInfoLog(m_iID, iLogLength, NULL, cInfoLog);
-                        printIt(cInfoLog);
+                        printIt(iLogLength);
+                        printIt(m_iID);
 
                         std::string cWhat = "";
                         switch (eCheck) {
