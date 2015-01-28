@@ -3,8 +3,7 @@
 
 #include <NordicEngine/Engine.hpp>
 
-//#define GLEW_STATIC
-#include <NordicEngine/ThirdParty/glew/include/GL/glew.h>
+#include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
