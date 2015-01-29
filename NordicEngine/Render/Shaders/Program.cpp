@@ -130,9 +130,11 @@ namespace NordicArts {
                 int Program::getAttributeID(std::string cName) {
                     if (m_bIsLinked) {
                         int iAttributeID = glGetAttribLocation(m_iID, cName.c_str());
+                        printIt(iAttributeID);
                         if (iAttributeID == -1) {
                             dumpActiveAttributes();
 
+                            printIt(m_iID);
                             throwError(__FUNCTION__ + std::string(" attribute is not found in linked shader, ") + cName);
                         } else {
                             return iAttributeID;
