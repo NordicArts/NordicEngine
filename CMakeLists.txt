@@ -328,6 +328,10 @@ string(TIMESTAMP buildNumber "9%j%y%H%M")
 file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
 list(APPEND LibHeaders ${NE}/buildNumber.hpp)
 
+# Set for Exports
+set(NordicEngine_Libraries ${LibSources})
+set(NordicEngine_Headers ${LibHeaders})
+
 # Generate Library
 add_library(NordicEngine SHARED ${LibSources} ${LibHeaders})
 set_target_properties(NordicEngine PROPERTIES LINKER_LANGUAGE CXX)
