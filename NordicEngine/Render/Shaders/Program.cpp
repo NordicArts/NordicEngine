@@ -57,6 +57,7 @@ namespace NordicArts {
                         }
                     }
 
+                    printIt(pShader->getStringType());
                     glAttachShader(m_iID, pShader->getID());
                 }
 

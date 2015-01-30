@@ -22,8 +22,8 @@ namespace NordicArts {
                 }
 
                 Loader::Loader(std::string cVertex, std::string cFragment) : m_iProgramID(0), m_pLogger(nullptr) {
-                    addShader(cFragment, "FRAGMENT");
                     addShader(cVertex, "VERTEX");
+                    addShader(cFragment, "FRAGMENT");
                 }
 
                 Loader::~Loader() {
@@ -95,6 +95,8 @@ namespace NordicArts {
                 }
 
                 int Loader::getAttrib(int iProgramID, std::string cLocation) {
+                    printIt(iProgramID);
+
                     Program oProgram(iProgramID);
                     return oProgram.getAttributeID(cLocation);
                 }

@@ -32,6 +32,8 @@ namespace NordicArts {
                     unsigned int getID() const;
                     ShaderType getType() const;
 
+                    std::string getStringType() const;
+
                 protected:
                 private:
 

@@ -89,6 +89,10 @@ namespace NordicArts {
                 ShaderType Shader::getType() const {
                     return m_eType;
                 }
+
+                std::string Shader::getStringType() const {
+                    return m_cType;
+                }
             };
         };
     };
