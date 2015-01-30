@@ -1,5 +1,5 @@
 #include <NordicEngine/Files/Format/DDS/DDS.hpp>
-#include <NordicEngine/Window/Window.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

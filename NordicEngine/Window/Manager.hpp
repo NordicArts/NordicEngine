@@ -1,11 +1,11 @@
-#ifndef NordicArts_NordicEngine_Window_Manager_H
-#define NordicArts_NordicEngine_Window_Manager_H
+#ifndef NordicArts_NordicEngine_WindowMaker_Manager_H
+#define NordicArts_NordicEngine_WindowMaker_Manager_H
 
 #include <NordicEngine/Engine.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
-        namespace Window {
+        namespace WindowMaker {
             class Manager {
             // Varaibles
             public:

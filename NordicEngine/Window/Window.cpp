@@ -1,192 +1,87 @@
 #include <NordicEngine/Window/Window.hpp>
-#include <NordicEngine/Input/Input.hpp>
 #include <NordicEngine/Settings/Settings.hpp>
-#include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/Color/Color.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
-        Window::Window() {
-        }
-        Window::Window(Logger *pLogger) : m_pLogger(pLogger), m_pSettings(nullptr) {
-        }
-        Window::Window(Logger *pLogger, Settings *pSettings) : m_pLogger(pLogger), m_pSettings(pSettings) {
-        }
-
-        void Window::setup() {
-            if (m_pLogger) { m_pLogger->log("Setting up Window"); }
-
-            glfwSetErrorCallback(Window::errorHandler);
-
-            // GLFW
-            if (!glfwInit()) {
-                throw Exception("Can't initalize GLFW", true);
+        namespace WindowMaker {
+            Window::Window() {
+            }
+            Window::Window(Logger *pLogger) : m_pLogger(pLogger) {
             }
 
-            if (m_pLogger) { m_pLogger->log("Setup Window"); }
-        }
-
-        Window::~Window() {
-            if (m_pWindow) {
-                glfwDestroyWindow(m_pWindow);
-                glfwTerminate();
+            Window::~Window() {
+                destroy();
             }
 
-            m_pWindow   = nullptr;
-            m_pLogger   = nullptr;
-            m_pSettings = nullptr;
-        }
+            int Window::initalize(int iWidth, int iHeight, std::string cTitle, bool bFullScreen) {
+                m_pLogger->log("Starting Layer");
 
-        void Window::setCallback() {
-            if (m_pWindow) {
-                if (m_pLogger) { m_pLogger->log("Setting Inputs to NA::Input from GLFW"); }
-                
-                glfwSetInputMode(m_pWindow, GLFW_STICKY_KEYS, GL_TRUE);
-                glfwSetKeyCallback(m_pWindow, Input::handleInput);
-                
-                if (m_pLogger) { m_pLogger->log("Set Inputs to NA::Input from GLFW"); }
-            }
-        }
-
-        void Window::doGLEW() {
-            if (m_pWindow) {
-                if (m_pLogger) { m_pLogger->log("Initalizing GLEW"); }
-                
-                glewExperimental = true;
-                GLenum glewStatus = glewInit();
-                if (glewStatus != GLEW_OK) {
-                    throw Exception(glewGetErrorString(glewStatus), true);
+                if (!glfwInit()) {
+                    throwError(__FUNCTION__, "Failed to initalize GLFW");
                 }
 
-                if (m_pLogger) { m_pLogger->log("Initalized GLEW"); }
-            }
-        }
+                // Get the settings
+                Settings oSettings(cTitle);
 
-        void Window::makeContext() {
-            if (m_pWindow) {
-                if (m_pLogger) { m_pLogger->log("Making Context with GLFW"); }
-                
+                glfwWindowHint(GLFW_SAMPLES, oSettings.getFSAA());
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, oSettings.getOpenGLMajor());
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, oSettings.getOpenGLMinor());
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+                if (bFullScreen) {
+                    oSettings.setWindowMode(false);
+                    m_pWindow = glfwCreateWindow(iWidth, iHeight, cTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
+                } else {
+                    m_pWindow = glfwCreateWindow(iWidth, iHeight, cTitle.c_str(), nullptr, nullptr);
+                }
+
+                // failed to launch window
+                if (m_pWindow) {
+                    destroy();
+                    throwError(__FUNCTION__, std::string("Failed to launch window, your system doesnt support OpenGL") + getString(oSettings.getOpenGLMajor()));
+                }
+
                 glfwMakeContextCurrent(m_pWindow);
-
-                setCallback();
-                doGLEW();
                 
-                if (m_pLogger) { m_pLogger->log("Made Context with GLFW"); }
-            }
-        }
+                glfwSetInputMode(m_pWindow, GLFW_STICKY_KEYS, GL_TRUE);
 
-        int Window::createWindow() {
-            if (m_pSettings) {
-                if (m_pLogger) { m_pLogger->log("Creating Window using NA::Settings"); }
+                if (oSettings.getVSync()) {
+                    glfwSwapInterval(60);
+                } else {
+                    glfwSwapInterval(0);
+                }
 
-                glm::uvec2 vResolution  = m_pSettings->getResolution();
-                glm::uvec2 vOpenGL      = m_pSettings->getOpenGL();
+                glewExperimental = GL_TRUE;
 
-                std::string cTitle      = m_pSettings->getGameName();
-
-                int iFSAA               = m_pSettings->getFSAA();
-                setFSAA(iFSAA);
-
-                setOpenGL(vOpenGL.x, vOpenGL.y);
-                createWindow(vResolution.x, vResolution.y, cTitle);
-
-                if (m_pLogger) { m_pLogger->log("Created Window using NA::Settings"); }
+                GLenum eError = glewInit();
+                if (GLEW_OK != eError) {
+                    destroy();
+                    throwError(__FUNCTION__, "Failed to initalize GLEW");
+                }
 
                 return 0;
-            } else {
-                throw Exception("Settings Class not in use", true);
-            }
-        }
-        int Window::createWindow(int iWidth, int iHeight, std::string cTitle) {
-            if (m_pLogger) { m_pLogger->log("Creating Window"); }
-
-            if (m_pLogger) { m_pLogger->log("Creating Window with GLFW"); }
-
-            m_pWindow = glfwCreateWindow(iWidth, iHeight, cTitle.c_str(), NULL, NULL);
-            if (!m_pWindow) {
-                glfwTerminate();
-        
-                throw Exception("Can't create the window", true);
             }
 
-            if (m_pLogger) { m_pLogger->log("Created Window with GLFW"); }
+            bool Window::processInput(bool bContinue = true) {
+                if ((glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) || (glfwWindowShouldClose(m_pWindow) != 0)) {
+                    return false;
+                }
 
-            if (m_pLogger) { m_pLogger->log("Created Window"); }
-            return 0;
-        }
-
-        void Window::setFSAA() {
-            setFSAA(0);
-        }
-        void Window::setFSAA(int iFSAA) {
-            glfwWindowHint(GLFW_SAMPLES, iFSAA);
-        }
-
-        void Window::setOpenGL() {
-            setOpenGL(3, 2);
-        }
-        void Window::setOpenGL(int iMajor, int iMinor) {
-            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, iMajor);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, iMinor);
-            glfwWindowHint(GLFW_RESIZABLE, false);
-        }
-
-        void Window::setVSync(bool bEnable) {
-            if (bEnable) {
-                glfwSwapInterval(1);
-            }
-        }
-
-        bool Window::isWindowOpen() const {
-            if (m_pWindow) {
-                return !glfwWindowShouldClose(m_pWindow);
-            }
-
-            return false;
-        }
-
-        void Window::draw() {
-            return display();
-        }
-        void Window::display() {
-            if (m_pWindow) {
-                // Do Movements before redraw
                 glfwPollEvents();
 
-                // Redraw
+                return bContinue;
+            }
+
+            void Window::swapBuffers() {
                 glfwSwapBuffers(m_pWindow);
             }
-        }
 
-        void Window::errorHandler(int iError, const char *cDescription) {
-            throw Exception(cDescription, iError, true);
-        }
+            void Window::destroy() {
+                glfwTerminate();    
 
-        void Window::getFrameBufferSize(int *iWidth, int *iHeight) {
-            m_iWidth    = *iWidth;
-            m_iHeight   = *iHeight;
-
-            if (m_pWindow) {
-                glfwGetFramebufferSize(m_pWindow, iWidth, iHeight);
+                SAFE_DELETE(m_pLogger);
             }
-        }
-
-        void Window::initColor(Color oColor) {
-            m_pColor = &oColor;
-            clear();
-        }
-
-        void Window::clear() const {
-            glClearColor(m_pColor->getRed(), m_pColor->getGreen(), m_pColor->getBlue(), m_pColor->getAlpha());
-            glClear(GL_COLOR_BUFFER_BIT);
-        }
-        
-        void Window::closeWindow() {
-            if (m_pWindow) {
-                glfwSetWindowShouldClose(m_pWindow, true);
-            }
-        }
-    }; 
+        };
+    };
 };

@@ -1,70 +1,44 @@
-#ifndef NordicArts_NordicEngine_Window_H
-#define NordicArts_NordicEngine_Window_H
+#ifndef NordicArts_NordicEngine_WindowMaker_Window_H
+#define NordicArts_NordicEngine_WindowMaker_Window_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/Window/Manager.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
 
-#include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
     namespace NordicEngine {
-        class Logger;
-        class Settings;
-        class Color;
+        namespace WindowMaker {
+            class Window : public Manager {
+            // Variables
+            public:
+            protected:
+                GLFWwindow *m_pWindow;
 
-        class Window {
-        // Variables
-        public:
-            int m_iWidth;
-            int m_iHeight;
+                Logger *m_pLogger;
 
-        protected:
-        private:
-			GLFWwindow  *m_pWindow;
+            private:
 
-            Logger      *m_pLogger;
-            Settings    *m_pSettings;
-            Color       *m_pColor;
+            // Methods
+            public:
+                Window();
+                Window(Logger *pLogger);
 
-        // Methods
-        public:
-            Window();
-            Window(Logger *pLogger);
-            Window(Logger *pLogger, Settings *pSettings);
+                ~Window();
 
-            void setup();
-            void doGLEW();
-            void makeContext();
-            void setCallback();
-            
-            virtual ~Window();
+                virtual int initalize(int iWidth, int iHeight, std::string cTitle, bool bFullScreen = false);
 
-            int createWindow();
-            int createWindow(int iWidth, int iHeight, std::string cTitle);
+                virtual bool processInput(bool bContinue);
 
-            bool isWindowOpen() const;
-            void closeWindow();
+                virtual void swapBuffers();
+                virtual void destroy();
 
-            void setVSync(bool bEnable);
+            protected:
+            private:
 
-            void setOpenGL();
-            void setOpenGL(int iMajor, int iMinor);
-
-            void setFSAA();
-            void setFSAA(int iFSAA);
-
-            void getFrameBufferSize(int *iWidth, int *iHeight);
-            void draw();
-            void display();
-
-            void initColor(Color oColor);
-            void clear() const;
-
-            static void errorHandler(int iError, const char *cDescription);
-
-        protected:
-        private:
-        
+            };
         };
     };
 };

@@ -218,10 +218,6 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/Window/Manager.hpp)
     list(APPEND LibSources ${NE}/Window/Manager.cpp)
 
-    # Window Layer
-    list(APPEND LibHeaders ${NE}/Window/Layer.hpp)
-    list(APPEND LibSources ${NE}/Window/Layer.cpp)
-
     # Player
     link_directories(${NE}/Player)
     include_directorieS(${NE}/Player)
