@@ -18,10 +18,10 @@ namespace NordicArts {
                 
                 virtual int initalize(int iWidth, int iHeight, std::string cTitle, bool bFullScreen = false) = 0;
 
-                virtual void processInput(bool bContinue) = 0;
+                virtual bool processInput(bool bContinue) = 0;
 
                 virtual void swapBuffers() = 0;
-                virtual vodi destory() = 0;
+                virtual void destroy() = 0;
 
             protected:
             private:

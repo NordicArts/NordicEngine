@@ -164,15 +164,25 @@ if (NordicEngine_FullEngine)
     # OpenGL Header
     list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
 
+    # Shader
+    link_directories(${NE}/Render/Shader)
+    include_directories(${NE}/Render/Shader)
+    list(APPEND LibHeaders ${NE}/Render/Shader/Shader.hpp)
+    list(APPEND LibSources ${NE}/Render/Shader/Shader.cpp)
+
     # Shaders
-    link_directories(${NE}/Render/Shaders)
-    include_directories(${NE}/Render/Shaders)
-    list(APPEND LibHeaders ${NE}/Render/Shaders/Shader.hpp)
-    list(APPEND LibSources ${NE}/Render/Shaders/Shader.cpp)
-    list(APPEND LibHeaders ${NE}/Render/Shaders/Program.hpp)
-    list(APPEND LibSources ${NE}/Render/Shaders/Program.cpp)
-    list(APPEND LibHeaders ${NE}/Render/Shaders/Loader.hpp)
-    list(APPEND LibSources ${NE}/Render/Shaders/Loader.cpp)
+    link_directories(${NE}/Shaders)
+    include_directories(${NE}/Shaders)
+    list(APPEND LibHeaders ${NE}/Shaders/Simple.hpp)
+    list(APPEND LibSources ${NE}/Shaders/Simple.cpp)
+
+    # Model
+    link_directories(${NE}/Render/Models)
+    include_directories(${NE}/Render/Models)
+    list(APPEND LibHeaders ${NE}/Render/Models/Model.hpp)
+    list(APPEND LibSources ${NE}/Render/Models/Model.cpp)
+    list(APPEND LibHeaders ${NE}/Render/Models/Manager.hpp)
+    list(APPEND LibSources ${NE}/Render/Models/Manager.cpp)
 
     # BitMap
     link_directories(${NE}/Files/Format/BitMap)
@@ -204,6 +214,14 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/Window/Window.hpp)
     list(APPEND LibSources ${NE}/Window/Window.cpp)
 
+    # Window Manager
+    list(APPEND LibHeaders ${NE}/Window/Manager.hpp)
+    list(APPEND LibSources ${NE}/Window/Manager.cpp)
+
+    # Window Layer
+    list(APPEND LibHeaders ${NE}/Window/Layer.hpp)
+    list(APPEND LibSources ${NE}/Window/Layer.cpp)
+
     # Player
     link_directories(${NE}/Player)
     include_directorieS(${NE}/Player)
@@ -217,35 +235,11 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/Input/Input.hpp)
     list(APPEND LibSources ${NE}/Input/Input.cpp)
 
-    # Renderer
-    #link_directories(${NE}/Renderer)
-    #include_directories(${NE}/Renderer)
-    #list(APPEND LibHeaders ${NE}/Renderer/Renderer.hpp)
-    #list(APPEND LibSources ${NE}/Renderer/Renderer.cpp)
-
-    # Shaders
-    link_directories(${NE}/Shaders)
-    include_directories(${NE}/Shaders)
-    list(APPEND LibHeaders ${NE}/Shaders/Simple.hpp)
-    list(APPEND LibSources ${NE}/Shaders/Simple.cpp)
-
-    #list(APPEND LibHeaders ${NE}/Shaders/Shaders.hpp)
-    #list(APPEND LibHeaders ${NE}/Shaders/Shaders.inl)
-    #list(APPEND LibSources ${NE}/Shaders/Shaders.cpp)
-    #list(APPEND LibHeaders ${NE}/Shaders/Program.hpp)
-    #list(APPEND LibSources ${NE}/Shaders/Program.cpp)
-
     # Camera
     link_directories(${NE}/Camera)
     include_directories(${NE}/Camera)
     list(APPEND LibHeaders ${NE}/Camera/Camera.hpp)
     list(APPEND LibSources ${NE}/Camera/Camera.cpp)
-
-    # Model
-    link_directories(${NE}/Model)
-    include_directories(${NE}/Model)
-    list(APPEND LibHeaders ${NE}/Model/Model.hpp)
-    list(APPEND LibSources ${NE}/Model/Model.cpp)
 
     # Light
     link_directories(${NE}/Light)

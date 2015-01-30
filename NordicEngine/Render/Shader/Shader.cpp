@@ -37,7 +37,7 @@ namespace NordicArts {
                 if (m_iShaderID || m_iVertexID || m_iFragmentID) { destroy(); }
 
                 // Errors
-                GLenum eValue = glGetError();
+                GLenum eError = glGetError();
 
                 // Start the shaders
                 m_iVertexID     = glCreateShader(GL_VERTEX_SHADER);
@@ -70,9 +70,10 @@ namespace NordicArts {
                 glLinkProgram(m_iShaderID);
 
                 // error
-                eValue = glGetError();
+                eError = glGetError();
                 if (eError != GL_NO_ERROR) {
-                    throwError(__FUNCTION__, std::string("Error: ") + getError(eValue));
+                    printIt(eError);
+                    throwError(__FUNCTION__, std::string("Error: "));
                 }
             }
 
@@ -107,13 +108,13 @@ namespace NordicArts {
 
             void Shader::destroy() {
                 if (m_iVertexID) {
-                    glDetectShader(m_iShaderID, m_iVertexID);
+                    glDetachShader(m_iShaderID, m_iVertexID);
                     glDeleteShader(m_iVertexID);
                     m_iVertexID = 0;
                 }
 
                 if (m_iFragmentID) {
-                    glDetectShader(m_iShaderID, m_iFragmentID);
+                    glDetachShader(m_iShaderID, m_iFragmentID);
                     glDeleteShader(m_iFragmentID);
                     m_iFragmentID = 0;
                 }

@@ -1,41 +1,71 @@
 #include <NordicEngine/Model/Model.hpp>
-#include <NordicEngine/Files/Texture/Texture.hpp>
-#include <NordicEngine/Shaders/Program.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
         Model::Model() {
-
         }
 
         Model::~Model() {
-            m_vModels.clear();
+            destroy();
         }
 
-        float Model::loadModelFromFile(const std::string &cFile) {
-            float fReturn;
+        void Model::initalize(std::vector<glm::vec3> vVertices, int iLength, std::string cVertex, std::string cFragment) {
+            m_oShader.initalize(cVertex, cFragment);
 
-            return fReturn;
+            m_vVertices     = vVertices;
+            m_iSize         = iLength;
+
+            GLenum eError = glGetError();
+            
+            glGenVertexArrays(1, &m_iVertexArrayID);
+            glBindVertexArray(m_iVertexArrayID);
+
+            glGenBuffers(1, &m_iVertexID);
+            glBindBuffer(GL_ARRAY_BUFFER, m_iVertexID);
+
+            glVertexAttribPointer(m_iVertexIndex, 3, GL_FLOAT, GL_FALSE, sizeof(m_vVertices[0]), 0);
+
+            eError = glGetError();
+            if (eError != GL_NO_ERROR) {
+                printIt(eError);
+                throwError(__FUNCTION__, std::string("Couldnt create the VAO, VBO,  Error: "));
+            }
         }
 
-        ModelAsset Model::addModel(Shaders::Program *pShaders, Files::Texture *pTexture, int iDrawStart, int iDrawCount, float fShininess, glm::vec3 vSpecular, float fModelData) {
-            ModelAsset oAsset;
-            oAsset.pShaders         = pShaders;
-            oAsset.pTexture         = pTexture;
-            oAsset.iDrawCount       = iDrawCount;
-            oAsset.iDrawStart       = iDrawStart;
-            oAsset.fShininess       = fShininess;
-            oAsset.vSpecularColor   = vSpecular;
-            oAsset.fModelData       = fModelData;
-            oAsset.iDrawType        = GL_TRIANGLES;
+        void Model::render() {
+            m_oShader.turnOn();
+            
+            glBindVertexArray(m_iVertexArrayID);
 
-            m_vModels.push_back(oAsset);
+            glEnableVertexAttribArray(m_iVertexIndex);
 
-            return oAsset;
+            glDrawArrays(GL_TRIANGLES, 0, m_iSize);
+
+            glDisableVertexAttribArray(m_iVertexIndex);
+
+            glBindVertexArray(0);
+
+            m_oShader.turnOff();
         }
 
-        std::vector<ModelAsset> Model::getModels() const {
-            return m_vModels;
+        void Model::destroy() {
+            if (m_iVertexID) {
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                
+                glDeleteBuffers(1, &m_iVertexID);
+            
+                m_iVertexID = 0;
+            }
+
+            if (m_iVertexArrayID) {
+                glBindVertexArray(0);
+            
+                glDeleteVertexArrays(1, &m_iVertexArrayID);
+    
+                m_iVertexArrayID = 0;
+            }
+
+            m_oShader.destroy();
         }
     };
 };

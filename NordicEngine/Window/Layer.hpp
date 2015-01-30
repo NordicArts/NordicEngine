@@ -3,7 +3,9 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Window/Manager.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
 
+#include <GL/glew.h>
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
 
 namespace NordicArts {
@@ -15,11 +17,14 @@ namespace NordicArts {
             protected:
                 GLFWwindow *m_pWindow;
 
+                Logger *m_pLogger;
+
             private:
 
             // Methods
             public:
                 Layer();
+                Layer(Logger *pLogger);
 
                 ~Layer();
 

@@ -3,7 +3,7 @@
 namespace NordicArts {
     namespace NordicEngine {
         namespace Window {
-            Manager::~WindowManager() {
+            Manager::~Manager() {
             }
         };
     };
