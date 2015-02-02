@@ -4,6 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Window/Manager.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/Settings/Settings.hpp>
 #include <NordicEngine/OS/OpenGL.hpp>
 
 #include <NordicEngine/ThirdParty/glfw/include/GLFW/glfw3.h>
@@ -18,13 +19,14 @@ namespace NordicArts {
                 GLFWwindow  *m_pWindow;
 
                 Logger      *m_pLogger;
+                Settings    *m_pSettings;
 
             private:
 
             // Methods
             public:
                 Window();
-                Window(Logger *pLogger);
+                Window(Logger *pLogger, Settings *pSettings);
 
                 ~Window();
 

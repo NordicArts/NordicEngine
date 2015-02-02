@@ -1,5 +1,4 @@
 #include <NordicEngine/Window/Window.hpp>
-#include <NordicEngine/Settings/Settings.hpp>
 #include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
@@ -7,7 +6,7 @@ namespace NordicArts {
         namespace WindowMaker {
             Window::Window() {
             }
-            Window::Window(Logger *pLogger) : m_pLogger(pLogger) {
+            Window::Window(Logger *pLogger, Settings *pSettings) : m_pLogger(pLogger), m_pSettings(pSettings) {
             }
 
             Window::~Window() {
@@ -30,20 +29,30 @@ namespace NordicArts {
                 }
 
                 // Get the settings
-                Settings oSettings(m_pLogger, cTitle);
-                oSettings.setup();
+                if (!m_pSettings) {
+                    if (m_pLogger) {
+                        Settings oSettings(m_pLogger, cTitle);
+                        m_pSettings = &oSettings;
+                        m_pSettings->setup();
+                    } else {
+                        Settings oSettings(cTitle);
+                        m_pSettings = &oSettings;
+                        m_pSettings->setup();
+                    }
+                }
+
                 if (m_pLogger) { m_pLogger->log("Got Settings Object"); }
 
-                glfwWindowHint(GLFW_SAMPLES, oSettings.getFSAA());
+                glfwWindowHint(GLFW_SAMPLES, m_pSettings->getFSAA());
                 glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
                 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-                glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, oSettings.getOpenGLMajor());
-                glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, oSettings.getOpenGLMinor());
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, m_pSettings->getOpenGLMajor());
+                glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, m_pSettings->getOpenGLMinor());
 
                 if (m_pLogger) { m_pLogger->log("Got Hints"); }
 
                 if (bFullScreen) {
-                    oSettings.setWindowMode(false);
+                    m_pSettings->setWindowMode(false);
                     m_pWindow = glfwCreateWindow(iWidth, iHeight, cTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
                 } else {
                     m_pWindow = glfwCreateWindow(iWidth, iHeight, cTitle.c_str(), nullptr, nullptr);
@@ -53,7 +62,7 @@ namespace NordicArts {
 
                 // failed to launch window
                 if (m_pWindow == nullptr) {
-                    throwError(__FUNCTION__, std::string("Failed to launch window, your system doesnt support OpenGL ") + getString(oSettings.getOpenGLMajor()));
+                    throwError(__FUNCTION__, std::string("Failed to launch window, your system doesnt support OpenGL ") + getString(m_pSettings->getOpenGLMajor()));
                     destroy();
                 }
 
@@ -66,7 +75,7 @@ namespace NordicArts {
                 if (m_pLogger) { m_pLogger->log("Set Input"); }
 
                 if (m_pLogger) { m_pLogger->log("Setting VSync"); }
-                if (oSettings.getVSync()) {
+                if (m_pSettings->getVSync()) {
                     glfwSwapInterval(60);
                 } else {
                     glfwSwapInterval(0);

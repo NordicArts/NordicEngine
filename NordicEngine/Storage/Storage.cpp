@@ -182,7 +182,7 @@ namespace NordicArts {
         }
 
         // Create Table
-        void Storage::createTable() {    
+        bool Storage::createTable() {    
             std::string cTest;
 
             if (m_vColumns.size() >= 1) {
@@ -203,8 +203,10 @@ namespace NordicArts {
 
                 return createTable(cSQL);
             }
+
+            return false;
         }
-        void Storage::createTable(std::string cSQL) {
+        bool Storage::createTable(std::string cSQL) {
             return execute(cSQL);
         }
 
@@ -230,18 +232,21 @@ namespace NordicArts {
         void Storage::addIndex(std::string cName, std::string cColumn, std::string cTable) {
             std::string cSQL = ("CREATE INDEX " + cName + " ON " + cTable + "(" + cColumn + ");");
 
-            return execute(cSQL);
+            execute(cSQL);
+
+            return;
         }
 
         // Executabe abitry SQL
-        void Storage::execute(std::string cSQL) {
+        bool Storage::execute(std::string cSQL) {
             char *mError = 0;
             char cError[1024];
 
-            // Connect to DB
+            // DB needs .db suffix
             std::size_t nFound = m_cDB.find(".db");
             if (nFound == std::string::npos) { m_cDB += ".db"; }
 
+            // Connect to DB
             sqlite3 *pDB;
             int iConnection = sqlite3_open(m_cDB.c_str(), &pDB);
             if (iConnection) {
@@ -264,6 +269,9 @@ namespace NordicArts {
                 cStringError += getString(iExecute);
                 cStringError += "\nDetail: ";
                 cStringError += cDetail;
+                cStringError += "\nDetail Number: ";
+                cStringError += getString(iDetail);
+                cStringError += "\n";
 
                 sqlite3_close(pDB);
 
@@ -272,7 +280,41 @@ namespace NordicArts {
 
             sqlite3_close(pDB);
             
-            return;
+            return true;
+        }
+
+        // Check table exists, very similar to execute, but needs to not throw on no table
+        bool Storage::checkTable() {
+            char *mError = 0;
+            char cError[1024];
+
+            // DB needs .db suffix
+            std::size_t nFound = m_cDB.find("db");
+            if (nFound == std::string::npos) { m_cDB += ".db"; }
+
+            std::string cSQL = "SELECT * FROM ";
+            cSQL += m_cTable;
+
+            // Connect to DB
+            sqlite3 *pDB;
+            int iConnection = sqlite3_open(m_cDB.c_str(), &pDB);
+            if (iConnection) {
+                throw Exception(sqlite3_errmsg(pDB), true);
+            }
+
+            // Execute SQL
+            int iExecute = sqlite3_exec(pDB, cSQL.c_str(), setResult, nullptr, &mError);
+            if (iExecute) {
+                std::sprintf(cError, "%s", mError);
+                sqlite3_free(mError);
+
+                char *cFound;
+                if (strstr(cError, "no such table")) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         // Set Column
@@ -399,7 +441,9 @@ namespace NordicArts {
             m_mWheres.clear();
             m_vNullWheres.clear();
     
-            return execute(cSQL);
+            execute(cSQL);
+
+            return;
         }
 
         // Insert
@@ -478,7 +522,9 @@ namespace NordicArts {
             m_mWheres.clear();
             m_vNullWheres.clear();
 
-            return execute(cSQL);
+            execute(cSQL);
+
+            return;
         }
 
         // Delete
@@ -520,7 +566,9 @@ namespace NordicArts {
             // close the query
             cSQL = (cSQL + ";");
 
-            return del(cSQL);
+            del(cSQL);
+        
+            return;
         }
         void Storage::del(std::string cSQL) {
             // clear the arrays
@@ -529,7 +577,9 @@ namespace NordicArts {
             m_mWheres.clear();
             m_vNullWheres.clear();
 
-            return execute(cSQL);
+            execute(cSQL);
+
+            return;
         }
 
         // Select
@@ -590,7 +640,9 @@ namespace NordicArts {
             // close the query
             cSQL = (cSQL + ";");
 
-            return select(cSQL);
+            select(cSQL);
+
+            return;
         }
         void Storage::select(std::string cSQL) {
             // clear the arrays
@@ -600,7 +652,9 @@ namespace NordicArts {
             m_vNullWheres.clear();
 
             // return data
-            return execute(cSQL);
+            execute(cSQL);
+
+            return;
         }
 
         // Result

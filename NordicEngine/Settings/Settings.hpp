@@ -91,9 +91,10 @@ namespace NordicArts {
         protected:
         private:
             bool checkDefaults();
+            bool checkTableExists();
 
             void setDefaults();
-            void createTable();
+            bool createTable();
         };
     };
 };

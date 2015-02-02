@@ -78,8 +78,8 @@ namespace NordicArts {
             void addDate(std::string cName, bool bNullable);
 
             // Create table
-            void createTable();
-            void createTable(std::string cSQL);
+            bool createTable();
+            bool createTable(std::string cSQL);
 
             // Add index to table
             void addIndex();
@@ -89,7 +89,7 @@ namespace NordicArts {
             void addIndex(std::string cName, std::string cColumn, std::string cTable);
 
             // Executbe abitrary SQL
-            void execute(std::string cSQL);
+            bool execute(std::string cSQL);
 
             // Set Column for select
             void setColumn(std::string cColumn);
@@ -131,6 +131,9 @@ namespace NordicArts {
 
             // Destroy DB
             bool destroyDatabase();
+
+            // Check Table Exists
+            bool checkTable();
             
         protected:
         private:

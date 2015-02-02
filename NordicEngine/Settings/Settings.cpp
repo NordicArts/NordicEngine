@@ -16,8 +16,10 @@ namespace NordicArts {
         }
 
         void Settings::setup() {
-            createTable();
-            setDefaults();
+            bool bCreated = createTable();
+            if (bCreated) {
+                setDefaults();
+            }
         }
 
         void Settings::registerLua(Files::Lua *pLua) {
@@ -360,28 +362,39 @@ namespace NordicArts {
             std::string cGameName;
             bool bReturn = false;
 
-            if (!m_bSettingsDone) {
-                if (m_pLogger) { m_pLogger->log("Checking Defaults"); }
+            if (m_pLogger) { m_pLogger->log("Checking Defaults"); }
 
-                Storage oStorage(m_cGameName);
-                oStorage.setTable("general_settings");
-                oStorage.setColumn("gameName");
-                oStorage.setWhere("gameName", m_cGameName);
-                oStorage.select();
-                std::map<std::string, std::string> mResult = oStorage.getResult();
-                for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
-                    cGameName = it->second;
-                }
-
-                if (cGameName != "") { bReturn = true; }
-
-                if (m_pLogger) { m_pLogger->log("Checked Defaults"); }
-
-                m_bSettingsDone = true;
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_settings");
+            oStorage.setColumn("gameName");
+            oStorage.setWhere("gameName", m_cGameName);
+            oStorage.select();
+            std::map<std::string, std::string> mResult = oStorage.getResult();
+            for (std::map<std::string, std::string>::iterator it = mResult.begin(); it != mResult.end(); it++) {
+                cGameName = it->second;
             }
 
+            if (cGameName != "") { bReturn = true; }
+
+            if (m_pLogger) { m_pLogger->log("Checked Defaults"); }
+
             return bReturn;
-        }            
+        }   
+
+        bool Settings::checkTableExists() {
+            bool bReturn = false;
+        
+            if (m_pLogger) { m_pLogger->log("Checking Table Exists"); }
+            
+            Storage oStorage(m_cGameName);
+            oStorage.setTable("general_settings");
+            bReturn = oStorage.checkTable();
+            
+            if (m_pLogger) { m_pLogger->log("Checked Table Exists"); }
+
+            return bReturn;
+        }
+         
         void Settings::setDefaults() {
             m_bSettingsDone = checkDefaults();
 
@@ -414,8 +427,8 @@ namespace NordicArts {
             return;
         }
 
-        void Settings::createTable() {
-            if (checkDefaults()) { return; }
+        bool Settings::createTable() {
+            if (checkTableExists()) { return true; }
 
             if (m_pLogger) { m_pLogger->log("Creating Settings Table"); } 
 
@@ -435,11 +448,11 @@ namespace NordicArts {
             oStorage.addInt("physics");
             oStorage.addInt("randomSeed");
                 
-            oStorage.createTable();
+            if (oStorage.createTable()) { return true; }
 
             if (m_pLogger) { m_pLogger->log("Created Settings Table"); }
 
-            return;
+            return false;
         }
     };
 };
