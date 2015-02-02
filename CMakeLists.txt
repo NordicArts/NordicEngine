@@ -314,8 +314,6 @@ add_subdirectory(${NET}/miniz)
 #########################################################################
 
 # Build Number
-string(TIMESTAMP buildNumber "9%j%y%H%M")
-file(WRITE ${NE}/buildNumber.hpp "#ifndef NORDICENGINE_BUILDNUMBER\n#define NORDICENGINE_BUILDNUMBER ${buildNumber}\n#endif")
 list(APPEND LibHeaders ${NE}/buildNumber.hpp)
 
 # Set for Exports
