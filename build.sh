@@ -145,6 +145,8 @@ osOnly()
     echo $endEcho
     eval $endResult
 }
+
+# Build
 builder()
 {
 
@@ -175,6 +177,43 @@ builder()
     eval $endResult
 
     makeIt $beLoud
+}
+
+# Build Number
+buildNumber()
+{    
+    buildName=$1
+    beLoud=$2
+
+    # Text file
+    if [[ $beLoud == 1 ]]; then
+        echo "awk -F, '{$1=$1+1}1' OFS= buildNumber.txt > buildNumberNew.txt && mv buildNumberNew.txt buildNumber.txt"
+    fi
+
+    awk -F, '{$1=$1+1}1' OFS= buildNumber.txt > buildNumberNew.txt && mv buildNumberNew.txt buildNumber.txt    
+
+    # Get the result
+    buildNumber=$(cat buildNumber.txt)
+
+    # Build the header
+    l1="#ifndef NORDICARTS_"
+    l1+=$buildName
+    l1+="_BUILDNUMBER"
+
+    l2="#define NORDICARTS_"  
+    l2+=$buildName
+    l2+="_BUILDNUMBER "
+    l2+=$buildNumber
+
+    l3="#endif"
+
+    echo -e $l1 > $buildName/buildNumber.hpp
+    echo -e $l2 >> $buildName/buildNumber.hpp
+    echo -e $l3 >> $buildName/buildNumber.hpp
+
+    if [[ $beLoud == 1 ]]; then
+        echo $l2
+    fi
 }
 
 # Variables
@@ -232,6 +271,7 @@ if [[ $OPT == "build" ]]; then
         ./cleaner.sh -t build
     fi
 
+    buildNumber "NORDICENGINE" $VERBOSE
     builder $VERBOSE $TEST
 
     if [[ $CLEAN == true ]]; then
@@ -245,6 +285,7 @@ if [[ $OPT == "os" ]]; then
         ./cleaner.sh -t all
     fi
 
+    buildNumber "NORDICENGINE" $VERBOSE
     osOnly $VERBOSE $TEST $GENERATE
 
     if [[ $GENERATE == "linux" ]]; then
@@ -262,6 +303,7 @@ if [[ $OPT == "full" ]]; then
         ./cleaner.sh -t all
     fi
 
+    buildNumber "NORDICENGINE" $VERBOSE
     fullEngine $VERBOSE $TEST $GENERATE
 
     if [[ $GENERATE == "linux" ]]; then
