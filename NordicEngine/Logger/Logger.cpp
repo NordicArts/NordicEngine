@@ -35,7 +35,11 @@ namespace NordicArts {
         }
 
         Logger::~Logger() {
-            s_pLogger = nullptr;   
+            destroy();
+        }
+
+        void Logger::destroy() {
+            SAFE_DELETE(s_pLogger);
 
             deleteCritical(m_Critical);
         }

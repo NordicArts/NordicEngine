@@ -15,9 +15,9 @@ namespace NordicArts {
             // Variables
             public:
             protected:
-                GLFWwindow *m_pWindow;
+                GLFWwindow  *m_pWindow;
 
-                Logger *m_pLogger;
+                Logger      *m_pLogger;
 
             private:
 
@@ -35,9 +35,10 @@ namespace NordicArts {
                 virtual void swapBuffers();
                 virtual void destroy();
 
+                static void errorHandler(int iError, const char *cError);
+
             protected:
             private:
-
             };
         };
     };

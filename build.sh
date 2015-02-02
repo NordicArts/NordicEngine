@@ -20,6 +20,7 @@ OPTIONS:
     -t  Test Build, once built run the unit tests
     -o  Option, can be 'build', 'full' or 'os' [default: build]
     -g  Generate build files, can be 'osx', 'windows' or 'linux' [default: linux]
+    -n  No Clean
 EOF
 }
 
@@ -183,9 +184,10 @@ VERBOSE=false
 TEST=false
 PULL=false
 MAKER=false
+CLEAN=1
 
 # Go through the options
-while getopts ":o:g:?phvt" OPTION; do
+while getopts ":o:g:?phnvt" OPTION; do
     case $OPTION in
         o)
             OPT=$OPTARG
@@ -198,6 +200,9 @@ while getopts ":o:g:?phvt" OPTION; do
             ;;
         p)
             PULL=1
+            ;;
+        n)
+            CLEAN=false
             ;;
         h)
             usage
@@ -223,16 +228,22 @@ fi
 
 # Build Standard
 if [[ $OPT == "build" ]]; then
-    ./cleaner.sh -t build
+    if [[ $CLEAN == 1 ]]; then
+        ./cleaner.sh -t build
+    fi
 
     builder $VERBOSE $TEST
 
-    ./cleaner.sh -t cmake
+    if [[ $CLEAN == true ]]; then
+        ./cleaner.sh -t cmake
+    fi
 fi
 
 # Build OS
 if [[ $OPT == "os" ]]; then
-    ./cleaner.sh -t all
+    if [[ $CLEAN == 1 ]]; then
+        ./cleaner.sh -t all
+    fi
 
     osOnly $VERBOSE $TEST $GENERATE
 
@@ -240,12 +251,16 @@ if [[ $OPT == "os" ]]; then
         makeIt $VERBOSE
     fi
 
-    ./cleaner.sh -t cmake
+    if [[ $CLEAN == 1 ]]; then
+        ./cleaner.sh -t cmake
+    fi
 fi
 
 # Build Full
 if [[ $OPT == "full" ]]; then
-    ./cleaner.sh -t all
+    if [[ $CLEAN == 1 ]]; then
+        ./cleaner.sh -t all
+    fi
 
     fullEngine $VERBOSE $TEST $GENERATE
 
@@ -253,7 +268,9 @@ if [[ $OPT == "full" ]]; then
         makeIt $VERBOSE
     fi
 
-    ./cleaner.sh -t cmake
+    if [[ $CLEAN == 1 ]]; then
+        ./cleaner.sh -t cmake
+    fi
 fi
 
 # Run the tests if its supposed to
@@ -264,4 +281,3 @@ fi
 # Set Compiler Back
 export CC=$CC
 export CXX=$CXX
-

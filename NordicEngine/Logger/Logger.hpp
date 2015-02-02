@@ -41,6 +41,8 @@ namespace NordicArts {
             static void log(LoggerType eType, const std::string &cLog);
             static void log(LoggerType eType, const std::ostringstream &cLog);
             static void log(LoggerType eType, const char *cLog);
+
+            void destroy();
             
         protected:
         private:

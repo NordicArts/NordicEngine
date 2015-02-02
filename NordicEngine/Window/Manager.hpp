@@ -14,7 +14,7 @@ namespace NordicArts {
 
             // Methods
             public:
-                virtual ~Manager() = 0;
+                virtual ~Manager();
                 
                 virtual int initalize(int iWidth, int iHeight, std::string cTitle, bool bFullScreen = false) = 0;
 

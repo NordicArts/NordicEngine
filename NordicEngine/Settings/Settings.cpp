@@ -360,7 +360,7 @@ namespace NordicArts {
             std::string cGameName;
             bool bReturn = false;
 
-            if (m_bSettingsDone) {
+            if (!m_bSettingsDone) {
                 if (m_pLogger) { m_pLogger->log("Checking Defaults"); }
 
                 Storage oStorage(m_cGameName);
@@ -376,6 +376,8 @@ namespace NordicArts {
                 if (cGameName != "") { bReturn = true; }
 
                 if (m_pLogger) { m_pLogger->log("Checked Defaults"); }
+
+                m_bSettingsDone = true;
             }
 
             return bReturn;
@@ -413,6 +415,8 @@ namespace NordicArts {
         }
 
         void Settings::createTable() {
+            if (checkDefaults()) { return; }
+
             if (m_pLogger) { m_pLogger->log("Creating Settings Table"); } 
 
             Storage  oStorage(m_cGameName);
