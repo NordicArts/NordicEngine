@@ -61,23 +61,37 @@ namespace NordicArts {
                         unsigned int iNormalIndex[3];
                         
                         int iMatches = fscanf(pFile, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &iVertexIndex[0], &iUVIndex[0], &iNormalIndex[0], &iVertexIndex[1], &iUVIndex[1], &iNormalIndex[1], &iVertexIndex[2], &iUVIndex[2], &iNormalIndex[2]);
-                        if (iMatches != 9) {
-                            throwError(__FUNCTION__ + std::string(" cant read the OBJ file properlly"));
-                            
-                            return false;
+                        printIt("Equal 9");
+                        printIt(iMatches);
+
+                        if (iMatches == 9) {
+                            vVertexIndicies.push_back(iVertexIndex[0]);
+                            vVertexIndicies.push_back(iVertexIndex[1]);
+                            vVertexIndicies.push_back(iVertexIndex[2]);
+
+                            vUVIndicies.push_back(iUVIndex[0]);
+                            vUVIndicies.push_back(iUVIndex[1]);
+                            vUVIndicies.push_back(iUVIndex[2]);
+
+                            vNormalIndicies.push_back(iNormalIndex[0]);
+                            vNormalIndicies.push_back(iNormalIndex[1]);
+                            vNormalIndicies.push_back(iNormalIndex[2]);
+                        } else {
+                            iMatches = fscanf(pFile, "%d %d %d\n", &iVertexIndex[0], &iVertexIndex[1], &iVertexIndex[2]);
+                            printIt("Less than 9")
+                            printIt(iMatches);
+                            printIt(iVertexIndex[0]);
+
+                            if (iMatches == 3) {
+                                vVertexIndicies.push_back(iVertexIndex[0]);
+                                vVertexIndicies.push_back(iVertexIndex[1]);
+                                vVertexIndicies.push_back(iVertexIndex[2]);
+                            } else {
+                                throwError(__FUNCTION__ + std::string(" cant read the OBJ file properlly"));
+
+                                return false;
+                            }
                         }
-
-                        vVertexIndicies.push_back(iVertexIndex[0]);
-                        vVertexIndicies.push_back(iVertexIndex[1]);
-                        vVertexIndicies.push_back(iVertexIndex[2]);
-
-                        vUVIndicies.push_back(iUVIndex[0]);
-                        vUVIndicies.push_back(iUVIndex[1]);
-                        vUVIndicies.push_back(iUVIndex[2]);
-
-                        vNormalIndicies.push_back(iNormalIndex[0]);
-                        vNormalIndicies.push_back(iNormalIndex[1]);
-                        vNormalIndicies.push_back(iNormalIndex[2]);
                     } else {
                         // Comment
                         char commentBuffer[1000];
@@ -89,17 +103,35 @@ namespace NordicArts {
                 for (unsigned int i = 0; i < vVertexIndicies.size(); i++) {
                     // get the index of attributes
                     unsigned int iVertexIndex   = vVertexIndicies[i];
-                    unsigned int iUVIndex       = vUVIndicies[i];
-                    unsigned int iNormalIndex   = vNormalIndicies[i];
 
                     // get the attribute
                     glm::vec3 vVertex   = vTempVerticies[iVertexIndex - 1];
-                    glm::vec2 vUV       = vTempUVs[iUVIndex - 1];
-                    glm::vec3 vNormal   = vTempNormals[iNormalIndex - 1];
 
                     // put arrays into buffers
                     vOutVerticies.push_back(vVertex);
+                }
+
+                // UV
+                for (unsigned int i = 0; i < vUVIndicies.size(); i++) {
+                    // get the index of attributes
+                    unsigned int iUVIndex       = vUVIndicies[i];
+
+                    // get the attribute
+                    glm::vec2 vUV       = vTempUVs[iUVIndex - 1];
+
+                    // put arrays into buffers
                     vOutUVs.push_back(vUV);
+                }
+
+                // Normals
+                for (unsigned int i = 0; i < vNormalIndicies.size(); i++) {
+                    // get the index of attributes
+                    unsigned int iNormalIndex   = vNormalIndicies[i];
+
+                    // get the attribute
+                    glm::vec3 vNormal   = vTempNormals[iNormalIndex - 1];
+
+                    // put arrays into buffers
                     vOutNormals.push_back(vNormal);
                 }
 

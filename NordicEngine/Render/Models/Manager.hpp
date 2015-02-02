@@ -3,6 +3,7 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Render/Models/Model.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -15,10 +16,12 @@ namespace NordicArts {
         
                 protected:
                 private:
+                    Logger *m_pLogger;
 
                 // Methods
                 public:
                     Manager();
+                    Manager(Logger *pLogger);
 
                     ~Manager();
 
