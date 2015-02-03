@@ -8,9 +8,10 @@
 #include <ctime> // Time
 #include <iostream> // Input-Output stream
 #include <string> // Strings
-#include <string.h> // Strings
+#include <cstring> // Strings
 #include <stdexcept> // Excepetions
 #include <cmath> // Maths
+#include <istream> // Streams
 #include <fstream> // Streams
 #include <sstream> // Streams
 #include <vector> // Vector Array

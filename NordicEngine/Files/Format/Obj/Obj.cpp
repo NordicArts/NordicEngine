@@ -1,5 +1,34 @@
 #include <NordicEngine/Files/Format/Obj/Obj.hpp>
 
+/*
+* OBJ Format
+*
+* Comment
+* # comment
+*
+* Verticies
+* v [x,y,z,[w]]
+* v 1.0 2.0 3.0 [1.0]
+*
+* Texture Coords
+* vt [x, y, [z]]
+* vt 1.0 1.0 [0.0]
+*
+* Normals
+* vn [x, y, z]
+* vn 1.0 1.0 1.0
+*
+* Parameter Space
+* vp [x, [y, [z]]]
+* vp 1.0 [1.0 [1.0]]
+*
+* Faces
+* f 1 2 3
+* f 1/2 3/4 5/6
+* f 1/2/3 4/5/6 7/8/9
+*
+*/
+
 namespace NordicArts {
     namespace NordicEngine {
         namespace Files {
@@ -9,6 +38,8 @@ namespace NordicArts {
             }
 
             bool Obj::loadModel(std::vector<glm::vec3> &vOutVerticies, std::vector<glm::vec2> &vOutUVs, std::vector<glm::vec3> &vOutNormals) {
+                bool bValid = true;
+
                 std::vector<unsigned int> vVertexIndicies;
                 std::vector<unsigned int> vUVIndicies;
                 std::vector<unsigned int> vNormalIndicies;
@@ -18,86 +49,114 @@ namespace NordicArts {
                 std::vector<glm::vec3> vTempNormals;
 
                 std::string cFile = getFilePath();
+                
+                std::string cLine;
+                m_cFileStream.open(cFile.c_str(), std::ios_base::in);
 
-                FILE *pFile = fopen(cFile.c_str(), "r");
-                if (pFile == NULL) {
-                    throwError(__FUNCTION__ + std::string(" Can't open the OBJ file"));
-                    
-                    return false;
-                }
-
-                // Parse file
-                while (true) {
-                    char cLineHeader[128];
-                    int iRes = fscanf(pFile, "%s", cLineHeader);
-                    if (iRes == EOF) { break; }
-
-                    // Get Vertex
-                    if (strcmp(cLineHeader, "v") == 0) {
+                // Stream file
+                while(std::getline(m_cFileStream, cLine)) {
+                    // Parse File
+                    if (cLine.compare(0, 1, "v") == 0) { // Vertex
                         glm::vec3 vVertex;
-                    
-                        fscanf(pFile, "%f %f %f\n", &vVertex.x, &vVertex.y, &vVertex.z);
-                    
+                        std::sscanf(cLine.c_str(), "v %f %f %f\n", &vVertex.x, &vVertex.y, &vVertex.z);
+
                         vTempVerticies.push_back(vVertex);
-                    } else if (strcmp(cLineHeader, "vt") == 0) {
+                    } else if (cLine.compare(0, 2, "vt") == 0) { // Texture Positions
                         glm::vec2 vUV;
-                    
-                        fscanf(pFile, "%f %f\n", &vUV.x, &vUV.y);
-                    
-                        vTempUVs.push_back(vUV);
-                    } else if (strcmp(cLineHeader, "vn") == 0) {
-                        glm::vec3 vNormal;
-                    
-                        fscanf(pFile, "%f %f %f\n", &vNormal.x, &vNormal.y, &vNormal.z);
-                    
-                        vTempNormals.push_back(vNormal);
-                    } else if (strcmp(cLineHeader, "f") == 0) {
-                        std::string cVertex1;
-                        std::string cVertex2;
-                        std::string cVertex3;
-
-                        unsigned int iVertexIndex[3];
-                        unsigned int iUVIndex[3];
-                        unsigned int iNormalIndex[3];
+                        std::sscanf(cLine.c_str(), "vt %f %f\n", &vUV.x, &vUV.y);
                         
-                        int iMatches = fscanf(pFile, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &iVertexIndex[0], &iUVIndex[0], &iNormalIndex[0], &iVertexIndex[1], &iUVIndex[1], &iNormalIndex[1], &iVertexIndex[2], &iUVIndex[2], &iNormalIndex[2]);
-                        printIt("Equal 9");
-                        printIt(iMatches);
+                        vTempUVs.push_back(vUV);
+                    } else if (cLine.compare(0, 2, "vn") == 0) { // Normals
+                        glm::vec3 vNormal;
+                        std::sscanf(cLine.c_str(), "vn %f %f %f\n", &vNormal.x, &vNormal.y, &vNormal.z);
+        
+                        vTempNormals.push_back(vNormal);
+                    } else if (cLine.compare(0, 1, "f") == 0) { // Faces
+                        bool bFound = false;
 
-                        if (iMatches == 9) {
-                            vVertexIndicies.push_back(iVertexIndex[0]);
-                            vVertexIndicies.push_back(iVertexIndex[1]);
-                            vVertexIndicies.push_back(iVertexIndex[2]);
+                        // Temp Vertex Index
+                        int iVIndexA[3];
+                        int iVIndexB[3];
+                        int iVIndexC[3];
+                        int iVIndexD[3];
 
-                            vUVIndicies.push_back(iUVIndex[0]);
-                            vUVIndicies.push_back(iUVIndex[1]);
-                            vUVIndicies.push_back(iUVIndex[2]);
+                        // Temp UV Index
+                        int iUIndexA[3];
+                        int iUIndexB[3];
+                        int iUIndexC[3];
+                        int iUIndexD[3];
 
-                            vNormalIndicies.push_back(iNormalIndex[0]);
-                            vNormalIndicies.push_back(iNormalIndex[1]);
-                            vNormalIndicies.push_back(iNormalIndex[2]);
-                        } else {
-                            iMatches = fscanf(pFile, "%d %d %d\n", &iVertexIndex[0], &iVertexIndex[1], &iVertexIndex[2]);
-                            printIt("Less than 9")
-                            printIt(iMatches);
-                            printIt(iVertexIndex[0]);
+                        // Temp Normal Index
+                        int iNIndexA[3];
+                        int iNIndexB[3];
+                        int iNIndexC[3];
+                        int iNIndexD[3];
 
-                            if (iMatches == 3) {
-                                vVertexIndicies.push_back(iVertexIndex[0]);
-                                vVertexIndicies.push_back(iVertexIndex[1]);
-                                vVertexIndicies.push_back(iVertexIndex[2]);
-                            } else {
-                                throwError(__FUNCTION__ + std::string(" cant read the OBJ file properlly"));
+                        // Parse the values
+                        int iAll            = std::sscanf(cLine.c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d\n", &iVIndexA[0], &iUIndexA[0], &iNIndexA[0], &iVIndexA[1], &iUIndexA[1], &iNIndexA[1], &iVIndexA[2], &iUIndexA[2], &iNIndexA[2]);
+                        int iVertexNormal   = std::sscanf(cLine.c_str(), "f %d//%d %d//%d %d//%d\n", &iVIndexB[0], &iNIndexB[0], &iVIndexB[1], &iNIndexB[1], &iVIndexB[2], &iNIndexB[2]);
+                        int iVertexTexture  = std::sscanf(cLine.c_str(), "f %d/%d %d/%d %d/%d\n", &iVIndexC[0], &iUIndexC[0], &iVIndexC[1], &iUIndexC[1], &iVIndexC[2], &iUIndexC[2]);
+                        int iVertex         = std::sscanf(cLine.c_str(), "f %d %d %d\n", &iVIndexD[0], &iVIndexD[1], &iVIndexD[2]);
 
-                                return false;
-                            }
+                        // Make sure there is some
+                        if (iAll == 9) {
+                            vVertexIndicies.push_back(iVIndexA[0]);
+                            vVertexIndicies.push_back(iVIndexA[1]);
+                            vVertexIndicies.push_back(iVIndexA[2]);
+    
+                            vUVIndicies.push_back(iUIndexA[0]);
+                            vUVIndicies.push_back(iUIndexA[1]);
+                            vUVIndicies.push_back(iUIndexA[2]);
+
+                            vNormalIndicies.push_back(iNIndexA[0]);
+                            vNormalIndicies.push_back(iNIndexA[1]);
+                            vNormalIndicies.push_back(iNIndexA[2]);
+
+                            bFound = true; 
                         }
-                    } else {
-                        // Comment
-                        char commentBuffer[1000];
-                        fgets(commentBuffer, 1000, pFile);
+                        if (iVertexNormal == 6) { 
+                            vVertexIndicies.push_back(iVIndexB[0]);
+                            vVertexIndicies.push_back(iVIndexB[1]);
+                            vVertexIndicies.push_back(iVIndexB[2]);
+
+                            vNormalIndicies.push_back(iNIndexB[0]);
+                            vNormalIndicies.push_back(iNIndexB[1]);
+                            vNormalIndicies.push_back(iNIndexB[2]);
+
+                            bFound = true; }
+                        if (iVertexTexture == 6) { 
+                            vVertexIndicies.push_back(iVIndexC[0]);
+                            vVertexIndicies.push_back(iVIndexC[1]);
+                            vVertexIndicies.push_back(iVIndexC[2]);
+
+                            vUVIndicies.push_back(iUIndexC[0]);
+                            vUVIndicies.push_back(iUIndexC[1]);
+                            vUVIndicies.push_back(iUIndexC[2]);
+
+                            bFound = true; 
+                        }
+                        if (iVertex == 3) { 
+                            vVertexIndicies.push_back(iVIndexD[0]);
+                            vVertexIndicies.push_back(iVIndexD[1]);
+                            vVertexIndicies.push_back(iVIndexD[2]);
+
+                            bFound = true; 
+                        }
+
+                        // There are no faces so this file is invalid
+                        if (!bFound) { 
+                            bValid = false;
+                            break;
+                        }
+                    } else { // Comments
                     }
                 }
+                m_cFileStream.close();
+
+                // Not a valid file
+                if (!bValid) {
+                    throwError(__FUNCTION__, std::string("OBJ file is invalid: ") + cFile);
+                } 
 
                 // do the vertexs
                 for (unsigned int i = 0; i < vVertexIndicies.size(); i++) {
