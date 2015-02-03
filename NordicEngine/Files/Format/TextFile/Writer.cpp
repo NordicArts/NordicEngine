@@ -17,12 +17,13 @@ namespace NordicArts {
                     m_cFileStream.open(getFilePath().c_str(), (std::ios_base::out | (bAppend ? std::ios_base::app : std::ios_base::trunc)));
 
                     if (!m_cFileStream.is_open()) {
-                        throwError(__FUNCTION__ + std::string(" can't open file for writing"));
+                        throwError(__FUNCTION__, " can't open file for writing");
                     }
                 }
 
                 void Writer::write(const std::string &cMessage) {
                     m_cFileStream << cMessage;
+                    m_cFileStream.close();
                 }
 
                 bool Writer::deleteFile() {

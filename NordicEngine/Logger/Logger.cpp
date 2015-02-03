@@ -29,8 +29,6 @@ namespace NordicArts {
             createCritical(m_Critical);
             BlockThread blockThread(m_Critical);
     
-            Files::Loader oFile(m_cLogFile, false, false, false);
-
             s_pLogger = this;
         }
 
@@ -39,7 +37,7 @@ namespace NordicArts {
         }
 
         void Logger::destroy() {
-            SAFE_DELETE(s_pLogger);
+            s_pLogger = nullptr;
 
             deleteCritical(m_Critical);
         }
