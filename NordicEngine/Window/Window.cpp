@@ -113,8 +113,6 @@ namespace NordicArts {
                 glfwTerminate();
 
                 m_pLogger->log("Terminated");
-
-                SAFE_DELETE(m_pLogger);
             }
         };
     };
