@@ -93,6 +93,10 @@ namespace NordicArts {
                 return 0;
             }
 
+            void Window::setCursorLocation(int iX, int iY) {
+                glfwSetCursorPos(m_pWindow, iX, iY);
+            }
+
             bool Window::processInput(bool bContinue = true) {
                 if ((glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) || (glfwWindowShouldClose(m_pWindow) != 0)) {
                     return false;

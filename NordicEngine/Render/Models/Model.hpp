@@ -4,6 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Render/Shader/Shader.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
+#include <NordicEngine/Misc/Vertex.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
@@ -21,6 +22,8 @@ namespace NordicArts {
 
                 protected:
                 private:
+                    std::string m_cName;
+
                     std::vector<glm::vec3> m_vVertices;
 
                     GLint m_iSize;
@@ -29,19 +32,20 @@ namespace NordicArts {
                     GLuint m_iVertexArrayID;
 
                     Render::Shader m_oShader;
-
                     Logger *m_pLogger;
 
                 // Methods
                 public:
-                    Model();
-                    Model(Logger *pLogger);
+                    Model(std::string cName);
+                    Model(std::string cName, Logger *pLogger);
             
                     ~Model();
 
                     void initalize(std::vector<glm::vec3> vVerticies, int iLength, std::string cVertex, std::string cFragment);
                     void render();
                     void destroy();
+
+                    std::string getName() const;
 
                 protected:
                 private:

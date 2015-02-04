@@ -169,7 +169,7 @@ namespace NordicArts {
                 if (iWindowed) { bWindowed = true; }
             }
 
-            return bWindowed;
+            return false;
         }
 
         void Settings::setFSAA(int iFSAA) {

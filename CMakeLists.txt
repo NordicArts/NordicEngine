@@ -164,6 +164,9 @@ if (NordicEngine_FullEngine)
     # OpenGL Header
     list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
 
+    # Misc
+    list(APPEND LibHeaders ${NE}/Misc/Vertex.hpp)
+
     # Shader
     link_directories(${NE}/Render/Shader)
     include_directories(${NE}/Render/Shader)

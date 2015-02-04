@@ -48,6 +48,10 @@ namespace NordicArts {
                 std::vector<glm::vec2> vTempUVs;
                 std::vector<glm::vec3> vTempNormals;
 
+                std::vector<glm::vec3> vFinalVertex;
+                std::vector<glm::vec2> vFinalUV;
+                std::vector<glm::vec3> vFinalNormal;
+
                 std::string cFile = getFilePath();
                 
                 std::string cLine;
@@ -167,7 +171,7 @@ namespace NordicArts {
                     glm::vec3 vVertex   = vTempVerticies[iVertexIndex - 1];
 
                     // put arrays into buffers
-                    vOutVerticies.push_back(vVertex);
+                    vFinalVertex.push_back(vVertex);
                 }
 
                 // UV
@@ -179,7 +183,7 @@ namespace NordicArts {
                     glm::vec2 vUV       = vTempUVs[iUVIndex - 1];
 
                     // put arrays into buffers
-                    vOutUVs.push_back(vUV);
+                    vFinalUV.push_back(vUV);
                 }
 
                 // Normals
@@ -191,8 +195,13 @@ namespace NordicArts {
                     glm::vec3 vNormal   = vTempNormals[iNormalIndex - 1];
 
                     // put arrays into buffers
-                    vOutNormals.push_back(vNormal);
+                    vFinalNormal.push_back(vNormal);
                 }
+
+                // Send them out
+                vOutVerticies   = vFinalVertex;
+                vOutUVs         = vFinalUV;
+                vOutNormals     = vFinalNormal;
 
                 return true;
             }

@@ -6,24 +6,22 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Models {
-                Manager::Manager() : m_pLogger(nullptr) {
+                Manager::Manager() : m_pLogger(nullptr), m_iModels(0) {
                 }
-                Manager::Manager(Logger *pLogger) : m_pLogger(pLogger) {
+                Manager::Manager(Logger *pLogger) : m_pLogger(pLogger), m_iModels(0) {
                 }
 
                 void Manager::destroy() {
                     if (m_pLogger) { m_pLogger->log("Destroying Models"); }
 
-                    for (std::map<std::string, Model>::iterator it = m_mModels.begin(); it != m_mModels.end(); it++) {
-                        it->second.destroy();
+                    for (size_t i = 0; i < m_iModels; i++) {
+                        m_pModels[i]->destroy();
                     }
-
-                    m_mModels.empty();
 
                     if (m_pLogger) { m_pLogger->log("Destroyed Models"); }
                 }
 
-                Model Manager::addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment) {
+                Model *Manager::addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment) {
                     // Load the OBJ file
                     Files::Obj oObj(cFile);
 
@@ -40,18 +38,28 @@ namespace NordicArts {
 
                     oObj.loadModel(vVerticies, vUVs, vNormals);
 
-                    Model oModel;
-                    oModel.initalize(vVerticies, vVerticies.size(), cVertex, cFragment);
+                    Model *pModel = new Model(cName);
+                    pModel->initalize(vVerticies, vVerticies.size(), cVertex, cFragment);
 
-                    m_mModels.insert(std::pair<std::string, Model>(cName, oModel));
+                    m_pModels[m_iModels] = pModel;
 
                     if (m_pLogger) { m_pLogger->log("Started Model"); }
 
-                    return oModel;
+                    m_iModels++;
+
+                    return pModel;
                 }
 
-                Model Manager::getModel(std::string cName) {
-                    return m_mModels[cName];
+                Model *Manager::getModel(std::string cName) {
+                    for (size_t i = 0; i < m_iModels; i++) {
+                        printIt(m_pModels[i]->getName());
+
+                        if (cName.compare(m_pModels[i]->getName()) == 0) {
+                            return m_pModels[i];
+                        }
+                    }
+
+                    return nullptr;
                 }
             };
         };

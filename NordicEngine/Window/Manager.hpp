@@ -2,6 +2,7 @@
 #define NordicArts_NordicEngine_WindowMaker_Manager_H
 
 #include <NordicEngine/Engine.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -22,6 +23,9 @@ namespace NordicArts {
 
                 virtual void swapBuffers() = 0;
                 virtual void destroy() = 0;
+                virtual void setCursorLocation(int iX, int iY) = 0;
+
+                void clearWindow();
 
             protected:
             private:

@@ -5,10 +5,9 @@ namespace NordicArts {
     namespace NordicEngine {
         namespace Render {
             namespace Models {
-                Model::Model() {
+                Model::Model(std::string cName) : m_cName(cName) {
                 }
-                Model::Model(Logger *pLogger) : m_pLogger(pLogger) {
-
+                Model::Model(std::string cName, Logger *pLogger) : m_cName(cName), m_pLogger(pLogger) {
                 }
 
                 Model::~Model() {
@@ -28,11 +27,12 @@ namespace NordicArts {
 
                     glGenBuffers(1, &m_iVertexID);
                     glBindBuffer(GL_ARRAY_BUFFER, m_iVertexID);
-                    glBufferData(GL_ARRAY_BUFFER, (sizeof(vVertices[0]) * iLength), vVertices, GL_STATIC_DRAW);
+                    glBufferData(GL_ARRAY_BUFFER, (vVertices.size() * iLength), &vVertices[0], GL_STATIC_DRAW);
 
                     glVertexAttribPointer(m_iVertexIndex, 3, GL_FLOAT, GL_FALSE, sizeof(m_vVertices[0]), 0);
 
                     eError = glGetError();
+
                     if (eError != GL_NO_ERROR) {
                         printIt(eError);
                         throwError(__FUNCTION__, std::string("Couldnt create the VAO, VBO,  Error: "));
@@ -40,10 +40,6 @@ namespace NordicArts {
                 }
 
                 void Model::render() {
-                    printIt(m_iVertexArrayID);
-                    printIt(m_iVertexIndex);
-                    printIt(m_iSize);
-
                     if (m_pLogger) { m_pLogger->log("Render Model Start"); }
 
                     m_oShader.turnOn();
@@ -85,6 +81,10 @@ namespace NordicArts {
                     if (m_pLogger) { m_pLogger->log("Destroyed Model"); }
 
                     m_oShader.destroy();
+                }
+
+                std::string Model::getName() const {
+                    return m_cName;
                 }
             };
         };

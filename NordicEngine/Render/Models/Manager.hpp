@@ -12,11 +12,13 @@ namespace NordicArts {
                 class Manager {
                 // Variables
                 public:
-                    std::map<std::string, Model> m_mModels;
+                    Model *m_pModels[128];
         
                 protected:
                 private:
                     Logger *m_pLogger;
+
+                    int m_iModels;
 
                 // Methods
                 public:
@@ -25,8 +27,8 @@ namespace NordicArts {
 
                     void destroy();
 
-                    Model addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment);
-                    Model getModel(std::string cName);
+                    Model *addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment);
+                    Model *getModel(std::string cName);
 
                 protected:
                 private:
