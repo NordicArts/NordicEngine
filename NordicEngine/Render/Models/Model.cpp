@@ -7,6 +7,9 @@ namespace NordicArts {
             namespace Models {
                 Model::Model() {
                 }
+                Model::Model(Logger *pLogger) : m_pLogger(pLogger) {
+
+                }
 
                 Model::~Model() {
                     destroy();
@@ -25,6 +28,7 @@ namespace NordicArts {
 
                     glGenBuffers(1, &m_iVertexID);
                     glBindBuffer(GL_ARRAY_BUFFER, m_iVertexID);
+                    glBufferData(GL_ARRAY_BUFFER, (sizeof(vVertices[0]) * iLength), vVertices, GL_STATIC_DRAW);
 
                     glVertexAttribPointer(m_iVertexIndex, 3, GL_FLOAT, GL_FALSE, sizeof(m_vVertices[0]), 0);
 
@@ -36,6 +40,12 @@ namespace NordicArts {
                 }
 
                 void Model::render() {
+                    printIt(m_iVertexArrayID);
+                    printIt(m_iVertexIndex);
+                    printIt(m_iSize);
+
+                    if (m_pLogger) { m_pLogger->log("Render Model Start"); }
+
                     m_oShader.turnOn();
             
                     glBindVertexArray(m_iVertexArrayID);
@@ -49,9 +59,13 @@ namespace NordicArts {
                     glBindVertexArray(0);
 
                     m_oShader.turnOff();
+
+                    if (m_pLogger) { m_pLogger->log("Render Model End"); }
                 }
 
                 void Model::destroy() {
+                    if (m_pLogger) { m_pLogger->log("Destorying Model"); }
+
                     if (m_iVertexID) {
                         glBindBuffer(GL_ARRAY_BUFFER, 0);
                 
@@ -67,6 +81,8 @@ namespace NordicArts {
     
                         m_iVertexArrayID = 0;
                     }
+
+                    if (m_pLogger) { m_pLogger->log("Destroyed Model"); }
 
                     m_oShader.destroy();
                 }

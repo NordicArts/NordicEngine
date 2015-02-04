@@ -3,6 +3,8 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Render/Shader/Shader.hpp>
+#include <NordicEngine/Logger/Logger.hpp>
+
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
 namespace NordicArts {
@@ -28,9 +30,12 @@ namespace NordicArts {
 
                     Render::Shader m_oShader;
 
+                    Logger *m_pLogger;
+
                 // Methods
                 public:
                     Model();
+                    Model(Logger *pLogger);
             
                     ~Model();
 

@@ -11,10 +11,6 @@ namespace NordicArts {
                 Manager::Manager(Logger *pLogger) : m_pLogger(pLogger) {
                 }
 
-                Manager::~Manager() {
-                    destroy();
-                }
-
                 void Manager::destroy() {
                     if (m_pLogger) { m_pLogger->log("Destroying Models"); }
 
@@ -46,10 +42,6 @@ namespace NordicArts {
 
                     Model oModel;
                     oModel.initalize(vVerticies, vVerticies.size(), cVertex, cFragment);
-
-                    if (m_pLogger) {
-                        printIt(vVerticies.size());
-                    }
 
                     m_mModels.insert(std::pair<std::string, Model>(cName, oModel));
 

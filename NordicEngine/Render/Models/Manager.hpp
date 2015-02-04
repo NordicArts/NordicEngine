@@ -23,8 +23,6 @@ namespace NordicArts {
                     Manager();
                     Manager(Logger *pLogger);
 
-                    ~Manager();
-
                     void destroy();
 
                     Model addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment);
