@@ -108,11 +108,11 @@ namespace NordicArts {
             }
 
             void Window::destroy() {
-                m_pLogger->log("Terminating");
+                if (m_pLogger) { m_pLogger->log("Terminating"); }
 
                 glfwTerminate();
 
-                m_pLogger->log("Terminated");
+                if (m_pLogger) { m_pLogger->log("Terminated"); }
             }
         };
     };
