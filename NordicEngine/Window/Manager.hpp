@@ -24,6 +24,7 @@ namespace NordicArts {
                 virtual void swapBuffers() = 0;
                 virtual void destroy() = 0;
                 virtual void setCursorLocation(int iX, int iY) = 0;
+                virtual void setCursorDisabled() = 0;
 
                 void clearWindow();
 

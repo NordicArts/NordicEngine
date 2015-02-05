@@ -4,7 +4,6 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Render/Shader/Shader.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/Misc/Vertex.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 

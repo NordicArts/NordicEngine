@@ -118,6 +118,10 @@ namespace NordicArts {
 
                 if (m_pLogger) { m_pLogger->log("Terminated"); }
             }
+
+            void Window::setCursorDisabled() {
+                glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+            }
         };
     };
 };

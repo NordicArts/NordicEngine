@@ -20,21 +20,6 @@
 #define SAFE_DELETE_ARRAY(p) { if (p) { delete[](p); p = NULL; }}
 #endif
 
-// OS Specific Includes
-#if defined (__WIN32__) || defined(_WIN32) || defined(_WIN64)
-    #include <NordicEngine/OS/Windows/Windows.hpp>
-#else
-    #define nonWindows
-
-    #include <NordicEngine/OS/nonWindows/nonWindows.hpp>
-
-    #if defined(__APPLE__) || defined(__APPLE_CC__)
-        #include <NordicEngine/OS/nonWindows/OSX/OSX.hpp>
-    #else
-        #include <NordicEngine/OS/nonWindows/Linux/Linux.hpp>
-    #endif
-#endif
-
 // Swap Pointers
 #ifndef NE_SWAP_POINTERS
 #define NE_SWAP_POINTERS(x, y) { void *t; t = x, x = y; y = t; }
@@ -72,4 +57,7 @@ namespace NordicArts {
         void throwError(const std::string &cFunction, const std::string &cMessage);
     };
 };
+
+// OS
+#include <NordicEngine/OS/OS.hpp>
 #endif

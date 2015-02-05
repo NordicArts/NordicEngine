@@ -32,6 +32,10 @@ include_directories(${PROJECT_SOURCE_DIR})
 ########################### OS STUFF ###########################
 ################################################################
 
+link_directories(${NE}/OS)
+include_directories(${NE}/OS)
+list(APPEND LibHeaders ${NE}/OS/OS.hpp)
+
 # OS Specific Classes
 if (WIN32)
     link_directories(${NE}/OS/Windows)
