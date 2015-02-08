@@ -362,8 +362,6 @@ namespace NordicArts {
             std::string cGameName;
             bool bReturn = false;
 
-            if (m_pLogger) { m_pLogger->log("Checking Defaults"); }
-
             Storage oStorage(m_cGameName);
             oStorage.setTable("general_settings");
             oStorage.setColumn("gameName");
@@ -376,21 +374,15 @@ namespace NordicArts {
 
             if (cGameName != "") { bReturn = true; }
 
-            if (m_pLogger) { m_pLogger->log("Checked Defaults"); }
-
             return bReturn;
         }   
 
         bool Settings::checkTableExists() {
             bool bReturn = false;
-        
-            if (m_pLogger) { m_pLogger->log("Checking Table Exists"); }
             
             Storage oStorage(m_cGameName);
             oStorage.setTable("general_settings");
             bReturn = oStorage.checkTable();
-            
-            if (m_pLogger) { m_pLogger->log("Checked Table Exists"); }
 
             return bReturn;
         }
@@ -399,8 +391,6 @@ namespace NordicArts {
             m_bSettingsDone = checkDefaults();
 
             if (!m_bSettingsDone) {
-                if (m_pLogger) { m_pLogger->log("Setting Defaults"); }
-
                 Storage  oStorage(m_cGameName);
     
                 oStorage.setTable("general_settings");
@@ -420,8 +410,6 @@ namespace NordicArts {
                 oStorage.insert();
     
                 m_bSettingsDone = true;
-
-                if (m_pLogger) { m_pLogger->log("Set Defaults"); }
             }
 
             return;
@@ -429,8 +417,6 @@ namespace NordicArts {
 
         bool Settings::createTable() {
             if (checkTableExists()) { return true; }
-
-            if (m_pLogger) { m_pLogger->log("Creating Settings Table"); } 
 
             Storage  oStorage(m_cGameName);
 
@@ -449,8 +435,6 @@ namespace NordicArts {
             oStorage.addInt("randomSeed");
                 
             if (oStorage.createTable()) { return true; }
-
-            if (m_pLogger) { m_pLogger->log("Created Settings Table"); }
 
             return false;
         }

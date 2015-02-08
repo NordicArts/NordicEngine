@@ -28,7 +28,7 @@ namespace NordicArts {
                     oObj.loadModel(vVerticies, vUVs, vNormals);
 
                     Model *pModel = new Model(cName);
-                    pModel->setup(vVerticies, vVerticies.size(), cVertex, cFragment);
+                    pModel->setup(vVerticies, vUVs, vNormals, cVertex, cFragment);
 
                     m_pModels[m_iModels] = pModel;
 

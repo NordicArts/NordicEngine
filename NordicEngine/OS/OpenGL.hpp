@@ -1,6 +1,7 @@
 #ifndef NordicArts_NordicEngine_OS_OpenGL_H
 #define NordicArts_NordicEngine_OS_OpenGL_H
 
+#include <NordicEngine/Engine.hpp>
 #include <GL/glew.h>
 
 #ifdef __APPLE__
@@ -33,6 +34,8 @@ namespace NordicArts {
             NES_TESS_EVAL       = GL_TESS_EVALUATION_SHADER,
             NES_UNKNOWN         = NULL
         };
+
+        std::string getGLError(GLenum eEror);
     };
 };
 

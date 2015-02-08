@@ -167,8 +167,9 @@ list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
 #########################################################################
 
 if (NordicEngine_FullEngine)
-    # OpenGL Header
+    # OpenGL
     list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
+    list(APPEND LibSources ${NE}/OS/OpenGL.cpp)
 
     # Shader
     link_directories(${NE}/Render/Shader)
