@@ -28,10 +28,6 @@ namespace NordicArts {
                 virtual void setCursorLocation(int iX, int iY) = 0;
                 virtual void setCursorDisabled() = 0;
 
-                void clearColor(Color oColor);
-                void clearWindow();
-                void depthAndCull();
-
             protected:
             private:
 

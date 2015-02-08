@@ -171,6 +171,12 @@ if (NordicEngine_FullEngine)
     list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
     list(APPEND LibSources ${NE}/OS/OpenGL.cpp)
 
+    # Render
+    link_directories(${NE}/Render/Render)
+    include_directories(${NE}/Render/Render)
+    list(APPEND LibHeaders ${NE}/Render/Manager.hpp)
+    list(APPEND LibSources ${NE}/Render/Manager.cpp)
+
     # Shader
     link_directories(${NE}/Render/Shader)
     include_directories(${NE}/Render/Shader)

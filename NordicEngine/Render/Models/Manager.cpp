@@ -46,6 +46,15 @@ namespace NordicArts {
 
                     return nullptr;
                 }
+
+                void Manager::renderAll() {
+                    for (size_t i = 0; i < m_iModels; i++) {
+                        Model *pModel = m_pModels[i];
+
+                        pModel->initalize();
+                        pModel->render();
+                    }
+                }
             };
         };
     };
