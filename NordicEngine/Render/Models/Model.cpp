@@ -14,11 +14,15 @@ namespace NordicArts {
                     destroy();
                 }
 
-                void Model::initalize(std::vector<glm::vec3> vVertices, int iLength, std::string cVertex, std::string cFragment) {
-                    m_oShader.initalize(cVertex, cFragment);
+                void Model::setup(std::vector<glm::vec3> vVerticies, int iLength, std::string cVertex, std::string cFragment) {
+                    m_vVertices         = vVerticies;
+                    m_iSize             = iLength;
+                    m_cFragmentShader   = cFragment;
+                    m_cVertexShader     = cVertex;
+                }
 
-                    m_vVertices     = vVertices;
-                    m_iSize         = iLength;
+                void Model::initalize() {
+                    m_oShader.initalize(m_cVertexShader, m_cFragmentShader);
 
                     GLenum eError = glGetError();
             
@@ -27,7 +31,7 @@ namespace NordicArts {
 
                     glGenBuffers(1, &m_iVertexID);
                     glBindBuffer(GL_ARRAY_BUFFER, m_iVertexID);
-                    glBufferData(GL_ARRAY_BUFFER, (vVertices.size() * iLength), &vVertices[0], GL_STATIC_DRAW);
+                    glBufferData(GL_ARRAY_BUFFER, (m_vVertices.size() * m_iSize), &m_vVertices[0], GL_STATIC_DRAW);
 
                     glVertexAttribPointer(m_iVertexIndex, 3, GL_FLOAT, GL_FALSE, sizeof(m_vVertices[0]), 0);
 

@@ -22,6 +22,8 @@ namespace NordicArts {
                 protected:
                 private:
                     std::string m_cName;
+                    std::string m_cVertexShader;
+                    std::string m_cFragmentShader;
 
                     std::vector<glm::vec3> m_vVertices;
 
@@ -40,7 +42,8 @@ namespace NordicArts {
             
                     ~Model();
 
-                    void initalize(std::vector<glm::vec3> vVerticies, int iLength, std::string cVertex, std::string cFragment);
+                    void setup(std::vector<glm::vec3> vVerticies, int iLength, std::string cVertex, std::string cFragment);
+                    void initalize();
                     void render();
                     void destroy();
 

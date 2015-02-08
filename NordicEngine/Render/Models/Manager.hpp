@@ -12,7 +12,7 @@ namespace NordicArts {
                 class Manager {
                 // Variables
                 public:
-                    Model *m_pModels[128];
+                    Model *m_pModels[1024];
         
                 protected:
                 private:
