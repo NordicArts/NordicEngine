@@ -3,6 +3,7 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/OS/OpenGL.hpp>
+#include <NordicEngine/Color/Color.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -12,6 +13,7 @@ namespace NordicArts {
             public:
             protected:
             private:
+                bool m_bSetDepthAndCull;
 
             // Methods
             public:
@@ -24,8 +26,7 @@ namespace NordicArts {
                 virtual void swapBuffers() = 0;
                 virtual void destroy() = 0;
                 virtual void setCursorLocation(int iX, int iY) = 0;
-
-                void clearWindow();
+                virtual void setCursorDisabled() = 0;
 
             protected:
             private:

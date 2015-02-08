@@ -76,7 +76,13 @@ namespace NordicArts {
         
                         vTempNormals.push_back(vNormal);
                     } else if (cLine.compare(0, 1, "f") == 0) { // Faces
-                        bool bFound = false;
+                        bool bFound         = false;
+                        bool bFoundUV       = false;
+                        bool bFoundNormal   = false;
+
+                        int realV[3];
+                        int realU[3];
+                        int realN[3];
 
                         // Temp Vertex Index
                         int iVIndexA[3];
@@ -86,15 +92,11 @@ namespace NordicArts {
 
                         // Temp UV Index
                         int iUIndexA[3];
-                        int iUIndexB[3];
                         int iUIndexC[3];
-                        int iUIndexD[3];
 
                         // Temp Normal Index
                         int iNIndexA[3];
                         int iNIndexB[3];
-                        int iNIndexC[3];
-                        int iNIndexD[3];
 
                         // Parse the values
                         int iAll            = std::sscanf(cLine.c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d\n", &iVIndexA[0], &iUIndexA[0], &iNIndexA[0], &iVIndexA[1], &iUIndexA[1], &iNIndexA[1], &iVIndexA[2], &iUIndexA[2], &iNIndexA[2]);
@@ -104,45 +106,50 @@ namespace NordicArts {
 
                         // Make sure there is some
                         if (iAll == 9) {
-                            vVertexIndicies.push_back(iVIndexA[0]);
-                            vVertexIndicies.push_back(iVIndexA[1]);
-                            vVertexIndicies.push_back(iVIndexA[2]);
-    
-                            vUVIndicies.push_back(iUIndexA[0]);
-                            vUVIndicies.push_back(iUIndexA[1]);
-                            vUVIndicies.push_back(iUIndexA[2]);
+                            realV[0] = iVIndexA[0];
+                            realV[1] = iVIndexA[1];
+                            realV[2] = iVIndexA[2];
 
-                            vNormalIndicies.push_back(iNIndexA[0]);
-                            vNormalIndicies.push_back(iNIndexA[1]);
-                            vNormalIndicies.push_back(iNIndexA[2]);
+                            realU[0] = iUIndexA[0];
+                            realU[1] = iUIndexA[1];
+                            realU[2] = iUIndexA[2];
 
-                            bFound = true; 
+                            realN[0] = iNIndexA[0];
+                            realN[1] = iNIndexA[1];
+                            realN[2] = iNIndexA[2];
+
+                            bFound          = true;
+                            bFoundUV        = true;
+                            bFoundNormal    = true;
                         }
-                        if (iVertexNormal == 6) { 
-                            vVertexIndicies.push_back(iVIndexB[0]);
-                            vVertexIndicies.push_back(iVIndexB[1]);
-                            vVertexIndicies.push_back(iVIndexB[2]);
+                        if (iVertexNormal == 6) {
+                            realV[0] = iVIndexB[0];
+                            realV[1] = iVIndexB[1];
+                            realV[2] = iVIndexB[2];
 
-                            vNormalIndicies.push_back(iNIndexB[0]);
-                            vNormalIndicies.push_back(iNIndexB[1]);
-                            vNormalIndicies.push_back(iNIndexB[2]);
+                            realN[0] = iNIndexB[0];
+                            realN[1] = iNIndexB[1];
+                            realN[2] = iNIndexB[2];
 
-                            bFound = true; }
-                        if (iVertexTexture == 6) { 
-                            vVertexIndicies.push_back(iVIndexC[0]);
-                            vVertexIndicies.push_back(iVIndexC[1]);
-                            vVertexIndicies.push_back(iVIndexC[2]);
-
-                            vUVIndicies.push_back(iUIndexC[0]);
-                            vUVIndicies.push_back(iUIndexC[1]);
-                            vUVIndicies.push_back(iUIndexC[2]);
-
-                            bFound = true; 
+                            bFound          = true;
+                            bFoundNormal    = true;
                         }
-                        if (iVertex == 3) { 
-                            vVertexIndicies.push_back(iVIndexD[0]);
-                            vVertexIndicies.push_back(iVIndexD[1]);
-                            vVertexIndicies.push_back(iVIndexD[2]);
+                        if (iVertexTexture == 6) {
+                            realV[0] = iVIndexC[0];
+                            realV[1] = iVIndexC[1];
+                            realV[2] = iVIndexC[2];
+
+                            realU[0] = iUIndexC[0];
+                            realU[1] = iUIndexC[1];
+                            realU[2] = iUIndexC[2];
+
+                            bFound          = true;
+                            bFoundUV        = true;
+                        }
+                        if (iVertex == 3) {
+                            realV[0] = iVIndexD[0];
+                            realV[1] = iVIndexD[1];
+                            realV[2] = iVIndexD[2];
 
                             bFound = true; 
                         }
@@ -151,16 +158,36 @@ namespace NordicArts {
                         if (!bFound) { 
                             bValid = false;
                             break;
+                        } else {
+                            vVertexIndicies.push_back(realV[0]);
+                            vVertexIndicies.push_back(realV[1]);
+                            vVertexIndicies.push_back(realV[2]);
+                        }
+
+                        // There are UVs
+                        if (bFoundUV) {
+                            vUVIndicies.push_back(realU[0]);
+                            vUVIndicies.push_back(realU[1]);
+                            vUVIndicies.push_back(realU[2]);
+                        }
+
+                        // There are normals
+                        if (bFoundNormal) {
+                            vNormalIndicies.push_back(realN[0]);
+                            vNormalIndicies.push_back(realN[1]);
+                            vNormalIndicies.push_back(realN[2]);
                         }
                     } else { // Comments
+                        continue;
                     }
                 }
                 m_cFileStream.close();
 
+
                 // Not a valid file
                 if (!bValid) {
                     throwError(__FUNCTION__, std::string("OBJ file is invalid: ") + cFile);
-                } 
+                }
 
                 // do the vertexs
                 for (unsigned int i = 0; i < vVertexIndicies.size(); i++) {

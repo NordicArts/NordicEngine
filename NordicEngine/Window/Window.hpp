@@ -37,6 +37,7 @@ namespace NordicArts {
                 virtual void swapBuffers();
                 virtual void destroy();
                 virtual void setCursorLocation(int iX, int iY);
+                virtual void setCursorDisabled();
 
                 static void errorHandler(int iError, const char *cError);
 

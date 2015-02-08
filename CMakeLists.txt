@@ -32,6 +32,10 @@ include_directories(${PROJECT_SOURCE_DIR})
 ########################### OS STUFF ###########################
 ################################################################
 
+link_directories(${NE}/OS)
+include_directories(${NE}/OS)
+list(APPEND LibHeaders ${NE}/OS/OS.hpp)
+
 # OS Specific Classes
 if (WIN32)
     link_directories(${NE}/OS/Windows)
@@ -143,6 +147,8 @@ link_directories(${NE}/Utility)
 include_directories(${NE}/Utility)
 list(APPEND LibHeaders ${NE}/Utility/Utility.hpp)
 list(APPEND LibSources ${NE}/Utility/Utility.cpp)
+list(APPEND LibHeaders ${NE}/Utility/Maths.hpp)
+list(APPEND LibSources ${NE}/Utility/Maths.cpp)
 
 # Color
 link_directories(${NE}/Color)
@@ -161,11 +167,15 @@ list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
 #########################################################################
 
 if (NordicEngine_FullEngine)
-    # OpenGL Header
+    # OpenGL
     list(APPEND LibHeaders ${NE}/OS/OpenGL.hpp)
+    list(APPEND LibSources ${NE}/OS/OpenGL.cpp)
 
-    # Misc
-    list(APPEND LibHeaders ${NE}/Misc/Vertex.hpp)
+    # Render
+    link_directories(${NE}/Render/Render)
+    include_directories(${NE}/Render/Render)
+    list(APPEND LibHeaders ${NE}/Render/Manager.hpp)
+    list(APPEND LibSources ${NE}/Render/Manager.cpp)
 
     # Shader
     link_directories(${NE}/Render/Shader)

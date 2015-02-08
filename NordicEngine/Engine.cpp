@@ -4,7 +4,7 @@ namespace NordicArts {
     namespace NordicEngine {
         const char *getBuildNumber() {
             std::ostringstream output;
-            output << NORDICENGINE_BUILDNUMBER;
+            output << NORDICARTS_NORDICENGINE_BUILDNUMBER;
             return output.str().c_str();
         }
 

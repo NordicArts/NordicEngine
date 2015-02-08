@@ -4,7 +4,7 @@
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Render/Shader/Shader.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
-#include <NordicEngine/Misc/Vertex.hpp>
+#include <NordicEngine/OS/OpenGL.hpp>
 
 #include <NordicEngine/ThirdParty/glm/glm/glm.hpp>
 
@@ -23,12 +23,17 @@ namespace NordicArts {
                 protected:
                 private:
                     std::string m_cName;
+                    std::string m_cVertexShader;
+                    std::string m_cFragmentShader;
 
                     std::vector<glm::vec3> m_vVertices;
+                    std::vector<glm::vec3> m_vNormals;
 
-                    GLint m_iSize;
-                
+                    std::vector<glm::vec2> m_vUVs;
+
                     GLuint m_iVertexID;
+                    GLuint m_iUVID;
+                    GLuint m_iNormalID;
                     GLuint m_iVertexArrayID;
 
                     Render::Shader m_oShader;
@@ -41,7 +46,9 @@ namespace NordicArts {
             
                     ~Model();
 
-                    void initalize(std::vector<glm::vec3> vVerticies, int iLength, std::string cVertex, std::string cFragment);
+                    void setup(std::vector<glm::vec3> vVerticies, std::vector<glm::vec2> vUVs, std::vector<glm::vec3> vNormals, std::string cVertex, std::string cFragment);
+
+                    void initalize();
                     void render();
                     void destroy();
 
