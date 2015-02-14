@@ -36,6 +36,17 @@ namespace NordicArts {
 
                     return pModel;
                 }
+                Model *Manager::addModel(std::string cName, std::vector<glm::vec3> vVerticies, std::string cVertex, std::string cFragment) {
+                    Model *pModel = new Model(cName);
+                    pModel->setup(vVerticies, cVertex, cFragment);
+
+                    m_pModels[m_iModels] = pModel;
+                    m_iModels++;
+
+                    printIt(m_pModels[m_iModels - 1]);
+
+                    return pModel;
+                }
 
                 Model *Manager::getModel(std::string cName) {
                     for (size_t i = 0; i < m_iModels; i++) {
