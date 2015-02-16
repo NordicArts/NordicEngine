@@ -1,5 +1,4 @@
 #include <NordicEngine/Render/Shader/Shader.hpp>
-#include <string>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -72,8 +71,7 @@ namespace NordicArts {
                 // error
                 eError = glGetError();
                 if (eError != GL_NO_ERROR) {
-                    printIt(eError);
-                    throwError(__FUNCTION__, std::string("Error: "));
+                    throwError(__FUNCTION__, std::string("Error: ") + getGLError(eError));
                 }
             }
 

@@ -31,7 +31,6 @@ namespace NordicArts {
                     pModel->setup(vVerticies, vUVs, vNormals, cVertex, cFragment);
 
                     m_pModels[m_iModels] = pModel;
-
                     m_iModels++;
 
                     return pModel;
@@ -42,8 +41,6 @@ namespace NordicArts {
 
                     m_pModels[m_iModels] = pModel;
                     m_iModels++;
-
-                    printIt(m_pModels[m_iModels - 1]);
 
                     return pModel;
                 }

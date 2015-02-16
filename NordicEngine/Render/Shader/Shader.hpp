@@ -3,8 +3,7 @@
 
 #include <NordicEngine/Engine.hpp>
 #include <NordicEngine/Files/Loader.hpp>
-
-#include <GL/glew.h>
+#include <NordicEngine/OS/OpenGL.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {

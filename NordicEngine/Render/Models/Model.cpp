@@ -28,63 +28,43 @@ namespace NordicArts {
                 }
 
                 void Model::initalize() {
-                    printIt("Init 1");
-                    printIt("Init 1a");
-
-                    printIt(m_cVertexShader);
-                    printIt(m_cFragmentShader);
-
                     m_oShader.initalize(m_cVertexShader, m_cFragmentShader);
                     GLenum eError;
-                    printIt("Init 2");
 
                     // Buffer
                     glGenVertexArrays(1, &m_iVertexArrayID);
                     glBindVertexArray(m_iVertexArrayID);
 
-                    printIt("Init 3");
-
                     eError = glGetError();
                     if (eError != GL_NO_ERROR) {
                         throwError(__FUNCTION__, std::string("Couldnt create the VAO, VBO,  Error Buffer: ") + getGLError(eError));
                     }
-                    printIt("Init 4");
 
                     // Vertex
                     if (m_vVertices.size() >= 1) {
-                        printIt("Init 5a");
-
                         glGenBuffers(1, &m_iVertexID);
                         glBindBuffer(GL_ARRAY_BUFFER, m_iVertexID);
                         glBufferData(GL_ARRAY_BUFFER, (m_vVertices.size() * sizeof(glm::vec3)), &m_vVertices[0], GL_STATIC_DRAW);
                         glVertexAttribPointer(m_iVertexIndex, 3, GL_FLOAT, GL_FALSE, sizeof(m_vVertices[0]), 0);
 
-                        printIt("Init 5b");
                         eError = glGetError();
                         if (eError != GL_NO_ERROR) {
                             throwError(__FUNCTION__, std::string("Couldnt create the VAO, VBO,  Error Vertex: ") + getGLError(eError));
                         }
                     }
 
-                    printIt("Init 5");
-
                     // UVs
                     if (m_vUVs.size() >= 1) {
-                        printIt("Init 6a");
                         glGenBuffers(1, &m_iUVID);
                         glBindBuffer(GL_ARRAY_BUFFER, m_iUVID);
                         glBufferData(GL_ARRAY_BUFFER, (m_vUVs.size() * sizeof(glm::vec2)), &m_vUVs[0], GL_STATIC_DRAW);
                         glVertexAttribPointer(m_iUVID, 2, GL_FLOAT, GL_FALSE, sizeof(m_vUVs[0]), 0);
-
-                        printIt("Init 6b");
 
                         eError = glGetError();
                         if (eError != GL_NO_ERROR) {
                             throwError(__FUNCTION__, std::string("Couldnt create the VAO, VBO,  Error UV: ") + getGLError(eError));
                         }
                     }
-
-                    printIt("Init 6");
                 }
 
                 void Model::render() {
