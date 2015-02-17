@@ -14,6 +14,11 @@ namespace NordicArts {
                     destroy();
                 }
 
+                void Model::setup(std::vector<glm::vec3> vVerticies, std::string cVertex, std::string cFragment) {
+                    m_vVertices         = vVerticies;
+                    m_cFragmentShader   = cFragment;
+                    m_cVertexShader     = cVertex;
+                }
                 void Model::setup(std::vector<glm::vec3> vVertices, std::vector<glm::vec2> vUVs, std::vector<glm::vec3> vNormals, std::string cVertex, std::string cFragment) {
                     m_vVertices         = vVertices;
                     m_vNormals          = vNormals;

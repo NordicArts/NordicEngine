@@ -29,6 +29,8 @@ namespace NordicArts {
                     void renderAll();
 
                     Model *addModel(std::string cName, std::string cFile, std::string cVertex, std::string cFragment);
+                    Model *addModel(std::string cName, std::vector<glm::vec3> vVerticies, std::string cVertex, std::string cFragment);
+
                     Model *getModel(std::string cName);
 
                 protected:
