@@ -149,6 +149,8 @@ list(APPEND LibHeaders ${NE}/Utility/Utility.hpp)
 list(APPEND LibSources ${NE}/Utility/Utility.cpp)
 list(APPEND LibHeaders ${NE}/Utility/Maths.hpp)
 list(APPEND LibSources ${NE}/Utility/Maths.cpp)
+list(APPEND LibHeaders ${NE}/Utility/Seeder.hpp)
+list(APPEND LibSources ${NE}/Utility/Seeder.cpp)
 
 # Color
 link_directories(${NE}/Color)
