@@ -61,5 +61,20 @@ namespace NordicArts {
 
             return qRes;
         }
+
+        int getRandom(int iMax) {
+            return getRandom(0, iMax);
+        }
+
+        int getRandom(int iMin, int iMax) {
+            iMax -= 1; // Make it less than max by 1, e.g. vector.size = 3, but you want 0-2 not 0-3
+            int iTotal = (iMax - iMin + 1);
+            int iLeft = (RAND_MAX % iResult);
+            int iResult;
+            do {
+                iResult = std::rand();
+            } while (iTotal > (RAND_MAX - iLeft));
+            return ((iMin + iResult) % iTotal);
+        }
     };
 };
