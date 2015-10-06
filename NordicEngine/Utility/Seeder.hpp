@@ -2,6 +2,7 @@
 #define NordicArts_Game_Seeder_H
 
 #include <NordicEngine/Includes.hpp>
+#include <NordicEngine/Time/Time.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -19,6 +20,7 @@ namespace NordicArts {
 
             int getSeed() const;
             int getSeedTime() const;
+            int getSeedTime(NordicEngine::Time *pTime) const;
 
             void setSeed(std::string cSeed);
             void setSeed(int iSeed);

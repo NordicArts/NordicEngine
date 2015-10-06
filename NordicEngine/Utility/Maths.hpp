@@ -14,8 +14,9 @@ namespace NordicArts {
         glm::quat lookAt(glm::vec3 vDirection, glm::vec3 vDesiredUp);
         glm::quat rotateTowards(glm::quat q1, glm::quat q2, float fMaxAngle);
 
-        int getRandom(int iMin, int iMax);
         int getRandom(int iMax);
+        int getRandom(int iMin, int iMax);
+        int getRandom(int iMin, int iMax, int iSeed);
     };
 };
 

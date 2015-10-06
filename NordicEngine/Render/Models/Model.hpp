@@ -54,6 +54,7 @@ namespace NordicArts {
                     void destroy();
 
                     std::string getName() const;
+                    std::string getStats() const;
 
                 protected:
                 private:

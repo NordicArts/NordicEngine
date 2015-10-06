@@ -7,7 +7,7 @@
 // Errors
 #ifndef printStuff
 #define printStuff
-#define printIt(variable) { std::cout << #variable << " " << variable << std::endl; }
+#define printIt(variable) { std::cout << #variable << " : " << variable << std::endl; }
 #endif
 
 // Safe Delete

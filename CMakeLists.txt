@@ -118,6 +118,12 @@ list(APPEND LibSources ${NE}/Files/Format/TextFile/Writer.cpp)
 list(APPEND LibHeaders ${NE}/Files/Format/TextFile/Reader.hpp)
 list(APPEND LibSources ${NE}/Files/Format/TextFile/Reader.cpp)
 
+# Lua
+link_directories(${NE}/Files/Format/Lua)
+include_directories(${NE}/Files/Format/Lua)
+list(APPEND LibHeaders ${NE}/Files/Format/Lua/Lua.hpp)
+list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
+
 # Threads
 link_directories(${NE}/Threading/Threads)
 include_directories(${NE}/Threading/Threads)
@@ -157,12 +163,6 @@ link_directories(${NE}/Color)
 include_directories(${NE}/Color)
 list(APPEND LibHeaders ${NE}/Color/Color.hpp)
 list(APPEND LibSources ${NE}/Color/Color.cpp)
-
-# Lua
-link_directories(${NE}/Files/Format/Lua)
-include_directories(${NE}/Files/Format/Lua)
-list(APPEND LibHeaders ${NE}/Files/Format/Lua/Lua.hpp)
-list(APPEND LibSources ${NE}/Files/Format/Lua/Lua.cpp)
 
 #########################################################################
 ########################### FULL ENGINE STUFF ###########################

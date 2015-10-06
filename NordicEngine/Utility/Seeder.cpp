@@ -1,5 +1,4 @@
 #include <NordicEngine/Utility/Seeder.hpp>
-#include <NordicEngine/Time/Time.hpp>
 #include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
@@ -197,6 +196,10 @@ namespace NordicArts {
             iSeedTime += m_iSeed;
 
             return iSeedTime;
+        }
+
+        int Seeder::getSeedTime(NordicEngine::Time *pTime) const {
+            return (m_iSeed + (int)pTime->sinceStart());
         }
     };
 };

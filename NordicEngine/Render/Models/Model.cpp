@@ -1,5 +1,6 @@
 #include <NordicEngine/Render/Models/Model.hpp>
 #include <NordicEngine/Render/Shader/Shader.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -120,6 +121,15 @@ namespace NordicArts {
 
                 std::string Model::getName() const {
                     return m_cName;
+                }
+
+                std::string Model::getStats() const {
+                    std::string cReturn;
+
+                    cReturn.append("Verticies: ");
+                    cReturn.append("\n");
+
+                    return cReturn;
                 }
             };
         };

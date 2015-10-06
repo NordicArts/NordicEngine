@@ -13,12 +13,12 @@ namespace NordicArts {
                 // Variables
                 public:
                     Model *m_pModels[1024];
+
+                    int m_iModels;
         
                 protected:
                 private:
                     Logger *m_pLogger;
-
-                    int m_iModels;
 
                 // Methods
                 public:

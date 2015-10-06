@@ -67,13 +67,17 @@ namespace NordicArts {
         }
 
         int getRandom(int iMin, int iMax) {
-            iMax -= 1; // Make it less than max by 1, e.g. vector.size = 3, but you want 0-2 not 0-3
+            return getRandom(iMin, iMax, RAND_MAX);
+        }
+
+        int getRandom(int iMin, int iMax, int iSeed) {
+            iMax -= 1;
             int iTotal = (iMax - iMin + 1);
-            int iLeft = (RAND_MAX % iResult);
+            int iLeft = (iSeed % iTotal);
             int iResult;
             do {
                 iResult = std::rand();
-            } while (iTotal > (RAND_MAX - iLeft));
+            } while (iTotal > (iSeed - iLeft));
             return ((iMin + iResult) % iTotal);
         }
     };
