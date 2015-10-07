@@ -16,3 +16,7 @@
 [submodule "NordicEngine/ThirdParty/sqlite"]
 	path = NordicEngine/ThirdParty/sqlite
 	url = https://github.com/NordicArts/sqlite.git
+[submodule "NordicEngine/ThirdParty/jsonxx"]
+	path = NordicEngine/ThirdParty/jsonxx
+	url = https://github.com/hjiang/jsonxx.git
+
