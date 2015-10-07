@@ -324,6 +324,12 @@ link_directories(${NET}/miniz)
 include_directories(${NET}/miniz)
 add_subdirectory(${NET}/miniz)
 
+# JSON
+link_directories(${NET}/jsonxx)
+include_directories(${NET}/jsonxx)
+list(APPEND LibHeaders ${NET}/jsonxx/jsonxx.h)
+list(APPEND LibSources ${NET}/jsonxx/jsonxx.cc)
+
 #########################################################################
 ########################### BUILD THE LIBRARY ###########################
 #########################################################################
