@@ -71,14 +71,16 @@ namespace NordicArts {
         }
 
         int getRandom(int iMin, int iMax, int iSeed) {
-            iMax -= 1;
-            int iTotal = (iMax - iMin + 1);
+            int iTotal = ((iMax - 1) - iMin + 1);
             int iLeft = (iSeed % iTotal);
             int iResult;
+            
             do {
                 iResult = std::rand();
-            } while (iTotal > (iSeed - iLeft));
-            return ((iMin + iResult) % iTotal);
+            } while (iResult > (iSeed - iLeft));
+            int iFinal = (iMin + iResult);    
+        
+            return (iFinal % iTotal);
         }
     };
 };

@@ -192,14 +192,11 @@ namespace NordicArts {
             NordicEngine::Time oTime;
             NordicEngine::Time *pTime = &oTime;
 
-            iSeedTime = (int)pTime->sinceStartHigh();
-            iSeedTime += m_iSeed;
-
-            return iSeedTime;
+            return (m_iSeed * (int)pTime->sinceStartHigh());
         }
 
         int Seeder::getSeedTime(NordicEngine::Time *pTime) const {
-            return (m_iSeed + (int)pTime->sinceStart());
+            return (m_iSeed * (int)pTime->sinceStartHigh());
         }
     };
 };
