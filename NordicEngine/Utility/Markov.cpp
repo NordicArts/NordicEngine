@@ -19,7 +19,8 @@ namespace NordicArts {
 
         void Markov::init() {
             // Set the locale
-            m_pLocale = boost::locale::generator().generate("en_US.UTF-8");
+            m_pLocale = boost::locale::generator().generate(std::locale(), "");
+            std::locale::global(m_pLocale);
 
             // read the file
             fillNameList();
@@ -38,8 +39,8 @@ namespace NordicArts {
             std::string word = "";
 
             // Seed
-            Time::Time oTime;
-            Time::Time *pTime = &oTime;
+            Time oTime;
+            Time *pTime = &oTime;
             srand(pTime->getNanoSeconds());
 
             // generate first letter
