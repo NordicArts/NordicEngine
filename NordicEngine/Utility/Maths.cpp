@@ -78,7 +78,7 @@ namespace NordicArts {
             
             do {
                 iResult = std::rand();
-            } while (iResult > (iSeed - iLeft));
+            } while (iResult >= (iSeed - iLeft));
             iFinal = (iMin + iResult);    
             iReturn = (iFinal % iTotal);
             if (iReturn == 0) { iReturn = iMin; } // yes min might be 0, but sometimes it isnt and still returns 0
