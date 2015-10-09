@@ -71,16 +71,19 @@ namespace NordicArts {
         }
 
         int getRandom(int iMin, int iMax, int iSeed) {
-            int iTotal = ((iMax - 1) - iMin + 1);
-            int iLeft = (iSeed % iTotal);
-            int iResult;
+            int iTotal, iLeft, iResult, iFinal, iReturn;
+
+            iTotal = ((iMax - 1) - iMin + 1);
+            iLeft = (iSeed % iTotal);
             
             do {
                 iResult = std::rand();
             } while (iResult > (iSeed - iLeft));
-            int iFinal = (iMin + iResult);    
+            iFinal = (iMin + iResult);    
+            iReturn = (iFinal % iTotal);
+            if (iReturn == 0) { iReturn = iMin; } // yes min might be 0, but sometimes it isnt and still returns 0
         
-            return (iFinal % iTotal);
+            return iReturn;
         }
     };
 };
