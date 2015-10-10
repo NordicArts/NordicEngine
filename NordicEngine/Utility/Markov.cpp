@@ -19,8 +19,8 @@ namespace NordicArts {
 
         void Markov::init() {
             // Set the locale
-            m_pLocale = boost::locale::generator().generate(std::locale(), "");
-            std::locale::global(m_pLocale);
+            //m_pLocale = boost::locale::generator().generate(std::locale(), "");
+            //std::locale::global(m_pLocale);
 
             // read the file
             fillNameList();
@@ -87,8 +87,6 @@ namespace NordicArts {
                 }
             }
 
-            word = boost::locale::to_title(word, m_pLocale);
-
             if (m_bDebug) {
                 std::string cString = "Word: ";
                 cString.append(word);
@@ -105,7 +103,8 @@ namespace NordicArts {
             std::string cLine;
 
             while (std::getline(inFile, cLine)) {
-                cLine = boost::locale::to_lower(cLine, m_pLocale);
+                //cLine = boost::locale::to_lower(cLine, m_pLocale);
+                cLine = toLower(cLine);
                 names.push_back(cLine);
             }
 

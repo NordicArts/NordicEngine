@@ -8,7 +8,7 @@
 #include <NordicEngine/Includes.hpp>
 #include <NordicEngine/Logger/Logger.hpp>
 
-#include <boost/locale.hpp>
+//#include <boost/locale.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -51,7 +51,7 @@ namespace NordicArts {
 
             std::map<std::string, double> getAlphabetMap();
 
-            std::locale m_pLocale;
+            //std::locale m_pLocale;
 
         };
     };

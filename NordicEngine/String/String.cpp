@@ -1,4 +1,5 @@
 #include <NordicEngine/String/String.hpp>
+#include <cctype>
 
 namespace NordicArts {
     namespace NordicEngine {
