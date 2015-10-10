@@ -33,6 +33,10 @@ namespace NordicArts {
 
                     return cStream.str();
                 }
+
+                std::vector<std::string> Reader::getContent() {
+                    return m_vLines;
+                }
             };
         };
     };

@@ -27,6 +27,8 @@ namespace NordicArts {
             char                                                    m_cAlphabet[28]     = "abcdefghijklmnopqrstuvqwxyz";
             float                                                   m_fVariance         = 0.0f;
 
+            std::string                                             m_cNamesList;
+
             Logger                                                  *m_pLogger           = nullptr;
             bool                                                    m_bDebug;
 
@@ -37,8 +39,10 @@ namespace NordicArts {
             virtual ~Markov();
 
             std::string generateWord();
+            std::string generateWord(int iSeed);
 
             void setVariance(float fVariance);
+            void setNamesList(std::string cNamesList);
 
         protected:
         private:

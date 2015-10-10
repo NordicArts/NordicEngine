@@ -31,11 +31,18 @@ namespace NordicArts {
             generateLetterToLetterMap();
         }
 
+        void Markov::setNamesList(std::string cNamesList) {
+            m_cNamesList = cNamesList;
+        }
+
         void Markov::setVariance(float fVariance) {
             m_fVariance = fVariance;
         }
 
         std::string Markov::generateWord() {
+            return generateWord(RAND_MAX);
+        }
+        std::string Markov::generateWord(int iSeed) {
             std::string word = "";
 
             // Seed
@@ -49,7 +56,7 @@ namespace NordicArts {
                 char cLetter                = m_cAlphabet[randLetter];
                 std::string firstLetter     = getString(cLetter);
 
-                double randChance           = ((double)rand() / RAND_MAX);
+                double randChance           = ((double)rand() / iSeed);
                 double randLetterValue      = m_mFirstLetterChance[firstLetter];
                 double randMath             = ((m_mFirstLetterChance[firstLetter] * 2) + .05);
 
@@ -60,7 +67,7 @@ namespace NordicArts {
             }
 
             // Seed
-            srand(pTime->getNanoSeconds());
+            srand(iSeed);
 
             // generate word
             while (true) {
@@ -70,7 +77,7 @@ namespace NordicArts {
 
                 std::string lastLetter      = getString(word.back());
                 double nextLetterChance     = ((m_mLetterToLetterChance[lastLetter][nextLetter] * 2) - m_fVariance);
-                double randChance           = ((double)rand() / RAND_MAX);
+                double randChance           = ((double)rand() / iSeed);
 
                 if (randChance < nextLetterChance) {
                     word.append(nextLetter);
@@ -78,7 +85,7 @@ namespace NordicArts {
                     // check if word should end
                     lastLetter          = getString(word.back());
                     double extraChance  = m_mLastLetterChance[lastLetter];
-                    double moreRand     = ((double)rand() / RAND_MAX);
+                    double moreRand     = ((double)rand() / iSeed);
                     if ((word.size() >= 4) && (moreRand < ((extraChance * 1.5) + .05))) {
                         break;
                     } else if ((word.size() > 8) && (moreRand < .3)) {

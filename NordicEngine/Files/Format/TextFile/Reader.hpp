@@ -13,6 +13,7 @@ namespace NordicArts {
                 public:
                 protected:
                 private:
+                    std::vector<std::string> m_vLines;
 
                 // Methods
                 public:
@@ -22,6 +23,8 @@ namespace NordicArts {
 
                     std::string read() const;
                     std::string readAll() const;
+
+                    std::vector<std::string> getContent();
 
                 protected:
                 private:
