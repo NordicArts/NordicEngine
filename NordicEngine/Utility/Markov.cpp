@@ -5,29 +5,27 @@
 #include <NordicEngine/Utility/Markov.hpp>
 #include <NordicEngine/Time/Time.hpp>
 #include <NordicEngine/String/String.hpp>
+#include <NordicEngine/NordicEngine/Files/Format/TextFile/Reader.hpp>
+#include "Maths.hpp"
 
 namespace NordicArts {
     namespace NordicEngine {
         Markov::Markov() {
-            init();
         }
 
         Markov::Markov(Logger *pLogger) : m_pLogger(pLogger) {
             m_bDebug = true;
-            init();
         }
 
-        void Markov::init() {
-            // Set the locale
-            //m_pLocale = boost::locale::generator().generate(std::locale(), "");
-            //std::locale::global(m_pLocale);
-
+        void Markov::generate() {
             // read the file
             fillNameList();
 
             // generate the chance maps
             generateFirstLetterMap();
+
             generateLastLetterMap();
+
             generateLetterToLetterMap();
         }
 
@@ -45,18 +43,13 @@ namespace NordicArts {
         std::string Markov::generateWord(int iSeed) {
             std::string word = "";
 
-            // Seed
-            Time oTime;
-            Time *pTime = &oTime;
-            srand(pTime->getNanoSeconds());
-
             // generate first letter
             while (true) {
-                int randLetter              = (rand() % 27);
+                int randLetter              = getRandom(0, 26, iSeed);
                 char cLetter                = m_cAlphabet[randLetter];
                 std::string firstLetter     = getString(cLetter);
 
-                double randChance           = ((double)rand() / iSeed);
+                double randChance           = ((double)getRandom(0, 26, iSeed) / iSeed);
                 double randLetterValue      = m_mFirstLetterChance[firstLetter];
                 double randMath             = ((m_mFirstLetterChance[firstLetter] * 2) + .05);
 
@@ -66,18 +59,16 @@ namespace NordicArts {
                 }
             }
 
-            // Seed
-            srand(iSeed);
 
             // generate word
             while (true) {
-                int randLetter              = (rand() % 27);
+                int randLetter              = getRandom(0, 26, iSeed);
                 char cLetter                = m_cAlphabet[randLetter];
                 std::string nextLetter      = getString(cLetter);
 
                 std::string lastLetter      = getString(word.back());
                 double nextLetterChance     = ((m_mLetterToLetterChance[lastLetter][nextLetter] * 2) - m_fVariance);
-                double randChance           = ((double)rand() / iSeed);
+                double randChance           = ((double)getRandom(0, 26, iSeed) / iSeed);
 
                 if (randChance < nextLetterChance) {
                     word.append(nextLetter);
@@ -85,7 +76,7 @@ namespace NordicArts {
                     // check if word should end
                     lastLetter          = getString(word.back());
                     double extraChance  = m_mLastLetterChance[lastLetter];
-                    double moreRand     = ((double)rand() / iSeed);
+                    double moreRand     = ((double)getRandom(0, 26, iSeed) / iSeed);
                     if ((word.size() >= 4) && (moreRand < ((extraChance * 1.5) + .05))) {
                         break;
                     } else if ((word.size() > 8) && (moreRand < .3)) {
@@ -104,19 +95,16 @@ namespace NordicArts {
         }
 
         void Markov::fillNameList() {
-            std::vector<std::string> names;
+            Files::TextFile::Reader oFile(m_cNamesList);
+            oFile.readFile();
+            std::vector<std::string> vNames = oFile.getContent();
 
-            std::ifstream inFile("./GameFiles/Names/names-list");
-            std::string cLine;
-
-            while (std::getline(inFile, cLine)) {
-                //cLine = boost::locale::to_lower(cLine, m_pLocale);
-                cLine = toLower(cLine);
-                names.push_back(cLine);
+            for (size_t i = 0; i != vNames.size(); i++) {
+                vNames.at(i) = toLower(vNames.at(i));
             }
 
             // Set the names
-            m_vNames = names;
+            m_vNames = vNames;
         }
 
         void Markov::generateFirstLetterMap() {

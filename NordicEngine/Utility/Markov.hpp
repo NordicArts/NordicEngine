@@ -41,14 +41,14 @@ namespace NordicArts {
             std::string generateWord();
             std::string generateWord(int iSeed);
 
+            void generate();
             void setVariance(float fVariance);
             void setNamesList(std::string cNamesList);
 
         protected:
         private:
-            void init();
-
             void fillNameList();
+
             void generateFirstLetterMap();
             void generateLastLetterMap();
             void generateLetterToLetterMap();

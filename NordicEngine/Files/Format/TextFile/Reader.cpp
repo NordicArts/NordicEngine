@@ -34,6 +34,14 @@ namespace NordicArts {
                     return cStream.str();
                 }
 
+                void Reader::readFile() {
+                    std::string cLine;
+
+                    while (std::getline(m_cFileStream, cLine)) {
+                        m_vLines.push_back(cLine);
+                    }
+                }
+
                 std::vector<std::string> Reader::getContent() {
                     return m_vLines;
                 }

@@ -18,7 +18,7 @@ namespace NordicArts {
             private:
                 std::string     m_cFilePath;
 
-                bool m_bSaveException;
+                bool            m_bSaveException;
 
             // Methods
             public:

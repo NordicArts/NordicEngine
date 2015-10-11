@@ -26,6 +26,8 @@ namespace NordicArts {
 
                     std::vector<std::string> getContent();
 
+                    void readFile();
+
                 protected:
                 private:
 
