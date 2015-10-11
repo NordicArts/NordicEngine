@@ -73,13 +73,20 @@ namespace NordicArts {
         int getRandom(int iMin, int iMax, int iSeed) {
             int iTotal, iLeft, iResult, iFinal, iReturn;
 
-            iTotal = ((iMax - 1) - iMin + 1);
+            iTotal = (((iMax - 1) - iMin) + 1);
             iLeft = (iSeed % iTotal);
             
             do {
                 iResult = std::rand();
             } while (iResult >= (iSeed - iLeft));
-            iFinal = (iMin + iResult);    
+            iFinal = (iMin + iResult);
+
+            printIt(iTotal);
+            printIt(iLeft);
+            printIt(iFinal);
+            printIt(iResult);
+            printIt(iSeed);
+
             iReturn = (iFinal % iTotal);
             if (iReturn == 0) { iReturn = iMin; } // yes min might be 0, but sometimes it isnt and still returns 0
         

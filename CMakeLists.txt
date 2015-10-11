@@ -159,6 +159,8 @@ list(APPEND LibHeaders ${NE}/Utility/Seeder.hpp)
 list(APPEND LibSources ${NE}/Utility/Seeder.cpp)
 list(APPEND LibHeaders ${NE}/Utility/Markov.hpp)
 list(APPEND LibSources ${NE}/Utility/Markov.cpp)
+list(APPEND LibHeaders ${NE}/Utility/NameGen.hpp)
+list(APPEND LibSources ${NE}/Utility/NameGen.cpp)
 
 # Color
 link_directories(${NE}/Color)
