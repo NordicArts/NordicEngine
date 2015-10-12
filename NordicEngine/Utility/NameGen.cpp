@@ -1,6 +1,7 @@
 #include <NordicEngine/Utility/NameGen.hpp>
 #include <NordicEngine/Utility/Maths.hpp>
-#include <NordicEngine/NordicEngine/Files/Format/TextFile/Reader.hpp>
+#include <NordicEngine/Files/Format/TextFile/Reader.hpp>
+#include <NordicEngine/String/String.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -36,49 +37,44 @@ namespace NordicArts {
             m_vBeginningSyllables = oBeginningSyllabals.getContent();
         }
 
+        std::string NameGen::getLetter(int iNum) {
+            switch (iNum) {
+                case 0: {
+                    return getBeginningSyllable();
+                }
+                case 1: {
+                    return getConsonant();
+                }
+                case 2: {
+                    return getVowel();
+                }
+                case 3: {
+                    return getSyllable();
+                }
+                case 4: {
+                    return getLongVowel();
+                }
+                case 5: {
+                    return getLongConsonant();
+                }
+                default: {
+                    return "'";
+                }
+            }
+
+            return "'";
+        }
+
         std::string NameGen::generateName(int iLength) {
             std::string cName;
+            int iRand;
 
-            for (int i = 0; i != iLength; i++) {
-                int iRand = getRandom(0, 6, m_iSeed);
+            iRand = getRandom(0, 1, m_iSeed);
+            cName.append(getLetter(iRand));
 
-                switch (iRand) {
-                    case 0: {
-                        cName.append(getBeginningSyllable());
-                        break;
-                    }
-
-                    case 1: {
-                        cName.append(getConsonant());
-                        break;
-                    }
-
-                    case 2: {
-                        cName.append(getVowel());
-                        break;
-                    }
-
-                    case 3: {
-                        cName.append(getSyllable());
-                        break;
-                    }
-
-                    case 4: {
-                        cName.append(getLongVowel());
-                        break;
-                    }
-
-                    case 5: {
-                        cName.append(getLongConsonant());
-                        break;
-                    }
-
-                    case 6:
-                    default: {
-                        cName.append("'");
-                        break;
-                    }
-                }
+            for (int i = 0; i != (iLength - 1); i++) {
+                iRand = getRandom(0, 6, m_iSeed);
+                cName.append(getLetter(iRand));
             }
 
             return cName;

@@ -38,6 +38,7 @@ namespace NordicArts {
             std::string getSyllable();
             std::string getLongVowel();
             std::string getLongConsonant();
+            std::string getLetter(int iLetter);            
 
         };
     };
