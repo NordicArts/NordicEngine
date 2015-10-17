@@ -1,5 +1,6 @@
 #include <NordicEngine/Utility/Seeder.hpp>
 #include <NordicEngine/String/String.hpp>
+#include <NordicEngine/Utility/Markov.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
@@ -7,6 +8,14 @@ namespace NordicArts {
         }
 
         Seeder::~Seeder() {
+        }
+
+        std::string Seeder::generateSeed() {
+            Markov oMarkov;
+            oMarkov.setNamesList("GameFiles/Proc/Names/names-list");
+            oMarkov.generate();
+            
+            return oMarkov.generateWord();
         }
     
         int Seeder::getCommand(const char cChar) {

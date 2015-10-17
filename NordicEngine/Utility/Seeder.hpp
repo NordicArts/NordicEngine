@@ -25,6 +25,8 @@ namespace NordicArts {
             void setSeed(std::string cSeed);
             void setSeed(int iSeed);
 
+            std::string generateSeed();
+
         protected:
         private:
             int getCommand(const char cChar);
