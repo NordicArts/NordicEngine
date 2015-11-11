@@ -20,3 +20,6 @@
 	path = NordicEngine/ThirdParty/jsonxx
 	url = https://github.com/hjiang/jsonxx.git
 
+[submodule "NordicEngine/ThirdParty/OpenAL-Soft"]
+	path = NordicEngine/ThirdParty/OpenAL-Soft
+	url = https://github.com/kcat/openal-soft.git

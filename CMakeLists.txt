@@ -334,6 +334,11 @@ include_directories(${NET}/jsonxx)
 list(APPEND LibHeaders ${NET}/jsonxx/jsonxx.h)
 list(APPEND LibSources ${NET}/jsonxx/jsonxx.cc)
 
+# OpenAL
+link_directories(${NET}/OpenAL-Soft)
+include_directories(${NET}/OpenAL-Soft)
+add_subdirectory(${NET}/OpenAL-Soft)
+
 #########################################################################
 ########################### BUILD THE LIBRARY ###########################
 #########################################################################
@@ -385,6 +390,7 @@ target_link_libraries(NordicEngine SQLite)
 #target_link_libraries(NordicEngine ${Boost_LIBRARIES})
 target_link_libraries(NordicEngine liblua ${LUA_LIBRARIES})
 target_link_libraries(NordicEngine MiniZ)
+target_link_libraries(NordicEngine openal)
 
 ##################################################################
 ########################### UNIT TESTS ###########################

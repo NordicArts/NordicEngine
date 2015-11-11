@@ -5,8 +5,8 @@
 #include <NordicEngine/Utility/Markov.hpp>
 #include <NordicEngine/Time/Time.hpp>
 #include <NordicEngine/String/String.hpp>
-#include <NordicEngine/NordicEngine/Files/Format/TextFile/Reader.hpp>
-#include "Maths.hpp"
+#include <NordicEngine/Files/Format/TextFile/Reader.hpp>
+#include <NordicEngine/Utility/Maths.hpp>
 
 namespace NordicArts {
     namespace NordicEngine {
